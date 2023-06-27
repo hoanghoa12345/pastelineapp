@@ -1,11 +1,7 @@
-<script setup lang="ts">
-import {ref} from 'vue'
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div>
-
-</div>
+  <div></div>
 </template>
 
 <style scoped></style>
