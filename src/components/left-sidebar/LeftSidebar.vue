@@ -1,48 +1,48 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { Sidebar } from "@/modules/sidebar/types";
 
-const leftSidebarData = [
+const leftSidebarData: Sidebar[] = [
   {
     categoryList: [
       {
-        name: 'Inbox',
-        link: 'inbox',
-        icon: 'layers-outline',
-        total: '0'
+        name: "Inbox",
+        link: "inbox",
+        icon: "layers-outline",
+        total: "0",
       },
       {
-        name: 'Note',
-        link: 'note',
-        icon: 'document-outline',
-        total: '0'
+        name: "Note",
+        link: "note",
+        icon: "document-outline",
+        total: "0",
       },
       {
-        name: 'Links',
-        link: 'link',
-        icon: 'link-outline',
-        total: '0'
+        name: "Links",
+        link: "link",
+        icon: "link-outline",
+        total: "0",
       },
       {
-        name: 'Youtube',
-        link: 'youtube',
-        icon: 'play-circle-outline',
-        total: '30'
+        name: "Youtube",
+        link: "youtube",
+        icon: "play-circle-outline",
+        total: "30",
       },
     ],
     folderList: [
       {
-        name: 'Unity',
-        link: 'unity',
-        total: '0'
+        name: "Unity",
+        link: "unity",
+        total: "0",
       },
       {
-        name: 'Test folder',
-        link: 'test-folder',
-        total: '0'
-      }
-    ]
-  }
-]
+        name: "Test folder",
+        link: "test-folder",
+        total: "0",
+      },
+    ],
+  },
+];
 </script>
 
 <template>
