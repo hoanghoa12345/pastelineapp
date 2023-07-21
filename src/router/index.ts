@@ -11,15 +11,15 @@ const routes: Array<RouteRecordRaw> = [
     component: MainLayout,
     children: [
       {
-        name: "Index",
+        name: "Default",
         path: "",
         component: () => import("@/views/default/Default.vue"),
       },
-      //   {
-      //     name: "Category",
-      //     path: "category",
-      //     component: () => import("@/pages/Category.vue"),
-      //   },
+      {
+        name: "Notes",
+        path: "notes",
+        component: () => import("@/views/notes/AllNotes.vue"),
+      },
       //   {
       //     name: "Video",
       //     path: "video/:id",
