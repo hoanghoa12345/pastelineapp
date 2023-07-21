@@ -68,8 +68,8 @@
                             </li>
                         </DisclosurePanel>
                 </Disclosure>
-                <li>
-                    <button type="button"
+                <Disclosure as="li">
+                    <DisclosureButton as="button" type="button"
                         class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                         aria-controls="dropdown-sales" data-collapse-toggle="dropdown-sales">
                         <svg aria-hidden="true"
@@ -86,8 +86,8 @@
                                 d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                    </button>
-                    <ul id="dropdown-sales" class="hidden py-2 space-y-2">
+                    </DisclosureButton>
+                    <DisclosurePanel as="ul" id="dropdown-sales" class="py-2 space-y-2">
                         <li>
                             <a href="#"
                                 class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Products</a>
@@ -100,8 +100,8 @@
                             <a href="#"
                                 class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Invoice</a>
                         </li>
-                    </ul>
-                </li>
+                    </DisclosurePanel>
+                </Disclosure>
                 <li>
                     <a href="#"
                         class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -204,7 +204,7 @@
             </ul>
         </div>
         <div
-            class="hidden absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex bg-white dark:bg-gray-800 z-20">
+            class="absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex bg-white dark:bg-gray-800 z-20">
             <button type="button" class="w-full inline-flex justify-center items-center space-x-4 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
                 <PlusIcon class="w-4 h-4"/>
                 
