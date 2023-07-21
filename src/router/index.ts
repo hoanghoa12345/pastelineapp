@@ -15,16 +15,16 @@ const routes: Array<RouteRecordRaw> = [
         path: "",
         component: () => import("@/views/default/Default.vue"),
       },
-    //   {
-    //     name: "Category",
-    //     path: "category",
-    //     component: () => import("@/pages/Category.vue"),
-    //   },
-    //   {
-    //     name: "Video",
-    //     path: "video/:id",
-    //     component: () => import("@/pages/Video.vue"),
-    //   },
+      //   {
+      //     name: "Category",
+      //     path: "category",
+      //     component: () => import("@/pages/Category.vue"),
+      //   },
+      //   {
+      //     name: "Video",
+      //     path: "video/:id",
+      //     component: () => import("@/pages/Video.vue"),
+      //   },
       {
         path: "/:pathMatch(.*)*",
         name: "NotFound",
@@ -32,11 +32,11 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
-//   {
-//     name: "Login",
-//     path: "/login",
-//     component: () => import("@/pages/Login.vue"),
-//   },
+  {
+    name: "Login",
+    path: "/login",
+    component: () => import("@/views/signin/SignIn.vue"),
+  },
 ];
 
 const router = createRouter({

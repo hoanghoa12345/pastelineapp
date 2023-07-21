@@ -2,7 +2,7 @@
 </script>
 
 <template>
-      Not Found
+      <span>Not Found</span>
 </template>
 
 <style scoped></style>
