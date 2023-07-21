@@ -1,18 +1,65 @@
 <script setup lang="ts">
-import {ref} from 'vue'
-import LeftSidebar from '../../components/left-sidebar/LeftSidebar.vue';
-import ViewDetail from '../../components/view-detail/ViewDetail.vue'
-import AddNote from '../../components/add-note/AddNote.vue'
+import Sidebar from '@/components/sidebar/Sidebar.vue'
+import Navbar from '@/components/navbar/Navbar.vue'
 </script>
 
 <template>
-    <div class="flex w-full h-screen">
-        <LeftSidebar/>
-        <div class="relative w-full">
-            <ViewDetail/>
-            <AddNote />
-        </div>
-    </div>
+    <div class="antialiased bg-gray-50 dark:bg-gray-900">
+    <Navbar/>
+
+   <Sidebar/>
+
+    <main class="p-4 md:ml-64 h-auto pt-20">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+        <div
+          class="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 h-32 md:h-64"
+        ></div>
+        <div
+          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+        ></div>
+        <div
+          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+        ></div>
+        <div
+          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+        ></div>
+      </div>
+      <div
+        class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
+      ></div>
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div
+          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+        ></div>
+        <div
+          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+        ></div>
+        <div
+          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+        ></div>
+        <div
+          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+        ></div>
+      </div>
+      <div
+        class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
+      ></div>
+      <div class="grid grid-cols-2 gap-4">
+        <div
+          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+        ></div>
+        <div
+          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+        ></div>
+        <div
+          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+        ></div>
+        <div
+          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+        ></div>
+      </div>
+    </main>
+  </div>
 </template>
 
 <style scoped></style>
