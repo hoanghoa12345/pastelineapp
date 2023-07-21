@@ -1,11 +1,18 @@
-<template>
-    <div>
-        
-    </div>
-</template>
-<script lang="ts" setup>
-
+<script setup lang="ts">
+import Sidebar from '@/components/sidebar/Sidebar.vue'
+import Navbar from '@/components/navbar/Navbar.vue'
 </script>
-<style lang="css">
-    
-</style>
+
+<template>
+    <div class="antialiased bg-gray-50 dark:bg-gray-900">
+    <Navbar/>
+
+   <Sidebar/>
+
+    <main class="p-4 md:ml-64 h-auto pt-20">
+     <router-view></router-view>
+    </main>
+  </div>
+</template>
+
+<style scoped></style>

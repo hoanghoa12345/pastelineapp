@@ -1,14 +1,3 @@
-<script setup lang="ts">
-import Inbox from './views/inbox/Inbox.vue'
-
-</script>
-
 <template>
-  <div>
-    <Inbox/>
-  </div>
+  <router-view></router-view>
 </template>
-
-<style scoped>
-
-</style>
