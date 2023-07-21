@@ -20,11 +20,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "notes",
         component: () => import("@/views/notes/AllNotes.vue"),
       },
-      //   {
-      //     name: "Video",
-      //     path: "video/:id",
-      //     component: () => import("@/pages/Video.vue"),
-      //   },
+      {
+        name: "CreateNote",
+        path: "create",
+        component: () => import("@/views/notes/CreateNote.vue"),
+      },
       {
         path: "/:pathMatch(.*)*",
         name: "NotFound",

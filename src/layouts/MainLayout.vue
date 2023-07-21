@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import Sidebar from '@/components/sidebar/Sidebar.vue'
-import Navbar from '@/components/navbar/Navbar.vue'
+import Sidebar from "@/components/sidebar/Sidebar.vue";
+import Navbar from "@/components/navbar/Navbar.vue";
 </script>
 
 <template>
-    <div class="antialiased bg-gray-50 dark:bg-gray-900">
-    <Navbar/>
+  <div class="antialiased bg-gray-50 dark:bg-gray-900">
+    <Navbar />
 
-   <Sidebar/>
+    <Sidebar />
 
-    <main class="p-4 md:ml-64 h-auto pt-20">
-     <router-view></router-view>
+    <main class="p-4 md:ml-64 h-auto pt-20 dark:text-white dark:bg-gray-800">
+      <router-view></router-view>
     </main>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div>
     All Notes
-    <!-- <Spinner /> -->
+    <Spinner />
   </div>
 </template>
 
