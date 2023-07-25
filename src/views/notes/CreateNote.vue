@@ -2,7 +2,7 @@
   <div class="createNote">
     <div
       id="editorjs"
-      class="prose md:prose-lg lg:prose-xl dark:prose-invert prose-slate"
+      class="prose-sm md:prose-base lg:prose-base dark:prose-invert prose-neutral"
     />
   </div>
 </template>
@@ -64,5 +64,9 @@ const handleSave = () => {
 <style lang="css">
 .createNote {
   height: calc(100vh - 96px);
+}
+
+#editorjs {
+  margin: 0 auto;
 }
 </style>

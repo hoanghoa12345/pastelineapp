@@ -8,18 +8,14 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AddNote: typeof import('./src/components/add-note/AddNote.vue')['default']
-    AllNotes: typeof import('./src/views/notes/AllNotes.vue')['default']
     CardItem: typeof import('./src/components/view-detail/CardItem.vue')['default']
-    Default: typeof import('./src/views/default/Default.vue')['default']
     ItemList: typeof import('./src/components/view-detail/ItemList.vue')['default']
     LeftSidebar: typeof import('./src/components/left-sidebar/LeftSidebar.vue')['default']
     Navbar: typeof import('./src/components/navbar/Navbar.vue')['default']
     NotesList: typeof import('./src/components/notes-list/NotesList.vue')['default']
-    NotFound: typeof import('./src/views/not-found/NotFound.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Sidebar: typeof import('./src/components/sidebar/Sidebar.vue')['default']
-    SignIn: typeof import('./src/views/signin/SignIn.vue')['default']
     Spinner: typeof import('./src/components/spinner/Spinner.vue')['default']
     ViewDetail: typeof import('./src/components/view-detail/ViewDetail.vue')['default']
   }
