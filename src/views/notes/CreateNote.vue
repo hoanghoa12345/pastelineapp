@@ -21,7 +21,7 @@ const editor = new EditorJS({
   tools: {
     header: {
       class: Header,
-      inlineToolbar: ["marker", "link"],
+      inlineToolbar: true,
       config: {
         placeholder: "Header",
         levels: [1, 2, 3, 4],
