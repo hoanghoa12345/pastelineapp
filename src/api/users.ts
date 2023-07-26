@@ -7,8 +7,8 @@ function loginApi(form: LoginForm) {
     return axios.post('api/v1/users/signin', form)
 }
 
-function getUser(userId: string, token: string) {
-    return axios.get(`api/v1/users/${userId}`, {
+function getUser(token: string) {
+    return axios.get(`api/v1/users/me`, {
         headers: {
             Authorization: `Bearer ${token}`
         }

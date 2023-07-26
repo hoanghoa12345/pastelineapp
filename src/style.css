@@ -3,3 +3,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.milkdown {
+    @apply px-2 py-4 m-5;
+}
+
+.editor {
+    @apply outline-none;
+}
+
+.vue-editor {
+    @apply mx-auto;
+}

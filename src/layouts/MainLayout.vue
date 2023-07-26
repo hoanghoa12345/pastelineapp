@@ -4,7 +4,7 @@ import Navbar from "@/components/navbar/Navbar.vue";
 </script>
 
 <template>
-  <div class="bg-white dark:bg-gray-900">
+  <div class="bg-white dark:bg-gray-800 h-screen ">
     <Navbar />
 
     <Sidebar />
