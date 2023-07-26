@@ -31,6 +31,19 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/not-found/NotFound.vue"),
       },
     ],
+    beforeEnter: async (to, from) => {
+      const userStore = useUserStore();
+      try {
+        await userStore.getProfile();
+        if (userStore.user) {
+          return true;
+        }
+      } catch (error) {
+        return {
+          path: "/login",
+        };
+      }
+    },
   },
   {
     name: "Login",

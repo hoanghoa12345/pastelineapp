@@ -456,5 +456,5 @@ const { userStore, signOut, getProfile } = useLogin()
 
 const user = computed(() => userStore.user)
 
-watchEffect(() => getProfile())
+// watchEffect(() => getProfile())
 </script>
