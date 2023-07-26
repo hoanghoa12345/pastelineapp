@@ -1,0 +1,24 @@
+{
+  "name": "lambda-functions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "serverless offline",
+    "dev": "nodemon --exec \"serverless offline\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.370.0",
+    "@aws-sdk/lib-dynamodb": "^3.370.0",
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.1",
+    "serverless-http": "^3.2.0",
+    "uuid": "^9.0.0"
+  }
+}
