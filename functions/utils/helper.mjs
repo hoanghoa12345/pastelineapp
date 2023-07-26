@@ -38,7 +38,7 @@ const isAuth = (req, res, next) => {
     }
 };
 
-const isAdmin = ({user}, res, next) => {
+const isAdmin = ({ user }, res, next) => {
     if (user && user.isAdmin) {
         next();
     } else {
@@ -46,4 +46,10 @@ const isAdmin = ({user}, res, next) => {
     }
 };
 
-export { generateToken, isAuth, isAdmin };
+const isUUID = (str) => {
+    const regexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
+
+    return regexExp.test(str);
+}
+
+export { generateToken, isAuth, isAdmin, isUUID };
