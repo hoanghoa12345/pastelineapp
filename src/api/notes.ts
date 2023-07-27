@@ -1,28 +1,32 @@
-import axios from "axios";
-
-axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+import axiosClient from "./axiosClient";
 
 function getNotesApi(token: string) {
-  return axios.get("/api/v1/notes", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const url = "/api/v1/notes";
+
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+  return axiosClient.get(url, { headers });
 }
 
 function createNoteApi(title: string, content: string, token: string) {
-  return axios.post(
-    "/api/v1/notes",
-    {
-      title,
-      content,
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const url = "/api/v1/notes";
+  const form = {
+    title,
+    content,
+  };
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+  return axiosClient.post(url, form, { headers });
 }
 
-export { getNotesApi, createNoteApi };
+function getNoteApi(noteId: string, token: string) {
+  const url = "/api/v1/notes/" + noteId;
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+  return axiosClient.get(url, { headers });
+}
+
+export { getNotesApi, createNoteApi, getNoteApi };

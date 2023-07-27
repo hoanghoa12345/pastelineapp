@@ -10,7 +10,6 @@ declare module 'vue' {
     AddNote: typeof import('./src/components/add-note/AddNote.vue')['default']
     CardItem: typeof import('./src/components/view-detail/CardItem.vue')['default']
     ItemList: typeof import('./src/components/view-detail/ItemList.vue')['default']
-    LeftSidebar: typeof import('./src/components/left-sidebar/LeftSidebar.vue')['default']
     MilkdownEditor: typeof import('./src/components/editor/MilkdownEditor.vue')['default']
     Navbar: typeof import('./src/components/navbar/Navbar.vue')['default']
     NotesList: typeof import('./src/components/notes-list/NotesList.vue')['default']
