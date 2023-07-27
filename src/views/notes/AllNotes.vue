@@ -6,8 +6,8 @@
       <span class="font-base" v-if="notes">Total {{ notes.length }} pages</span>
     </p>
     <div class="flex space-x-2 items-center">
-      <button type="button"
-        class="inline-flex space-x-4 items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+      <button type="button" :disabled="notesStore.selectedNote.length === 0" @click="deleteNotes"
+        class="inline-flex space-x-4 items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 disabled:bg-blue-400 disabled:dark:bg-blue-500 disabled:cursor-not-allowed">
         <TrashIcon class="w-4 h-4 font-bold" />
         Delete
       </button>
@@ -32,7 +32,7 @@
           <tr>
             <th scope="col" class="p-4">
               <div class="flex items-center">
-                <input id="checkbox-all-search" type="checkbox"
+                <input id="checkbox-all-search" type="checkbox" v-model="checkAll"
                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                 <label for="checkbox-all-search" class="sr-only">checkbox</label>
               </div>
@@ -47,7 +47,7 @@
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
             <td class="w-4 p-4">
               <div class="flex items-center">
-                <input id="checkbox-table-search-1" type="checkbox"
+                <input type="checkbox" :value="note.noteId" v-model="notesStore.selectedNote"
                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                 <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
               </div>
@@ -71,9 +71,9 @@ import Spinner from "@/components/spinner/Spinner.vue";
 import { TrashIcon } from "@heroicons/vue/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/vue/24/solid";
 
-const { getAll, getById, notesStore } = useAllNotes()
+const { getAll, notesStore, deleteNotes } = useAllNotes()
 
-const {userStore} = useLogin()
+const { userStore } = useLogin()
 
 const locale = computed(() => userStore.user.locale)
 
@@ -83,5 +83,18 @@ const isLoading = computed(() => notesStore.isLoading)
 
 watchEffect(() => {
   getAll()
+})
+
+const checkAll = computed({
+  get: () => notes.value ? notesStore.selectedNote.length == notes.value.length : false,
+  set: (val) => {
+    let checked = []
+    if (val) {
+      notes.value.forEach(item => {
+        checked.push(item.noteId)
+      });
+    }
+    notesStore.selectedNote = checked
+  }
 })
 </script>

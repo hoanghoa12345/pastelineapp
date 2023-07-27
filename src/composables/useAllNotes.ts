@@ -1,15 +1,22 @@
 export function useAllNotes() {
-    const notesStore = useNotesStore();
+  const notesStore = useNotesStore();
 
-    const getAll = () => {
-        notesStore.getAll()
-    }
+  const getAll = () => {
+    notesStore.getAll();
+  };
 
-    const getById = (noteId: string) => {
-        notesStore.getById(noteId)
-    }
+  const getById = (noteId: string) => {
+    notesStore.getById(noteId);
+  };
 
-    return {
-        notesStore, getAll, getById
-    }
+  const deleteNotes = () => {
+    notesStore.deleteSelected();
+  };
+
+  return {
+    notesStore,
+    getAll,
+    getById,
+    deleteNotes,
+  };
 }

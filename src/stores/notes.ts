@@ -7,6 +7,7 @@ export const useNotesStore = defineStore("notes", () => {
   const notes = ref(null);
   const currentNote = ref(null);
   const isLoading = ref(false);
+  const selectedNote = ref<string[]>([]);
   async function getAll() {
     try {
       isLoading.value = true;
@@ -38,11 +39,17 @@ export const useNotesStore = defineStore("notes", () => {
     }
   }
 
+  function deleteSelected() {
+    console.log("deleted!");
+  }
+
   return {
     notes,
     currentNote,
     getAll,
     getById,
     isLoading,
+    selectedNote,
+    deleteSelected,
   };
 });
