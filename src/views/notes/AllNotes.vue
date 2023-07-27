@@ -3,7 +3,7 @@
     <h1 class="text-4xl py-4">All pages</h1>
 
     <p class="pb-4">
-      <span class="font-base">Total 1 pages</span>
+      <span class="font-base" v-if="notes">Total {{ notes.length }} pages</span>
     </p>
     <div class="flex space-x-2 items-center">
       <button type="button"
@@ -53,7 +53,7 @@
               </div>
             </td>
             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              {{ note.title }}
+              <router-link :to="`/notes/${note.noteId}`">{{ note.title }}</router-link>
             </th>
             <td class="px-6 py-4">{{ new Date(note.createdAt).toLocaleString(locale) }}</td>
             <td class="px-6 py-4">{{ new Date(note.updatedAt).toLocaleString(locale) }}</td>
@@ -82,6 +82,6 @@ const notes = computed(() => notesStore.notes)
 const isLoading = computed(() => notesStore.isLoading)
 
 watchEffect(() => {
-  if(!notes.value) getAll()
+  getAll()
 })
 </script>

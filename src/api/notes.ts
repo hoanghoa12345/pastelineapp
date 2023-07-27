@@ -29,4 +29,16 @@ function getNoteApi(noteId: string, token: string) {
   return axiosClient.get(url, { headers });
 }
 
-export { getNotesApi, createNoteApi, getNoteApi };
+function updateNoteApi(noteId: string, title: string, content: string, token: string) {
+  const url = "/api/v1/notes/" + noteId;
+  const form = {
+    title,
+    content,
+  };
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+  return axiosClient.patch(url, form, { headers });
+}
+
+export { getNotesApi, createNoteApi, getNoteApi, updateNoteApi };

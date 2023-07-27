@@ -175,7 +175,7 @@
         class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700"
       >
         <li>
-          <a
+          <router-link to="/docs"
             href="#"
             class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
           >
@@ -194,7 +194,7 @@
               ></path>
             </svg>
             <span class="ml-3">Docs</span>
-          </a>
+          </router-link>
         </li>
         <li>
           <a
@@ -216,8 +216,7 @@
           </a>
         </li>
         <li>
-          <a
-            href="#"
+          <router-link to="/help"
             class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
           >
             <svg
@@ -234,7 +233,7 @@
               ></path>
             </svg>
             <span class="ml-3">Help</span>
-          </a>
+          </router-link>
         </li>
       </ul>
     </div>

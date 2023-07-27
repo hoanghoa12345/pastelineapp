@@ -17,6 +17,8 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     Sidebar: typeof import('./src/components/sidebar/Sidebar.vue')['default']
     Spinner: typeof import('./src/components/spinner/Spinner.vue')['default']
+    Toast: typeof import('./src/components/toast/Toast.vue')['default']
+    Toasts: typeof import('./src/components/toast/Toasts.vue')['default']
     ViewDetail: typeof import('./src/components/view-detail/ViewDetail.vue')['default']
   }
 }

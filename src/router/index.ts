@@ -24,6 +24,24 @@ const routes: Array<RouteRecordRaw> = [
         name: "CreateNote",
         path: "create",
         component: () => import("@/views/notes/CreateNote.vue"),
+        beforeEnter: () => {
+          localStorage.removeItem('newNoteId')
+        }
+      },
+      {
+        name: "editNote",
+        path: "notes/:noteId",
+        component: () => import("@/views/notes/EditNote.vue"),
+      },
+      {
+        name: "Docs",
+        path: "docs",
+        component: () => import("@/views/documents/Docs.vue"),
+      },
+      {
+        name: "Help",
+        path: "help",
+        component: () => import("@/views/documents/Help.vue"),
       },
       {
         path: "/:pathMatch(.*)*",
