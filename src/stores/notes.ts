@@ -8,6 +8,8 @@ export const useNotesStore = defineStore("notes", () => {
   const currentNote = ref(null);
   const isLoading = ref(false);
   const selectedNote = ref<string[]>([]);
+  const recentNotes = ref<string[]>([]);
+  const favoriteNotes = ref<string[]>([]);
   async function getAll() {
     try {
       isLoading.value = true;
@@ -43,6 +45,34 @@ export const useNotesStore = defineStore("notes", () => {
     console.log("deleted!");
   }
 
+  function addToRecent(noteId: string) {
+    recentNotes.value = [...recentNotes.value, noteId];
+  }
+
+  function getRecentNotes() {
+    return notes.value.filter((obj) => recentNotes.value.includes(obj.noteId));
+  }
+
+  function setCurrentNote(note: unknown) {
+    currentNote.value = note;
+  }
+
+  function addToFavorite(noteId: string) {
+    favoriteNotes.value = [...favoriteNotes.value, noteId];
+  }
+
+  function getFavoriteNotes() {
+    return notes.value.filter((obj) =>
+      favoriteNotes.value.includes(obj.noteId)
+    );
+  }
+
+  async function deleteNoteById(noteId: string) {}
+
+  function searchNote(value: string) {
+    const result = notes.value.find((note) => note.title.includes(value));
+    console.table(result);
+  }
   return {
     notes,
     currentNote,
@@ -51,5 +81,12 @@ export const useNotesStore = defineStore("notes", () => {
     isLoading,
     selectedNote,
     deleteSelected,
+    addToRecent,
+    getRecentNotes,
+    setCurrentNote,
+    addToFavorite,
+    getFavoriteNotes,
+    deleteNoteById,
+    searchNote,
   };
 });

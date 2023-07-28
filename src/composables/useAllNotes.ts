@@ -13,10 +13,18 @@ export function useAllNotes() {
     notesStore.deleteSelected();
   };
 
+  const searchNote = (e: Event) => {
+    if(e.target instanceof HTMLFormElement) {
+      const searchValue = e.target.elements['default-search'].value
+      notesStore.searchNote(searchValue)
+    }
+  }
+
   return {
     notesStore,
     getAll,
     getById,
     deleteNotes,
+    searchNote
   };
 }

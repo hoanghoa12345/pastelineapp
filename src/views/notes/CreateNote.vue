@@ -12,7 +12,7 @@ import { getToken } from "@/utils/helper";
 import { MilkdownProvider } from "@milkdown/vue";
 import { debounce } from 'lodash-es'
 
-const content = ref<string>("# New note...")
+const content = ref<string>("# Untitled")
 const noteId = ref<string>(null)
 
 const debouncedWatch = debounce(async () => {

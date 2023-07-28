@@ -452,9 +452,9 @@ import { APP_NAME, LOGO_URL } from "@/utils/constants";
 import { useDrawerStore } from "@/stores/drawer";
 
 const drawer = useDrawerStore();
-const { userStore, signOut, getProfile } = useLogin()
+const { userStore, signOut } = useLogin()
 
 const user = computed(() => userStore.user)
 
-// watchEffect(() => getProfile())
+
 </script>

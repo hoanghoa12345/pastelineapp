@@ -12,7 +12,7 @@
         Delete
       </button>
 
-      <form>
+      <form @submit.prevent="searchNote($event)">
         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
         <div class="relative">
           <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -71,7 +71,7 @@ import Spinner from "@/components/spinner/Spinner.vue";
 import { TrashIcon } from "@heroicons/vue/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/vue/24/solid";
 
-const { getAll, notesStore, deleteNotes } = useAllNotes()
+const { getAll, notesStore, deleteNotes, searchNote } = useAllNotes()
 
 const { userStore } = useLogin()
 
