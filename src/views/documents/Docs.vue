@@ -1,5 +1,5 @@
 <template>
-    <div class="prose lg:prose-xl dark:prose-invert mx-auto">
+    <div class="prose lg:prose-xl dark:prose-invert mx-auto" v-once>
         <h3 id="what-is-markdown-">What is Markdown?</h3>
         <p>Markdown is a lightweight markup language that you can use to format plain text documents.<br>Write docs for your
             GitHub projects, edit your GitHub profile <em>README</em> etc. You fill find it all here. </p>
