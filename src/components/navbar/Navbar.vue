@@ -441,9 +441,8 @@
             </div>
         </div>
     </nav>
-    <Teleport to="#app">
-        <CommandPalette :show="showCommandPallete" @hide="showCommandPallete = false" />
-    </Teleport>
+
+    <CommandPalette :show="showCommandPallete" @hide="showCommandPallete = false" />
 </template>
 <script lang="ts" setup>
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
