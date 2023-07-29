@@ -18,6 +18,8 @@
     "@milkdown/theme-nord": "^7.2.4",
     "@milkdown/transformer": "^7.2.4",
     "@milkdown/vue": "^7.2.4",
+    "@vuelidate/core": "^2.0.3",
+    "@vuelidate/validators": "^2.0.3",
     "axios": "^1.4.0",
     "js-cookie": "^3.0.5",
     "lodash-es": "^4.17.21",

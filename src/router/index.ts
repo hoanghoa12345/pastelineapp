@@ -25,8 +25,8 @@ const routes: Array<RouteRecordRaw> = [
         path: "create",
         component: () => import("@/views/notes/CreateNote.vue"),
         beforeEnter: () => {
-          localStorage.removeItem('newNoteId')
-        }
+          localStorage.removeItem("newNoteId");
+        },
       },
       {
         name: "editNote",
@@ -67,6 +67,21 @@ const routes: Array<RouteRecordRaw> = [
     name: "Login",
     path: "/login",
     component: () => import("@/views/signin/SignIn.vue"),
+  },
+  {
+    name: "SignUp",
+    path: "/signup",
+    component: () => import("@/views/signup/SignUp.vue"),
+  },
+  {
+    name: "RecoverPassword",
+    path: "/forgot-password",
+    component: () => import("@/views/signin/RecoverPassword.vue"),
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: () => import("@/views/not-found/NotFound.vue"),
   },
 ];
 
