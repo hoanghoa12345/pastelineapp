@@ -1,6 +1,6 @@
 <template>
     <div>
         Help
-        <Toasts/>
+        <Toasts />
     </div>
 </template>

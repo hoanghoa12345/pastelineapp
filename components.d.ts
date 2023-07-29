@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     AddNote: typeof import('./src/components/add-note/AddNote.vue')['default']
     CardItem: typeof import('./src/components/view-detail/CardItem.vue')['default']
+    CommandPalette: typeof import('./src/components/command-palette/CommandPalette.vue')['default']
     ItemList: typeof import('./src/components/view-detail/ItemList.vue')['default']
     MilkdownEditor: typeof import('./src/components/editor/MilkdownEditor.vue')['default']
     Navbar: typeof import('./src/components/navbar/Navbar.vue')['default']

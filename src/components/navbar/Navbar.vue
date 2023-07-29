@@ -1,6 +1,6 @@
 <template>
     <nav
-        class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
+        class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-20">
         <div class="flex flex-wrap justify-between items-center">
             <div class="flex justify-start items-center">
                 <button @click="drawer.setOpen(!drawer.isOpen)" aria-controls="drawer-navigation"
@@ -21,24 +21,20 @@
                 </button>
                 <router-link to="/" class="flex items-center justify-between mr-4" :title="APP_NAME">
                     <img :src="LOGO_URL" class="mr-3 h-8" alt="" />
-                    <span class="hidden sm:block self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{{ APP_NAME }}</span>
+                    <span class="hidden sm:block self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{{
+                        APP_NAME }}</span>
                 </router-link>
-                <form action="#" method="GET" class="hidden md:block md:pl-2">
-                    <label for="topbar-search" class="sr-only">Search</label>
-                    <div class="relative md:w-96">
+                <div>
+                    <button type="button" class="relative md:w-96" @click="showCommandPallete = true">
                         <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                            <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z">
-                                </path>
-                            </svg>
+                            <MagnifyingGlassIcon class="w-5 h-5 text-gray-500 dark:text-gray-400" />
                         </div>
-                        <input type="text" name="email" id="topbar-search"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Search" />
-                    </div>
-                </form>
+                        <div
+                            class="text-left bg-gray-50 border border-gray-300 text-gray-600 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            Search
+                        </div>
+                    </button>
+                </div>
             </div>
             <div class="flex items-center lg:order-2 relative">
                 <button type="button" data-drawer-toggle="drawer-navigation" aria-controls="drawer-navigation"
@@ -445,16 +441,20 @@
             </div>
         </div>
     </nav>
+    <Teleport to="#app">
+        <CommandPalette :show="showCommandPallete" @hide="showCommandPallete = false" />
+    </Teleport>
 </template>
 <script lang="ts" setup>
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
 import { APP_NAME, LOGO_URL } from "@/utils/constants";
 import { useDrawerStore } from "@/stores/drawer";
+import { MagnifyingGlassIcon } from "@heroicons/vue/24/solid";
 
 const drawer = useDrawerStore();
 const { userStore, signOut } = useLogin()
 
 const user = computed(() => userStore.user)
-
+const showCommandPallete = ref<boolean>(false)
 
 </script>

@@ -1,5 +1,6 @@
 export function useAllNotes() {
   const notesStore = useNotesStore();
+  const searchQuery = ref<string>("");
 
   const getAll = () => {
     notesStore.getAll();
@@ -14,17 +15,18 @@ export function useAllNotes() {
   };
 
   const searchNote = (e: Event) => {
-    if(e.target instanceof HTMLFormElement) {
-      const searchValue = e.target.elements['default-search'].value
-      notesStore.searchNote(searchValue)
+    if (e.target instanceof HTMLFormElement) {
+      const searchValue = e.target.elements["default-search"].value;
+      notesStore.searchNote(searchValue);
     }
-  }
+  };
 
   return {
     notesStore,
     getAll,
     getById,
     deleteNotes,
-    searchNote
+    searchNote,
+    searchQuery,
   };
 }

@@ -3,7 +3,7 @@
     <h1 class="text-4xl py-4">All pages</h1>
 
     <p class="pb-4">
-      <span class="font-base" v-if="notes">Total {{ notes.length }} pages</span>
+      <span class="font-base" v-if="filterResult">Total {{ filterResult.length }} pages</span>
     </p>
     <div class="flex space-x-2 items-center">
       <button type="button" :disabled="notesStore.selectedNote.length === 0" @click="deleteNotes"
@@ -20,7 +20,7 @@
           </div>
           <input type="search" id="default-search"
             class="block w-full p-1 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Search page names" required />
+            placeholder="Search page names" v-model="searchQuery" required />
         </div>
       </form>
     </div>
@@ -43,7 +43,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="note in notes"
+          <tr v-if="filterResult" v-for="note in filterResult" :key="note.noteId"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
             <td class="w-4 p-4">
               <div class="flex items-center">
@@ -61,8 +61,6 @@
         </tbody>
       </table>
     </div>
-
-    <!-- <Spinner /> -->
   </div>
 </template>
 
@@ -71,7 +69,7 @@ import Spinner from "@/components/spinner/Spinner.vue";
 import { TrashIcon } from "@heroicons/vue/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/vue/24/solid";
 
-const { getAll, notesStore, deleteNotes, searchNote } = useAllNotes()
+const { getAll, notesStore, deleteNotes, searchNote, searchQuery } = useAllNotes()
 
 const { userStore } = useLogin()
 
@@ -80,6 +78,8 @@ const locale = computed(() => userStore.user.locale)
 const notes = computed(() => notesStore.notes)
 
 const isLoading = computed(() => notesStore.isLoading)
+
+const searchResults = computed(() => notesStore.searchResults)
 
 watchEffect(() => {
   getAll()
@@ -97,4 +97,14 @@ const checkAll = computed({
     notesStore.selectedNote = checked
   }
 })
+
+const filterResult = computed(() => {
+  if (notes.value instanceof Array) {
+    return notes.value.filter(
+      (note) =>
+        note.title.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1
+    )
+  } return []
+}
+);
 </script>

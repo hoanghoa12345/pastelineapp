@@ -10,6 +10,7 @@ export const useNotesStore = defineStore("notes", () => {
   const selectedNote = ref<string[]>([]);
   const recentNotes = ref<string[]>([]);
   const favoriteNotes = ref<string[]>([]);
+  const searchResults = ref<string[]>([]);
   async function getAll() {
     try {
       isLoading.value = true;
@@ -69,9 +70,11 @@ export const useNotesStore = defineStore("notes", () => {
 
   async function deleteNoteById(noteId: string) {}
 
-  function searchNote(value: string) {
-    const result = notes.value.find((note) => note.title.includes(value));
-    console.table(result);
+  function searchNote(search: string) {
+    searchResults.value = notes.value.filter(
+      (note) => note.title.toLowerCase().indexOf(search.toLowerCase()) > -1
+    );
+    console.log(searchResults.value);
   }
   return {
     notes,
