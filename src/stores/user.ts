@@ -5,14 +5,14 @@ import { LoginForm } from "@/utils/types";
 
 export const useUserStore = defineStore("user", () => {
   const user = ref(null);
-  const isLoading = ref(false);
+  const isLoading = ref<boolean>(false);
   const router = useRouter();
+  const isError = ref<boolean>(false);
 
   async function login(form: LoginForm) {
-    // Cookies.set("timestamp", Date.now());
     try {
-      console.log(form);
       isLoading.value = true;
+      isError.value = false;
       const { data } = await loginApi(form);
 
       if (data.data.access_token) {
@@ -20,14 +20,12 @@ export const useUserStore = defineStore("user", () => {
       }
 
       if (data?.data?.user) {
-        // Cookies.set("userId", data.data?.user?.userId);
         user.value = data?.user;
-        // localStorage.setItem("user", JSON.stringify(user.value));
       }
 
-      console.log(data);
       router.push("/");
     } catch (error) {
+      isError.value = true;
       throw Error(error);
     } finally {
       isLoading.value = false;
@@ -36,24 +34,24 @@ export const useUserStore = defineStore("user", () => {
 
   async function logout() {
     Cookies.remove("access_token");
-    // Cookies.remove("userId");
-    // localStorage.removeItem("user");
     router.replace("/login");
   }
 
   async function getProfile() {
-    // const userId = Cookies.get("userId");
-    const token = Cookies.get("access_token")
+    const token = Cookies.get("access_token");
     try {
+      isError.value = false;
       const { data } = await getUser(token);
-      if(data.photoUrl === '' || data.photoUrl == null) {
-        data.photoUrl = 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y'
+      if (data.photoUrl === "" || data.photoUrl == null) {
+        data.photoUrl =
+          "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y";
       }
       user.value = data;
     } catch (error) {
+      isError.value = false;
       throw Error(error);
     }
   }
 
-  return { isLoading, user, login, logout, getProfile };
+  return { isLoading, user, login, logout, getProfile, isError };
 });

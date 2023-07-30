@@ -91,5 +91,6 @@ export const useNotesStore = defineStore("notes", () => {
     getFavoriteNotes,
     deleteNoteById,
     searchNote,
+    searchResults,
   };
 });
