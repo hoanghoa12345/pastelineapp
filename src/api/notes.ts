@@ -29,7 +29,12 @@ function getNoteApi(noteId: string, token: string) {
   return axiosClient.get(url, { headers });
 }
 
-function updateNoteApi(noteId: string, title: string, content: string, token: string) {
+function updateNoteApi(
+  noteId: string,
+  title: string,
+  content: string,
+  token: string
+) {
   const url = "/api/v1/notes/" + noteId;
   const form = {
     title,
@@ -41,4 +46,12 @@ function updateNoteApi(noteId: string, title: string, content: string, token: st
   return axiosClient.patch(url, form, { headers });
 }
 
-export { getNotesApi, createNoteApi, getNoteApi, updateNoteApi };
+function deleteNoteApi(noteId: string, token: string) {
+  const url = "/api/v1/notes/" + noteId;
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+  return axiosClient.delete(url, { headers });
+}
+
+export { getNotesApi, createNoteApi, getNoteApi, updateNoteApi, deleteNoteApi };

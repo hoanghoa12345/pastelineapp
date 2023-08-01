@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     CommandPalette: typeof import('./src/components/command-palette/CommandPalette.vue')['default']
     MilkdownEditor: typeof import('./src/components/editor/MilkdownEditor.vue')['default']
+    Modal: typeof import('./src/components/modal/Modal.vue')['default']
     Navbar: typeof import('./src/components/navbar/Navbar.vue')['default']
     NotesList: typeof import('./src/components/notes-list/NotesList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

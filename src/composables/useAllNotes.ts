@@ -1,6 +1,7 @@
 export function useAllNotes() {
   const notesStore = useNotesStore();
   const searchQuery = ref<string>("");
+  const isConfirm = ref<boolean>(false);
 
   const getAll = () => {
     notesStore.getAll();
@@ -11,6 +12,7 @@ export function useAllNotes() {
   };
 
   const deleteNotes = () => {
+    isConfirm.value = false;
     notesStore.deleteSelected();
   };
 
@@ -21,6 +23,10 @@ export function useAllNotes() {
     }
   };
 
+  const openConfirmModal = () => {
+    isConfirm.value = true;
+  };
+
   return {
     notesStore,
     getAll,
@@ -28,5 +34,7 @@ export function useAllNotes() {
     deleteNotes,
     searchNote,
     searchQuery,
+    isConfirm,
+    openConfirmModal,
   };
 }

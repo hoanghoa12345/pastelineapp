@@ -1,6 +1,5 @@
-import { getNoteApi, getNotesApi } from "@/api/notes";
+import { getNoteApi, getNotesApi, deleteNoteApi } from "@/api/notes";
 import { getToken } from "@/utils/helper";
-import { isArray } from "@vue/shared";
 import { defineStore } from "pinia";
 
 export const useNotesStore = defineStore("notes", () => {
@@ -11,17 +10,13 @@ export const useNotesStore = defineStore("notes", () => {
   const recentNotes = ref<string[]>([]);
   const favoriteNotes = ref<string[]>([]);
   const searchResults = ref<string[]>([]);
+  const toastStore = useToastStore();
   async function getAll() {
     try {
       isLoading.value = true;
       const token = getToken();
       const { data } = await getNotesApi(token);
-
-      if (isArray(data.data)) {
-        notes.value = data.data.sort((a, b) => a.updatedAt - b.updatedAt);
-      } else {
-        notes.value = data.data;
-      }
+      notes.value = data.data;
     } catch (error) {
       throw Error(error);
     } finally {
@@ -42,8 +37,23 @@ export const useNotesStore = defineStore("notes", () => {
     }
   }
 
-  function deleteSelected() {
-    console.log("deleted!");
+  async function deleteSelected() {
+    const token = getToken();
+    selectedNote.value.forEach(async (noteId) => {
+      try {
+        await deleteNoteApi(noteId, token);
+        toastStore.sendToast("", "Delete page success", "success");
+      } catch (error) {
+        toastStore.sendToast("", "Delete page error", "error");
+        throw Error(error);
+      }
+    });
+  }
+
+  function getSelectedNote() {
+    return notes.value.filter((note) =>
+      selectedNote.value.includes(note.noteId)
+    );
   }
 
   function addToRecent(noteId: string) {
@@ -92,5 +102,6 @@ export const useNotesStore = defineStore("notes", () => {
     deleteNoteById,
     searchNote,
     searchResults,
+    getSelectedNote,
   };
 });
