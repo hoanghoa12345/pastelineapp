@@ -30,7 +30,9 @@
               class="w-full max-w-3xl md:max-w-2xl transform overflow-hidden rounded-xl bg-white dark:bg-gray-700 p-6 text-left align-middle shadow-xl transition-all"
             >
               <DialogTitle>
-                <h3 class="my-2 text-lg font-medium leading-6 text-gray-900">
+                <h3
+                  class="my-2 text-lg font-medium leading-6 text-gray-900 dark:text-white"
+                >
                   <slot name="title" />
                 </h3>
                 <button

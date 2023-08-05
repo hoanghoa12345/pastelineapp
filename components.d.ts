@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    Avatar: typeof import('./src/components/avatar/Avatar.vue')['default']
     CommandPalette: typeof import('./src/components/command-palette/CommandPalette.vue')['default']
     MilkdownEditor: typeof import('./src/components/editor/MilkdownEditor.vue')['default']
     Modal: typeof import('./src/components/modal/Modal.vue')['default']

@@ -72,7 +72,6 @@
       <div class="flex items-center lg:order-2 relative">
         <button
           type="button"
-          data-drawer-toggle="drawer-navigation"
           aria-controls="drawer-navigation"
           class="p-2 mr-1 text-gray-500 rounded-lg md:hidden hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
         >
@@ -91,12 +90,18 @@
             ></path>
           </svg>
         </button>
+        <button
+          type="button"
+          @click="toggleDark()"
+          class="p-2 mr-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+        >
+          <ThemeModeIcon :is-dark="isDark" />
+        </button>
         <!-- Notifications -->
         <Menu as="div">
           <MenuButton
             as="button"
             type="button"
-            data-dropdown-toggle="notification-dropdown"
             class="p-2 mr-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
           >
             <span class="sr-only">View notifications</span>
@@ -375,7 +380,6 @@
           <MenuButton
             as="button"
             type="button"
-            data-dropdown-toggle="apps-dropdown"
             class="p-2 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
           >
             <span class="sr-only">View notifications</span>
@@ -729,14 +733,38 @@
 </template>
 <script lang="ts" setup>
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
+import { useDark, useToggle } from "@vueuse/core";
 import { APP_NAME, LOGO_URL } from "@/utils/constants";
 import { useDrawerStore } from "@/stores/drawer";
-import { MagnifyingGlassIcon } from "@heroicons/vue/24/solid";
+import {
+  MagnifyingGlassIcon,
+  MoonIcon,
+  SunIcon,
+} from "@heroicons/vue/24/solid";
 import { BellIcon, AppIcon } from "./icons";
 
 const drawer = useDrawerStore();
 const { userStore, signOut } = useLogin();
 
+const isDark = useDark();
+const toggleDark = useToggle(isDark);
+
 const user = computed(() => userStore.user);
 const showCommandPalette = ref<boolean>(false);
+
+const ThemeModeIcon = defineComponent({
+  name: "ThemeModeIcon",
+  props: {
+    isDark: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  setup(props) {
+    return () => {
+      if (props.isDark) return h(MoonIcon, { class: ["h-6", "w-6"] });
+      return h(SunIcon, { class: ["h-6", "w-6"] });
+    };
+  },
+});
 </script>

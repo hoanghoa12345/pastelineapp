@@ -19,6 +19,7 @@
     "@milkdown/transformer": "^7.2.4",
     "@milkdown/vue": "^7.2.4",
     "@vee-validate/zod": "^4.11.1",
+    "@vueuse/core": "^10.3.0",
     "axios": "^1.4.0",
     "js-cookie": "^3.0.5",
     "lodash-es": "^4.17.21",

@@ -56,7 +56,6 @@
 </template>
 
 <script lang="ts" setup>
-import { watchEffect } from "vue";
 import {
   InformationCircleIcon,
   CheckCircleIcon,

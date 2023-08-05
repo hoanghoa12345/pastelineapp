@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { getUser, loginApi } from "@/api/users";
 import Cookies from "js-cookie";
 import { LoginForm } from "@/utils/types";
+import { generateAvatar } from "@/utils/helper";
 
 export const useUserStore = defineStore("user", () => {
   const user = ref(null);
@@ -15,7 +16,7 @@ export const useUserStore = defineStore("user", () => {
       isError.value = false;
       const { data } = await loginApi(form);
 
-      if (data.data.access_token) {
+      if (data.data?.access_token) {
         Cookies.set("access_token", data.data?.access_token);
       }
 
@@ -38,13 +39,18 @@ export const useUserStore = defineStore("user", () => {
   }
 
   async function getProfile() {
+    const backgroundColor = "#1982c4";
+    const textColor = "white";
     const token = Cookies.get("access_token");
     try {
       isError.value = false;
       const { data } = await getUser(token);
       if (data.photoUrl === "" || data.photoUrl == null) {
-        data.photoUrl =
-          "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y";
+        data.photoUrl = await generateAvatar(
+          data.name,
+          textColor,
+          backgroundColor
+        );
       }
       user.value = data;
     } catch (error) {
