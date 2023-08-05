@@ -1,15 +1,31 @@
+import { uniqueId, remove } from "lodash-es";
 import { defineStore } from "pinia";
 
-export const useToastStore = defineStore("toasts", () => {
-  const toasts = ref([]);
+interface Toast {
+  id: string;
+  title: string;
+  message: string;
+  icon?: string;
+  timeout?: number;
+}
 
-  function sendToast(title: string, message: string, icon?: string) {
+export const useToastStore = defineStore("toasts", () => {
+  const toasts = ref<Toast[]>([]);
+
+  function sendToast(
+    title: string,
+    message: string,
+    icon?: string,
+    timeout?: number
+  ) {
     toasts.value = [
       ...toasts.value,
       {
+        id: uniqueId(),
         title,
         message,
         icon,
+        timeout,
       },
     ];
   }
@@ -18,8 +34,8 @@ export const useToastStore = defineStore("toasts", () => {
     return toasts.value;
   }
 
-  function removeToast(index: number) {
-    toasts.value.splice(index, 1);
+  function removeToast(toastId: string) {
+    remove(toasts.value, (t) => t.id === toastId);
   }
 
   function clearToasts() {

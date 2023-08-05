@@ -42,9 +42,9 @@ export const useNotesStore = defineStore("notes", () => {
     selectedNote.value.forEach(async (noteId) => {
       try {
         await deleteNoteApi(noteId, token);
-        toastStore.sendToast("", "Delete page success", "success");
+        toastStore.sendToast("", "Delete page success", "success", 2500);
       } catch (error) {
-        toastStore.sendToast("", "Delete page error", "error");
+        toastStore.sendToast("", "Delete page error", "error", 2500);
         throw Error(error);
       }
     });

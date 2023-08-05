@@ -1,68 +1,43 @@
 <template>
-  <Transition
-    enterFromClass="opacity-0"
-    enterActiveClass="duration-300 ease-out"
-    enterToClass="opacity-100"
-    leaveFromClass="opacity-100"
-    leaveActiveClass="duration-200 ease-in"
-    leaveToClass="opacity-0"
+  <transition
+    appear
+    enter-active-class="transition duration-400 ease-out"
+    enter-from-class="translate-y-6 opacity-0"
+    enter-to-class="translate-y-0 opacity-100"
+    leave-active-class="transition duration-400 ease-in"
+    leave-from-class="translate-y-0 opacity-100"
+    leave-to-class="translate-y-1 opacity-0"
   >
     <div
-      class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+      class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-lg border-b border-gray-200 dark:text-gray-400 dark:bg-gray-800"
       role="alert"
     >
       <div
         v-if="props.icon == 'success'"
         class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200"
       >
-        <svg
-          class="w-5 h-5"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
-          <path
-            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"
-          />
-        </svg>
-        <span class="sr-only">Check icon</span>
+        <CheckCircleIcon class="w-5 h-5" />
       </div>
 
       <div
         v-if="props.icon == 'error'"
         class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200"
       >
-        <svg
-          class="w-5 h-5"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
-          <path
-            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"
-          />
-        </svg>
-        <span class="sr-only">Error icon</span>
+        <XCircleIcon class="w-5 h-5" />
       </div>
 
       <div
         v-if="props.icon == 'warning'"
         class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200"
       >
-        <svg
-          class="w-5 h-5"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
-          <path
-            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"
-          />
-        </svg>
-        <span class="sr-only">Warning icon</span>
+        <InformationCircleIcon class="w-5 h-5" />
+      </div>
+
+      <div
+        v-if="props.icon == 'info'"
+        class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-cyan-500 bg-cyan-100 rounded-lg dark:bg-cyan-700 dark:text-cyan-200"
+      >
+        <InformationCircleIcon class="w-5 h-5" />
       </div>
 
       <div class="ml-3 text-sm font-normal">
@@ -72,38 +47,29 @@
         type="button"
         @click="emit('close')"
         class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
-        data-dismiss-target="#toast-success"
         aria-label="Close"
       >
-        <span class="sr-only">Close</span>
-        <svg
-          class="w-3 h-3"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 14 14"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-          />
-        </svg>
+        <XMarkIcon class="w-4 h-4" />
       </button>
     </div>
-  </Transition>
+  </transition>
 </template>
 
 <script lang="ts" setup>
 import { watchEffect } from "vue";
+import {
+  InformationCircleIcon,
+  CheckCircleIcon,
+  XCircleIcon,
+  XMarkIcon,
+} from "@heroicons/vue/24/solid";
 
 const props = defineProps({
   icon: {
     type: String,
     default: "success",
-    validator: (val: string) => ["success", "error", "warning"].includes(val),
+    validator: (val: string) =>
+      ["success", "error", "warning", "info"].includes(val),
   },
   message: {
     type: String,
@@ -119,17 +85,58 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["close"]);
-
-watchEffect((onCleanup) => {
-  if (props.timeout) {
-    const timeout = setTimeout(() => {
-      emit("close");
-    }, props.timeout);
-
-    onCleanup(() => {
-      clearTimeout(timeout);
-    });
-  }
-});
+const emit = defineEmits<{
+  (event: "close"): void;
+}>();
 </script>
+
+<style>
+.animation-toast-in {
+  -webkit-animation: slide-top 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    forwards;
+  animation: slide-top 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animation-toast-out {
+  -webkit-animation: fade-out 0.2s ease-out both;
+  animation: fade-out 0.2s ease-out both;
+}
+
+@-webkit-keyframes slide-top {
+  0% {
+    -webkit-transform: translateY(60px);
+    transform: translateY(60px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+@keyframes slide-top {
+  0% {
+    -webkit-transform: translateY(60px);
+    transform: translateY(60px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+</style>

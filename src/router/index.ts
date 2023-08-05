@@ -34,6 +34,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/notes/EditNote.vue"),
       },
       {
+        name: "collections",
+        path: "collections",
+        component: () => import("@/views/collections/DeletedPage.vue"),
+      },
+      {
         name: "Docs",
         path: "docs",
         component: () => import("@/views/documents/Docs.vue"),

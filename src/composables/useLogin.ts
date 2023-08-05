@@ -1,15 +1,23 @@
 import { useForm } from "vee-validate";
-import { toTypedSchema } from "@vee-validate/yup";
-import * as yup from "yup";
+import { toTypedSchema } from "@vee-validate/zod";
+import { z } from "zod";
 
 export function useLogin() {
   const userStore = useUserStore();
 
   const schema = toTypedSchema(
-    yup.object({
-      email: yup.string().email().required().label("Email"),
-      password: yup.string().min(6).required().label("Password"),
-      remember: yup.bool().oneOf([true]).label("Remember me"),
+    z.object({
+      email: z
+        .string({
+          required_error: "Email is required",
+        })
+        .email(),
+      password: z
+        .string({
+          required_error: "Password is required",
+        })
+        .min(6, { message: "Password must contain at least 6 characters" }),
+      remember: z.boolean().optional(),
     })
   );
 

@@ -31,8 +31,13 @@
                 type="email"
                 name="email"
                 id="email"
-                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="border sm:text-sm rounded-lg w-full p-2.5 block"
                 placeholder="name@email.com"
+                :class="
+                  errors.email
+                    ? 'bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
+                    : 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-primary-600 focus:border-primary-600  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                "
               />
               <span class="text-red-500 text-sm">{{ errors.email }}</span>
             </div>
@@ -48,26 +53,41 @@
                 name="password"
                 id="password"
                 placeholder="••••••••"
-                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="border sm:text-sm rounded-lg block w-full p-2.5"
+                :class="
+                  errors.password
+                    ? 'bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
+                    : 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-primary-600 focus:border-primary-600  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                "
               />
               <span class="text-red-500 text-sm">{{ errors.password }}</span>
             </div>
             <div class="flex items-center justify-between">
               <div class="flex items-start">
-                <div class="flex items-center h-5">
-                  <input
-                    id="remember"
-                    aria-describedby="remember"
-                    type="checkbox"
-                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                    v-bind="remember"
-                  />
-                </div>
-                <div class="ml-3 text-sm">
-                  <label for="remember" class="text-gray-500 dark:text-gray-300"
-                    >Remember me</label
-                  >
-                </div>
+                <Field
+                  v-slot="{ field }"
+                  name="remember"
+                  type="checkbox"
+                  :value="true"
+                >
+                  <div class="flex items-center h-5">
+                    <input
+                      id="remember"
+                      aria-describedby="remember"
+                      type="checkbox"
+                      class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                      v-bind="field"
+                      :value="true"
+                    />
+                  </div>
+                  <div class="ml-3 text-sm">
+                    <label
+                      for="remember"
+                      class="text-gray-500 dark:text-gray-300"
+                      >Remember me</label
+                    >
+                  </div>
+                </Field>
               </div>
               <router-link
                 to="/forgot-password"
@@ -100,9 +120,6 @@
               </svg>
               Sign in
             </button>
-            <span v-if="isError" class="text-red-500 text-sm"
-              >Login failed! Email or password is not correct!</span
-            >
             <p class="text-sm font-light text-gray-500 dark:text-gray-400">
               Don’t have an account yet?
               <router-link
@@ -116,15 +133,27 @@
       </div>
     </div>
   </section>
+  <Toasts />
 </template>
 
 <script setup lang="ts">
 import { APP_NAME, LOGO_URL } from "@/utils/constants";
+import { Field } from "vee-validate";
 
-const { email, password, remember, signIn, userStore, errors } = useLogin();
+const { email, password, signIn, userStore, errors } = useLogin();
 
 const isLoading = computed(() => userStore.isLoading);
 const isError = computed(() => userStore.isError);
+const toast = useToastStore();
+
+watch(isError, () => {
+  toast.sendToast(
+    "Error",
+    "Login failed! Email or password is not correct!",
+    "error",
+    3000
+  );
+});
 </script>
 
 <style scoped></style>

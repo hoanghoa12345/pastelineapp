@@ -165,7 +165,6 @@
       </div>
     </template>
   </Modal>
-  <!-- <button type="button" @click="addToast">Test Add Toast</button> -->
 </template>
 
 <script lang="ts" setup>
@@ -192,12 +191,6 @@ const notes = computed(() => notesStore.notes);
 const isLoading = computed(() => notesStore.isLoading);
 
 // const searchResults = computed(() => notesStore.searchResults);
-
-const toastStore = useToastStore();
-
-// const addToast = () => {
-//   toastStore.sendToast("test", "test 123", "success");
-// };
 
 watchEffect(() => {
   getAll();
