@@ -1,15 +1,16 @@
 import { getNoteApi, getNotesApi, deleteNoteApi } from "@/api/notes";
 import { getToken } from "@/utils/helper";
+import { Note } from "@/utils/types";
 import { defineStore } from "pinia";
 
 export const useNotesStore = defineStore("notes", () => {
-  const notes = ref(null);
+  const notes = ref<Note[]>(null);
   const currentNote = ref(null);
   const isLoading = ref(false);
   const selectedNote = ref<string[]>([]);
   const recentNotes = ref<string[]>([]);
   const favoriteNotes = ref<string[]>([]);
-  const searchResults = ref<string[]>([]);
+  const searchResults = ref<Note[]>([]);
   const toastStore = useToastStore();
   async function getAll() {
     try {

@@ -63,7 +63,7 @@ const routes: Array<RouteRecordRaw> = [
       const userStore = useUserStore();
       try {
         await userStore.getProfile();
-        if (userStore.user) {
+        if (userStore.user || userStore.errorCode === "ERR_NETWORK") {
           return true;
         }
       } catch (error) {

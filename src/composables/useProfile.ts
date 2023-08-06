@@ -1,14 +1,5 @@
+import { UserProfile } from "@/utils/types";
 import { useForm } from "vee-validate";
-
-interface UserProfile {
-  userId: string;
-  name: string;
-  email: string;
-  photoUrl: string;
-  locale: string;
-  theme: string;
-  isAdmin: boolean;
-}
 
 export function useProfile() {
   const userStore = useUserStore();

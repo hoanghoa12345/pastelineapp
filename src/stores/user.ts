@@ -1,14 +1,16 @@
 import { defineStore } from "pinia";
 import { getUser, loginApi } from "@/api/users";
 import Cookies from "js-cookie";
+import { generateFromString } from "generate-avatar";
+import { AxiosError } from "axios";
 import { LoginForm } from "@/utils/types";
-import { generateAvatar } from "@/utils/helper";
 
 export const useUserStore = defineStore("user", () => {
   const user = ref(null);
   const isLoading = ref<boolean>(false);
   const router = useRouter();
   const isError = ref<boolean>(false);
+  const errorCode = ref<string>(null);
 
   async function login(form: LoginForm) {
     try {
@@ -39,25 +41,24 @@ export const useUserStore = defineStore("user", () => {
   }
 
   async function getProfile() {
-    const backgroundColor = "#1982c4";
-    const textColor = "white";
     const token = Cookies.get("access_token");
     try {
       isError.value = false;
       const { data } = await getUser(token);
       if (data.photoUrl === "" || data.photoUrl == null) {
-        data.photoUrl = await generateAvatar(
-          data.name,
-          textColor,
-          backgroundColor
-        );
+        data.photoUrl = `data:image/svg+xml;utf8,${generateFromString(
+          data.email
+        )}`;
       }
       user.value = data;
     } catch (error) {
       isError.value = false;
+      if (error instanceof AxiosError) {
+        errorCode.value = error.code;
+      }
       throw Error(error);
     }
   }
 
-  return { isLoading, user, login, logout, getProfile, isError };
+  return { isLoading, user, login, logout, getProfile, isError, errorCode };
 });
