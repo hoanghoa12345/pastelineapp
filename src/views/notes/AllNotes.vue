@@ -98,10 +98,10 @@
               }}</router-link>
             </th>
             <td class="px-6 py-4">
-              {{ dayjs(note.createdAt).format("DD-MM-YYYY HH:ss") }}
+              {{ format(new Date(note.createdAt), "dd-MM-yyyy HH:ss") }}
             </td>
             <td class="px-6 py-4">
-              {{ dayjs(note.updatedAt).format("DD-MM-YYYY HH:ss") }}
+              {{ format(new Date(note.updatedAt), "dd-MM-yyyy HH:ss") }}
             </td>
           </tr>
         </tbody>
@@ -137,10 +137,10 @@
               {{ note.title }}
             </th>
             <td class="px-3 py-2">
-              {{ dayjs(note.createdAt).format("DD-MM-YYYY HH:ss") }}
+              {{ format(new Date(note.createdAt), "dd-MM-yyyy HH:ss") }}
             </td>
             <td class="px-3 py-2">
-              {{ dayjs(note.updatedAt).format("DD-MM-YY HH:ss") }}
+              {{ format(new Date(note.updatedAt), "DD-MM-YY HH:ss") }}
             </td>
           </tr>
         </tbody>
@@ -169,7 +169,7 @@
 
 <script lang="ts" setup>
 import { sortBy } from "lodash-es";
-import * as dayjs from "dayjs";
+import { format } from "date-fns";
 import { TrashIcon } from "@heroicons/vue/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/vue/24/solid";
 import Spinner from "@/components/spinner/Spinner.vue";
@@ -190,7 +190,7 @@ const locale = computed(() => userStore.user.locale);
 
 const notes = computed(() =>
   sortBy(notesStore.notes, (obj) => {
-    return dayjs(obj.updatedAt).format("YYYYMMDD");
+    return format(new Date(obj.updatedAt), "yyyyMMdd");
   }).reverse()
 );
 
