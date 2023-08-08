@@ -1,5 +1,5 @@
 service: newLambdaFunction
-frameworkVersion: "3"
+frameworkVersion: '3'
 
 provider:
   name: aws
@@ -12,9 +12,9 @@ package:
 
 functions:
   handler:
-    handler: src/index.handler
+    handler: src/index.handle
     events:
-      - httpApi: "*"
+      - httpApi: '*'
 
 plugins:
   - serverless-plugin-typescript
