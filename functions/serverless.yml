@@ -8,17 +8,13 @@ provider:
 
 package:
   individually: true
+  excludeDevDependencies: true
 
 functions:
   handler:
-    handler: index.handler
+    handler: src/index.handler
     events:
       - httpApi: "*"
 
 plugins:
-  - serverless-offline
-
-custom:
-  serverless-offline:
-    httpPort: 8008
-    noPrependStageInUrl: true
+  - serverless-plugin-typescript
