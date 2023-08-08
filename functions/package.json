@@ -5,7 +5,7 @@
   "scripts": {
     "start": "cross-env NODE_PATH=./dist node  ./dist/server.js",
     "start:dev": "cross-env NODE_PATH=./src ts-node-dev --respawn ./src/server.ts",
-    "dev": "cross-env NODE_PATH=./src nodemon src/server.ts",
+    "dev": "nodemon src/server.ts",
     "build": "rimraf dist && tsc",
     "tsc": "tsc --noEmit",
     "package": "serverless package",

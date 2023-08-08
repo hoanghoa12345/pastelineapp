@@ -24,4 +24,12 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-unused-vars': 0,
   },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        moduleDirectory: ['node_modules', 'src/'],
+      },
+    },
+  },
 };

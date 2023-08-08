@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { UpdateCommand } from '@aws-sdk/lib-dynamodb';
 import { config } from '../../config';
-import { ApiError } from 'utils/response/ApiError';
+import { ApiError } from '../../utils/response/ApiError';
 
 const client = new DynamoDBClient({
   region: config.dynamodb.region,
