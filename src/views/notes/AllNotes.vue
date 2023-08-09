@@ -140,7 +140,7 @@
               {{ format(new Date(note.createdAt), "dd-MM-yyyy HH:ss") }}
             </td>
             <td class="px-3 py-2">
-              {{ format(new Date(note.updatedAt), "DD-MM-YY HH:ss") }}
+              {{ format(new Date(note.updatedAt), "dd-MM-yyyy HH:ss") }}
             </td>
           </tr>
         </tbody>
@@ -184,9 +184,9 @@ const {
   openConfirmModal,
 } = useAllNotes();
 
-const { userStore } = useLogin();
+// const { userStore } = useLogin();
 
-const locale = computed(() => userStore.user.locale);
+// const locale = computed(() => userStore.user.locale);
 
 const notes = computed(() =>
   sortBy(notesStore.notes, (obj) => {
