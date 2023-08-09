@@ -60,7 +60,7 @@
             >
           </router-link>
         </li>
-        <Disclosure as="li">
+        <Disclosure as="li" v-slot="{ open }">
           <DisclosureButton
             type="button"
             class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -75,6 +75,7 @@
             >
             <svg
               aria-hidden="true"
+              :class="open ? '' : '-rotate-90 transform'"
               class="w-6 h-6"
               fill="currentColor"
               viewBox="0 0 20 20"
@@ -107,7 +108,7 @@
             </li>
           </DisclosurePanel>
         </Disclosure>
-        <Disclosure as="li">
+        <Disclosure as="li" v-slot="{ open }">
           <DisclosureButton
             as="button"
             type="button"
@@ -129,6 +130,7 @@
             <span class="flex-1 ml-3 text-left whitespace-nowrap">Recent</span>
             <svg
               aria-hidden="true"
+              :class="open ? '' : '-rotate-90 transform'"
               class="w-6 h-6"
               fill="currentColor"
               viewBox="0 0 20 20"
@@ -236,11 +238,10 @@
       <button
         @click="handleCreate"
         type="button"
-        class="w-full inline-flex justify-center items-center space-x-4 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+        class="w-full inline-flex justify-center items-center space-x-1 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
       >
         <PlusIcon class="w-4 h-4" />
-
-        Create
+        <span>Create</span>
       </button>
     </div>
   </aside>
@@ -253,10 +254,15 @@ import { useDrawerStore } from "@/stores/drawer";
 const drawer = useDrawerStore();
 const notes = useNotesStore();
 const router = useRouter();
+const route = useRoute();
 const handleCreate = () => {
   router.push("/create");
 };
 const recentNotes = computed(() => notes.getRecentNotes());
 const favoriteNotes = computed(() => notes.getFavoriteNotes());
+
+watch(route, () => {
+  drawer.setOpen(false);
+});
 </script>
 <style lang="css"></style>
