@@ -727,8 +727,8 @@
   </nav>
 
   <CommandPalette
-    :show="showCommandPalette"
-    @hide="showCommandPalette = false"
+    :open="showCommandPalette"
+    @close="showCommandPalette = false"
   />
 </template>
 <script lang="ts" setup>

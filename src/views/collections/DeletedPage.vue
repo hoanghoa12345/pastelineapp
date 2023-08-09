@@ -1,3 +1,3 @@
-<template>Deleted page</template>
+<template>Collections</template>
 
 <script lang="ts" setup></script>
