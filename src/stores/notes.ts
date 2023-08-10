@@ -11,6 +11,7 @@ export const useNotesStore = defineStore("notes", () => {
   const recentNotes = ref<string[]>([]);
   const favoriteNotes = ref<string[]>([]);
   const searchResults = ref<Note[]>([]);
+  const syncNoteState = ref<"sync" | "saved">("saved");
   const toastStore = useToastStore();
   async function getAll() {
     try {
@@ -87,6 +88,10 @@ export const useNotesStore = defineStore("notes", () => {
     );
     console.log(searchResults.value);
   }
+
+  function setSyncNoteState(state: "sync" | "saved") {
+    syncNoteState.value = state;
+  }
   return {
     notes,
     currentNote,
@@ -104,5 +109,7 @@ export const useNotesStore = defineStore("notes", () => {
     searchNote,
     searchResults,
     getSelectedNote,
+    syncNoteState,
+    setSyncNoteState,
   };
 });

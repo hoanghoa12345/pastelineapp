@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <MilkdownProvider>
-      <MilkdownEditor v-if="isLoaded" v-model="content" />
+      <VueEditor v-model="content" />
     </MilkdownProvider>
     <Menu>
       <MenuButton
@@ -65,10 +65,8 @@ import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
 
 const {
   noteId,
-  isLoaded,
   content,
-  addToRecent,
-  setCurrentNote,
   addToFavorite,
+  VueEditor
 } = useEditNote();
 </script>

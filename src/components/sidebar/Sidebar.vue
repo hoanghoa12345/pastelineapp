@@ -8,7 +8,7 @@
     id="drawer-navigation"
   >
     <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
-      <form action="#" method="GET" class="md:hidden mb-2">
+      <form v-if="isEnable" action="#" method="GET" class="md:hidden mb-2">
         <label for="sidebar-search" class="sr-only">Search</label>
         <div class="relative">
           <div
@@ -264,5 +264,6 @@ const favoriteNotes = computed(() => notes.getFavoriteNotes());
 watch(route, () => {
   drawer.setOpen(false);
 });
+const isEnable = ref(false)
 </script>
 <style lang="css"></style>

@@ -6,16 +6,18 @@ import { getToken } from "@/utils/helper";
 export function useCreateNote() {
   const content = ref<string>("# Untitled");
   const noteId = ref<string>(null);
-
+  const notesStore = useNotesStore();
+  
   const debouncedWatch = debounce(async () => {
     if (noteId.value.length === 36) {
+      notesStore.setSyncNoteState("sync")
       await updateNoteApi(
         noteId.value,
         removeMd(content.value.split("\n")[0]),
         content.value,
         getToken()
       );
-      console.log("✅ Saved...");
+      notesStore.setSyncNoteState("saved")
     }
   }, 2000);
 

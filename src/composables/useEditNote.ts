@@ -2,6 +2,9 @@ import { getToken } from "@/utils/helper";
 import { debounce } from "lodash-es";
 import removeMd from "remove-markdown";
 import { updateNoteApi, getNoteApi } from "@/api/notes";
+import SpinnerVue from "@/components/spinner/Spinner.vue";
+import MilkdownEditorVue from "@/components/editor/MilkdownEditor.vue";
+import NotFoundVue from "@/views/not-found/NotFound.vue";
 
 export function useEditNote() {
   const route = useRoute();
@@ -9,7 +12,7 @@ export function useEditNote() {
 
   const currentNote = computed(() => notesStore.currentNote);
   const content = ref<string>("");
-  const isLoaded = ref<boolean>(false);
+  const isInitialValueSet = ref<boolean>(false);
 
   const noteId: string = route.params.noteId as string;
 
@@ -34,13 +37,18 @@ export function useEditNote() {
   };
 
   const debouncedWatch = debounce(async () => {
-    console.log("✅ Saved...");
-    await updateNoteApi(
-      noteId,
-      removeMd(content.value.split("\n")[0]),
-      content.value,
-      getToken()
-    );
+    if (isInitialValueSet.value) {
+      notesStore.setSyncNoteState("sync")
+      await updateNoteApi(
+        noteId,
+        removeMd(content.value.split("\n")[0]),
+        content.value,
+        getToken()
+      );
+      notesStore.setSyncNoteState("saved")
+    } else {
+      isInitialValueSet.value = true;
+    }
   }, 2000);
 
   watch(content, debouncedWatch);
@@ -49,21 +57,26 @@ export function useEditNote() {
     debouncedWatch.cancel();
   });
 
-  watchEffect(async (onCleanup) => {
-    addToRecent(noteId);
-    const { data } = await getNoteApi(noteId, getToken());
-    content.value = data.data.content;
-    setCurrentNote(data.data);
-    isLoaded.value = true;
-    onCleanup(() => {
-      isLoaded.value = false;
-    });
+  const VueEditor = defineAsyncComponent({
+    loader: async () => {
+      try {
+        addToRecent(noteId);
+        const { data } = await getNoteApi(noteId, getToken());
+        content.value = data.data.content;
+        setCurrentNote(data.data);
+        return MilkdownEditorVue;
+      } catch (err) {
+        return NotFoundVue;
+      }
+    },
+    loadingComponent: SpinnerVue,
+    errorComponent: NotFoundVue,
+    timeout: 3000,
   });
 
   return {
     notesStore,
     noteId,
-    isLoaded,
     content,
     currentNote,
     addToRecent,
@@ -71,5 +84,6 @@ export function useEditNote() {
     setCurrentNote,
     addToFavorite,
     getFavoriteNotes,
+    VueEditor,
   };
 }

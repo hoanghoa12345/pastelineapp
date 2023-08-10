@@ -5,7 +5,7 @@ import { APP_NAME } from "@/utils/constants";
 <template>
   <div>
     <h1
-      class="py-2 text-3xl font-base text-center text-slate-900 dark:text-slate-500"
+      class="py-2 text-3xl font-base text-center text-slate-900 dark:text-gray-100"
     >
       Welcome to {{ APP_NAME }}!
     </h1>

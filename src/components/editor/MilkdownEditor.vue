@@ -25,30 +25,12 @@ useEditor((root) => {
       ctx.set(rootCtx, root)
       ctx.set(defaultValueCtx, props.modelValue)
       ctx.get(listenerCtx).markdownUpdated((ctx, markdown) => {
-        emit("update:modelValue", markdown);
+          emit("update:modelValue", markdown);
       });
     })
     .use(commonmark)
     .use(listener)
 })
-
-// watchEffect(() => {
-//   let editor = get()
-//   editor?.action((ctx: Ctx) => {
-//     const view = ctx.get(editorViewCtx);
-//     const parser = ctx.get(parserCtx);
-//     const doc = parser(props.modelValue);
-//     if (!doc) return;
-//     const state = view.state;
-//     view.dispatch(
-//       state.tr.replace(
-//         0,
-//         state.doc.content.size,
-//         new Slice(doc.content, 0, 0)
-//       )
-//     );
-//   })
-// })
 </script>
 
 <template>
