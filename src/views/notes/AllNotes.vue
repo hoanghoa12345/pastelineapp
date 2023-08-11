@@ -44,7 +44,7 @@
       </form>
     </div>
 
-    <Spinner v-if="isLoading" class="flex justify-center" />
+    <Spinner v-if="isLoading" />
     <div v-else class="relative overflow-x-auto">
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead
@@ -77,7 +77,7 @@
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
           >
             <td class="w-4 p-4">
-              <div class="flex items-center">
+              <div class="flex items-center justify-center">
                 <input
                   type="checkbox"
                   :value="note.noteId"

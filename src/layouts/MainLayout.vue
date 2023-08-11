@@ -11,7 +11,7 @@ import Toasts from "@/components/toast/Toasts.vue";
     <Sidebar />
 
     <main class="p-4 md:ml-64 h-auto pt-20 dark:text-white dark:bg-gray-800">
-      <router-view></router-view>
+      <router-view :key="$route.path"></router-view>
     </main>
 
     <Toasts />

@@ -258,8 +258,8 @@ const route = useRoute();
 const handleCreate = () => {
   router.push("/create");
 };
-const recentNotes = computed(() => notes.getRecentNotes());
-const favoriteNotes = computed(() => notes.getFavoriteNotes());
+const recentNotes = computed(() => notes.notes ? notes.getRecentNotes() : []);
+const favoriteNotes = computed(() => notes.notes ? notes.getFavoriteNotes() : []);
 
 watch(route, () => {
   drawer.setOpen(false);
