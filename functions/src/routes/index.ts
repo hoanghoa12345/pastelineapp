@@ -5,7 +5,7 @@ const router = Router();
 
 router.use('/api/v1', v1);
 router.get('/', (req: Request, res: Response) => {
-  res.onSuccess(200, 'Server is running...', { version: '1.0.0' });
+  res.onSuccess(200, 'Server is running...', { version: '1.0.1' });
 });
 
 export default router;
