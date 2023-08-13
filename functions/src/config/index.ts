@@ -6,4 +6,8 @@ export const config = {
       notes: 'notes',
     },
   },
+  ses: {
+    region: '',
+    sender: '',
+  },
 };

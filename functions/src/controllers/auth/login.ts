@@ -28,6 +28,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     );
     if (Items.length > 0) {
       const user = unmarshall(Items[0]);
+      if (user.isActive === false) return next(new ApiError(400, 'Account is not active', null));
       if (bcrypt.compareSync(password, user.password)) {
         const payload = {
           userId: user.userId,
