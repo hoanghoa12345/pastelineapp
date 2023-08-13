@@ -1,32 +1,28 @@
-import { SendEmailCommand } from '@aws-sdk/client-ses';
-import { SESClient } from '@aws-sdk/client-ses';
 import { config } from '../../config';
+import nodemailer from 'nodemailer';
 
-const client = new SESClient({ region: config.ses.region });
-
-const createSendEmailCommand = (toAddress: string, link: string): SendEmailCommand => {
-  return new SendEmailCommand({
-    Destination: {
-      CcAddresses: [],
-      ToAddresses: [toAddress],
-    },
-    Message: {
-      Body: {
-        Html: {
-          Charset: 'UTF-8',
-          Data: `<div><h2>Verify your email</h2><p>To continue using app. Please click this link below to verify your email:</p><a href="${link}" target="_blank">${link}</a></div>`,
-        },
-      },
-      Subject: {
-        Charset: 'UTF-8',
-        Data: 'Verification email address',
-      },
-    },
-    Source: config.ses.sender,
-    ReplyToAddresses: [],
-  });
-};
+const transporter = nodemailer.createTransport({
+  host: config.mail.smtp.host,
+  port: config.mail.smtp.port,
+  secure: true,
+  auth: {
+    user: config.mail.smtp.user,
+    pass: config.mail.smtp.pass,
+  },
+});
 
 export const sendEmail = (toEmail: string, verifyLink: string) => {
-  return createSendEmailCommand(toEmail, verifyLink);
+  return transporter.sendMail({
+    from: `"${config.mail.sender.name}" <${config.mail.sender.email}>`,
+    to: toEmail,
+    subject: 'Verify email address',
+    html: `
+    <div style="border: 1px solid #949494; padding: 16px; margin: 8px">
+      <p style="font-family:Helvetica,Arial,sans-serif;">Please click the link below to confirm your email address</p>
+      <p style="font-family:Helvetica,Arial,sans-serif;">
+        <a href="${verifyLink}" target="_blank">Verify your email</a>
+      </p>
+    </div>
+    `,
+  });
 };

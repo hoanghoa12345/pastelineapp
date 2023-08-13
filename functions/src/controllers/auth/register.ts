@@ -17,23 +17,23 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
   const { email, password } = req.body;
 
   try {
-    // const { Items } = await client.send(
-    //   new QueryCommand({
-    //     TableName: config.dynamodb.tables.users,
-    //     IndexName: 'email-index',
-    //     KeyConditionExpression: '#email = :email',
-    //     ExpressionAttributeNames: {
-    //       '#email': 'email',
-    //     },
-    //     ExpressionAttributeValues: {
-    //       ':email': { S: email },
-    //     },
-    //   }),
-    // );
+    const { Items } = await client.send(
+      new QueryCommand({
+        TableName: config.dynamodb.tables.users,
+        IndexName: 'email-index',
+        KeyConditionExpression: '#email = :email',
+        ExpressionAttributeNames: {
+          '#email': 'email',
+        },
+        ExpressionAttributeValues: {
+          ':email': { S: email },
+        },
+      }),
+    );
 
-    // if (Items.length > 0) {
-    //   return next(new ApiError(400, 'Email already exists. Please choose another email', {}));
-    // }
+    if (Items.length > 0) {
+      return next(new ApiError(400, 'Email already exists. Please choose another email', {}));
+    }
 
     const hashPassword = bcrypt.hashSync(password);
 
@@ -49,19 +49,18 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
       isActive: false,
     };
 
-    // await client.send(
-    //   new PutCommand({
-    //     TableName: config.dynamodb.tables.users,
-    //     Item: newUser,
-    //   }),
-    // );
+    await client.send(
+      new PutCommand({
+        TableName: config.dynamodb.tables.users,
+        Item: newUser,
+      }),
+    );
 
-    const result = await sendVerifyToken(email, req.baseUrl, newUser.userId);
+    await sendVerifyToken(email, req.protocol + '://' + req.get('host'), newUser.userId);
 
     res.onSuccess(201, 'Create account successful!', {
       user: newUser,
       message: 'Please check email and verify email address',
-      email: result,
     });
   } catch (error) {
     return next(new ApiError(500, 'Could not create account', error));

@@ -10,4 +10,16 @@ export const config = {
     region: '',
     sender: '',
   },
+  mail: {
+    sender: {
+      email: '',
+      name: 'Pasteline App 📝',
+    },
+    smtp: {
+      host: '',
+      port: 465,
+      user: '',
+      pass: '',
+    },
+  },
 };
