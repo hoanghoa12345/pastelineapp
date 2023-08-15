@@ -18,4 +18,12 @@ export class ApiError extends Error {
       stack: this.stack,
     };
   }
+
+  static badRequest(message, errorRaw) {
+    return new ApiError(400, message, errorRaw);
+  }
+
+  static internal(message, errorRaw) {
+    return new ApiError(500, message, errorRaw);
+  }
 }

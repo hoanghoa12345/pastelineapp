@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { DynamoDBClient, GetItemCommand, ScanCommand } from '@aws-sdk/client-dynamodb';
-import { unmarshall } from '@aws-sdk/util-dynamodb';
+import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import { config } from '../../config';
 import { ApiError } from '../../utils/response/ApiError';
 
@@ -10,23 +10,39 @@ const client = new DynamoDBClient({
 
 export const list = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { Items } = await client.send(
+    const { userId } = req.user;
+    const { page, limit } = req.query;
+    const { Items, LastEvaluatedKey, Count } = await client.send(
       new ScanCommand({
         TableName: config.dynamodb.tables.notes,
+        Limit: limit ? Number(limit) : undefined,
+        ExclusiveStartKey: page
+          ? {
+              noteId: { S: `${page}` },
+              userId: { S: userId },
+            }
+          : undefined,
         FilterExpression: 'userId = :userId and isDeleted = :isDeleted',
         ExpressionAttributeValues: {
-          ':userId': { S: req.user.userId },
+          ':userId': { S: userId },
           ':isDeleted': { BOOL: false },
         },
+        ProjectionExpression: 'noteId, userId, title, category, isPinned, isFavorite, createdAt, updatedAt, isDeleted',
       }),
     );
-    const notes = (Items || []).map((item) => {
-      const note = unmarshall(item);
-      note.content = '';
-      return note;
+    const result = Items?.map((item) => unmarshall(item)) || [];
+
+    res.status(200).json({
+      message: 'Notes retrieved successfully',
+      data: result,
+      pagination: {
+        page: LastEvaluatedKey ? LastEvaluatedKey.noteId.S : undefined,
+        limit: limit ? Number(limit) : undefined,
+        count: Count,
+      },
     });
-    res.onSuccess(200, 'Get all notes', notes);
   } catch (error) {
-    return next(new ApiError(500, 'Could not retrieve notes', error));
+    console.log(error);
+    next(new ApiError(500, 'Could not retrieve notes', error));
   }
 };
