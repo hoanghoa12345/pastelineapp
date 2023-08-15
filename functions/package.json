@@ -13,7 +13,7 @@
     "lint-fix": "eslint --fix .",
     "format-lint": "prettier --config .prettierrc -l --ignore-unknown .",
     "format-fix": "prettier --config .prettierrc --write --ignore-unknown .",
-    "test": "cross-env NODE_PATH=./src mocha --require ts-node/register 'src/**/*.test.ts' --timeout 20000 --exit"
+    "test": "cross-env NODE_PATH=./src mocha --require ts-node/register 'src/test/*.test.ts' --timeout 20000 --exit"
   },
   "keywords": [],
   "author": "Hoang Hoa <hoanghoa@duck.com>",
