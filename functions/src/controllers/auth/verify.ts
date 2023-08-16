@@ -1,10 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { DynamoDBClient, GetItemCommand, QueryCommand } from '@aws-sdk/client-dynamodb';
 import { unmarshall } from '@aws-sdk/util-dynamodb';
-import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import { config } from '../../config';
 import { ApiError } from '../../utils/response/ApiError';
-import { createJwtToken } from '../../utils/jwt-token/createJwtToken';
 import { PutCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
 
 const client = new DynamoDBClient({
@@ -14,13 +13,24 @@ const client = new DynamoDBClient({
 export const verify = async (req: Request, res: Response, next: NextFunction) => {
   const { token } = req.query;
 
-  console.log(token.toString());
+  if (!token) {
+    return next(new ApiError(400, 'No token provided', {}));
+  }
+  if (typeof token !== 'string') {
+    return next(new ApiError(400, 'Invalid token', {}));
+  }
+
+  const decoded = jwt.verify(token, config.jwt.secret);
+  
+  if (!decoded) {
+    return next(new ApiError(400, 'Invalid token', {}));
+  }
 
   try {
     const { Item } = await client.send(
       new GetItemCommand({
         TableName: config.dynamodb.tables.users,
-        Key: { userId: { S: token.toString() } },
+        Key: { userId: { S: decoded.userId  } },
       }),
     );
 
@@ -34,13 +44,12 @@ export const verify = async (req: Request, res: Response, next: NextFunction) =>
             isActive: true,
           },
         }),
-      );
-
+      );      
       console.log(response);
-
+        
       res.onSuccess(200, 'Verify email successful!', {});
     } else {
-      return next(new ApiError(400, 'Could not verify email', {}));
+      return next(ApiError.badRequest('Could not verify email', {}));
     }
   } catch (error) {
     return next(new ApiError(400, error.message, error));
