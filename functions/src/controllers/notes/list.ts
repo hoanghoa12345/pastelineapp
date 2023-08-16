@@ -11,7 +11,33 @@ const client = new DynamoDBClient({
 export const list = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { userId } = req.user;
-    const { page, limit } = req.query;
+    const { page, limit, favorite, pinned, category } = req.query;
+
+    const attributeNames: Record<string, string> = {
+      '#userId': 'userId',
+      '#isDeleted': 'isDeleted',
+    };
+
+    const attributeValues: Record<string, string | boolean> = {
+      ':userId': userId,
+      ':isDeleted': false,
+    };
+
+    if (favorite) {
+      attributeNames['#isFavorite'] = 'isFavorite';
+      attributeValues[':isFavorite'] = true;
+    }
+
+    if (pinned) {
+      attributeNames['#isPinned'] = 'isPinned';
+      attributeValues[':isPinned'] = true;
+    }
+
+    if (category) {
+      attributeNames['#category'] = 'category';
+      attributeValues[':category'] = `${category}`;
+    }
+
     const { Items, LastEvaluatedKey, Count } = await client.send(
       new ScanCommand({
         TableName: config.dynamodb.tables.notes,
@@ -22,11 +48,11 @@ export const list = async (req: Request, res: Response, next: NextFunction) => {
               userId: { S: userId },
             }
           : undefined,
-        FilterExpression: 'userId = :userId and isDeleted = :isDeleted',
-        ExpressionAttributeValues: {
-          ':userId': { S: userId },
-          ':isDeleted': { BOOL: false },
-        },
+        FilterExpression: `#userId = :userId and #isDeleted = :isDeleted ${
+          favorite ? 'and #isFavorite = :isFavorite' : ''
+        } ${pinned ? 'and #isPinned = :isPinned' : ''} ${category ? 'and #category = :category' : ''}`,
+        ExpressionAttributeNames: attributeNames,
+        ExpressionAttributeValues: marshall(attributeValues, { removeUndefinedValues: true }),
         ProjectionExpression: 'noteId, userId, title, category, isPinned, isFavorite, createdAt, updatedAt, isDeleted',
       }),
     );
@@ -42,7 +68,6 @@ export const list = async (req: Request, res: Response, next: NextFunction) => {
       },
     });
   } catch (error) {
-    console.log(error);
     next(new ApiError(500, 'Could not retrieve notes', error));
   }
 };

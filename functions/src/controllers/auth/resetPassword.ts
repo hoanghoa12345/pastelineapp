@@ -15,7 +15,6 @@ const client = new DynamoDBClient({
 
 export const resetPassword = async (req: Request, res: Response, next: NextFunction) => {
   const { email } = req.body;
-//   const {resetPasswordToken}
 
   try {
     const { Items } = await client.send(
@@ -34,11 +33,11 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
     }
 
     const userId = unmarshall(Items[0]).userId;
-    sendResetPasswordEmail(email, userId)
+    sendResetPasswordEmail(email, userId);
     res.status(200).json({ userId });
   } catch (error) {
     console.log(error);
-    
+
     return next(new ApiError(500, 'Internal server error', error));
   }
 };
