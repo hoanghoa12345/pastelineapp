@@ -8,7 +8,7 @@ const router = Router();
 router.get('/', [checkJwt], list);
 router.get('/:noteId', [checkJwt], show);
 router.post('/', [validatorNote, checkJwt], store);
-router.patch('/:noteId', [validatorNote, checkJwt], edit);
+router.patch('/:noteId', [checkJwt], edit);
 router.delete('/:noteId', [checkJwt], destroy);
 
 export default router;
