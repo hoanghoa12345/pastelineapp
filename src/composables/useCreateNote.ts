@@ -1,4 +1,4 @@
-import { createNoteApi, updateNoteApi } from "@/api/notes";
+import { noteApi } from "@/api/notes";
 import { debounce } from "lodash-es";
 import removeMd from "remove-markdown";
 import { getToken } from "@/utils/helper";
@@ -7,17 +7,17 @@ export function useCreateNote() {
   const content = ref<string>("# Untitled");
   const noteId = ref<string>(null);
   const notesStore = useNotesStore();
-  
+
   const debouncedWatch = debounce(async () => {
     if (noteId.value.length === 36) {
-      notesStore.setSyncNoteState("sync")
-      await updateNoteApi(
+      notesStore.setSyncNoteState("sync");
+      await noteApi.update(
         noteId.value,
         removeMd(content.value.split("\n")[0]),
         content.value,
         getToken()
       );
-      notesStore.setSyncNoteState("saved")
+      notesStore.setSyncNoteState("saved");
     }
   }, 2000);
 
@@ -32,7 +32,7 @@ export function useCreateNote() {
     if (newNoteId && newNoteId.length === 36) {
       localStorage.setItem("newNoteId", newNoteId);
     } else {
-      const { data } = await createNoteApi(
+      const { data } = await noteApi.create(
         removeMd(content.value.split("\n")[0]),
         content.value,
         getToken()

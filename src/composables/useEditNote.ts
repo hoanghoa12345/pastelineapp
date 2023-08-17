@@ -1,7 +1,7 @@
 import { getToken } from "@/utils/helper";
 import { debounce } from "lodash-es";
 import removeMd from "remove-markdown";
-import { updateNoteApi, getNoteApi } from "@/api/notes";
+import { noteApi } from "@/api/notes";
 import SpinnerVue from "@/components/spinner/Spinner.vue";
 import MilkdownEditorVue from "@/components/editor/MilkdownEditor.vue";
 import NotFoundVue from "@/views/not-found/NotFound.vue";
@@ -38,14 +38,14 @@ export function useEditNote() {
 
   const debouncedWatch = debounce(async () => {
     if (isInitialValueSet.value) {
-      notesStore.setSyncNoteState("sync")
-      await updateNoteApi(
+      notesStore.setSyncNoteState("sync");
+      await noteApi.update(
         noteId,
         removeMd(content.value.split("\n")[0]),
         content.value,
         getToken()
       );
-      notesStore.setSyncNoteState("saved")
+      notesStore.setSyncNoteState("saved");
     } else {
       isInitialValueSet.value = true;
     }
@@ -61,7 +61,7 @@ export function useEditNote() {
     loader: async () => {
       try {
         addToRecent(noteId);
-        const { data } = await getNoteApi(noteId, getToken());
+        const { data } = await noteApi.getById(noteId, getToken());
         content.value = data.data.content;
         setCurrentNote(data.data);
         return MilkdownEditorVue;

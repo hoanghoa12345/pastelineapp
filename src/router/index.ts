@@ -89,6 +89,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/signin/RecoverPassword.vue"),
   },
   {
+    name: "VerifyEmail",
+    path: "/verify",
+    component: () => import("@/views/signup/VerifyEmail.vue"),
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
     component: () => import("@/views/not-found/NotFound.vue"),

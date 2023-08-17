@@ -25,3 +25,10 @@ export interface UserProfile {
   theme: string;
   isAdmin: boolean;
 }
+
+export interface SignUpForm {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  acceptTerms: string;
+}

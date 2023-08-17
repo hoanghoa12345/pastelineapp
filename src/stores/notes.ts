@@ -1,4 +1,4 @@
-import { getNoteApi, getNotesApi, deleteNoteApi } from "@/api/notes";
+import { noteApi } from "@/api/notes";
 import { getToken } from "@/utils/helper";
 import { Note } from "@/utils/types";
 import { defineStore } from "pinia";
@@ -17,7 +17,7 @@ export const useNotesStore = defineStore("notes", () => {
     try {
       isLoading.value = true;
       const token = getToken();
-      const { data } = await getNotesApi(token);
+      const { data } = await noteApi.get(token);
       notes.value = data.data;
     } catch (error) {
       throw Error(error);
@@ -30,7 +30,7 @@ export const useNotesStore = defineStore("notes", () => {
     try {
       isLoading.value = true;
       const token = getToken();
-      const { data } = await getNoteApi(noteId, token);
+      const { data } = await noteApi.getById(noteId, token);
       currentNote.value = data.data;
     } catch (error) {
       throw Error(error);
@@ -43,7 +43,7 @@ export const useNotesStore = defineStore("notes", () => {
     const token = getToken();
     selectedNote.value.forEach(async (noteId) => {
       try {
-        await deleteNoteApi(noteId, token);
+        await noteApi.delete(noteId, token);
         toastStore.sendToast("", "Delete page success", "success", 2500);
       } catch (error) {
         toastStore.sendToast("", "Delete page error", "error", 2500);
