@@ -21,17 +21,17 @@ export const verify = async (req: Request, res: Response, next: NextFunction) =>
     return next(new ApiError(400, 'Invalid token', {}));
   }
 
-  const decoded = jwt.verify(token, config.jwt.secret);
-  
-  if (!decoded) {
-    return next(new ApiError(400, 'Invalid token', {}));
-  }
-
   try {
+    const decoded = jwt.verify(token, config.jwt.secret);
+
+    if (!decoded) {
+      return next(new ApiError(400, 'Invalid token', {}));
+    }
+
     const { Item } = await client.send(
       new GetItemCommand({
         TableName: config.dynamodb.tables.users,
-        Key: { userId: { S: decoded.userId  } },
+        Key: { userId: { S: decoded.userId } },
       }),
     );
 
@@ -45,9 +45,9 @@ export const verify = async (req: Request, res: Response, next: NextFunction) =>
             isActive: true,
           },
         }),
-      );      
+      );
       console.log(response);
-      sendWelcomeEmail(user.email)
+      sendWelcomeEmail(user.email);
       res.onSuccess(200, 'Verify email successful!', {});
     } else {
       return next(ApiError.badRequest('Could not verify email', {}));

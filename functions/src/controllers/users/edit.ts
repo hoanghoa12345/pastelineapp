@@ -11,7 +11,7 @@ const client = new DynamoDBClient({
 export const edit = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { userId } = req.user;
-    const { email, name, photoUrl, locale, theme } = req.body;
+    const { email, name, photoUrl, locale, theme, isActive } = req.body;
     const attributeNames: Record<string, string> = {};
     const attributeValues: Record<string, AttributeValue> = {};
 
@@ -38,6 +38,11 @@ export const edit = async (req: Request, res: Response, next: NextFunction) => {
     if (theme) {
       attributeNames['#theme'] = 'theme';
       attributeValues[':theme'] = { S: theme };
+    }
+
+    if (isActive) {
+      attributeNames['#isActive'] = 'isActive';
+      attributeValues[':isActive'] = { BOOL: isActive };
     }
 
     if (Object.keys(attributeNames).length === 0) {

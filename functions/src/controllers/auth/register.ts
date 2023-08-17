@@ -58,8 +58,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
 
     const appUrl = config.app.url;
 
-    const token = jwt.sign({ userId: newUser.userId }
-      , config.jwt.secret, { expiresIn: config.jwt.expiresIn });
+    const token = jwt.sign({ userId: newUser.userId }, config.jwt.secret, { expiresIn: config.jwt.expiresIn });
 
     sendVerifyToken(email, appUrl, token);
 
@@ -67,7 +66,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
       user: newUser,
       message: 'Please check email and verify email address',
     });
-  } catch (error) {   
+  } catch (error) {
     return next(new ApiError(500, 'Could not create account', error));
   }
 };
