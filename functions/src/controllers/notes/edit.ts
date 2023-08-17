@@ -44,29 +44,24 @@ export const edit = async (req: Request, res: Response, next: NextFunction) => {
   }
   attributeValues[':updatedAt'] = new Date().toISOString();
 
+  const updateExpression = `set ${Object.keys(attributeValues)
+    .map((key) => `${key.replace(/:/g, '')} = ${key}`)
+    .join(', ')}`;
+
   try {
-    await client.send(
+    const { $metadata } = await client.send(
       new UpdateCommand({
         TableName: config.dynamodb.tables.notes,
         Key: {
           noteId: noteId,
           userId: req.user.userId,
         },
-        UpdateExpression: `${title !== undefined ? 'set title = :title' : ''} ${
-          content !== undefined ? ', content = :content' : ''
-        } ${isFavorite !== undefined ? ', isFavorite = :isFavorite' : ''} ${
-          isPinned !== undefined ? ', isPinned = :isPinned' : ''
-        } ${category !== undefined ? ', category = :category' : ''} ${
-          isDeleted !== undefined ? ', isDeleted = :isDeleted' : ''
-        } , updatedAt = :updatedAt`,
+        UpdateExpression: updateExpression,
         ExpressionAttributeValues: attributeValues,
       }),
     );
-    res.onSuccess(200, 'Updated note success!');
+    res.onSuccess(200, 'Updated note success!', $metadata.httpStatusCode);
   } catch (error) {
     return next(new ApiError(500, 'Could not update note', error));
   }
-  res.send({
-    message: 'success',
-  });
 };
