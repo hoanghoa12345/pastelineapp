@@ -56,25 +56,23 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
       }),
     );
 
-    const baseUrl = req.protocol + '://' + req.get('host');
+    const appUrl = config.app.url;
 
     const token = jwt.sign({ userId: newUser.userId }
       , config.jwt.secret, { expiresIn: config.jwt.expiresIn });
 
-
-    sendVerifyToken(email, baseUrl, token);
+    sendVerifyToken(email, appUrl, token);
 
     res.onSuccess(201, 'Create account successful!', {
       user: newUser,
       message: 'Please check email and verify email address',
     });
-  } catch (error) {
-    console.log(error);    
+  } catch (error) {   
     return next(new ApiError(500, 'Could not create account', error));
   }
 };
 
-const sendVerifyToken = (email: string, baseUrl: string, token: string) => {
-  const verifyURL = `${baseUrl}/api/v1/users/verify?token=${token}`;
+const sendVerifyToken = (email: string, appUrl: string, token: string) => {
+  const verifyURL = `${appUrl}/verify?token=${token}`;
   sendVerifyEmail(email, verifyURL);
 };

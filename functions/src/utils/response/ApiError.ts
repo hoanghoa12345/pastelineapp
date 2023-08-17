@@ -19,11 +19,15 @@ export class ApiError extends Error {
     };
   }
 
-  static badRequest(message, errorRaw) {
+  static badRequest(message, errorRaw = null) {
     return new ApiError(400, message, errorRaw);
   }
 
-  static internal(message, errorRaw) {
+  static internal(message, errorRaw = null) {
     return new ApiError(500, message, errorRaw);
+  }
+
+  static notFound(message, errorRaw = null) {
+    return new ApiError(404, message, errorRaw);
   }
 }

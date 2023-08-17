@@ -4,37 +4,28 @@ import validator from 'validator';
 import { ApiError } from '../../../utils/response/ApiError';
 
 export const validatorEdit = (req: Request, res: Response, next: NextFunction) => {
-    let {email, name, photoUrl, locale, theme} = req.body;
+  const { email, name, photoUrl, locale, theme } = req.body;
 
-    const errorsValidation = [];
+  const errorsValidation = [];
 
-    email = email ? email : '';
-    name = name ? name : '';
-    photoUrl = photoUrl ? photoUrl : '';
-    locale = locale ? locale : '';
-    theme = theme ? theme : '';
+  if (email && !validator.isEmail(email)) {
+    errorsValidation.push('Email is invalid');  
+  }
+  if (name && !validator.isLength(name, { min: 2, max: 30 })) {
+    errorsValidation.push('Name is invalid');
+  }
+  if (photoUrl && !validator.isURL(photoUrl, { require_protocol: true })) {
+    errorsValidation.push('PhotoUrl is invalid');
+  }
+  if (locale && !validator.isLength(locale, { min: 2, max: 4 })) {
+    errorsValidation.push('Locale is invalid');
+  }
+  if (theme && !validator.isIn(theme, ['light', 'dark'])) {
+    errorsValidation.push('Theme is invalid');
+  }
 
-    if(validator.isEmpty(email)) {
-        errorsValidation.push('email is required');
-    }
-    if(!validator.isEmail(email)) {
-        errorsValidation.push('email is invalid');
-    }
-    if(validator.isEmpty(name)) {
-        errorsValidation.push('name is required');
-    }
-    if(validator.isEmpty(photoUrl)) {
-        errorsValidation.push('photoUrl is required');
-    }
-    if(validator.isEmpty(locale)) {
-        errorsValidation.push('locale is required');
-    }
-    if(validator.isEmpty(theme)) {
-        errorsValidation.push('theme is required');
-    }
-    if(errorsValidation.length > 0) {
-        return next(ApiError.badRequest('Edit validation error', errorsValidation));
-    }
-    return next();    
-}
-
+  if (errorsValidation.length > 0) {
+    return next(ApiError.badRequest('Edit validation error', errorsValidation));
+  }
+  return next();
+};

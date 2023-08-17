@@ -12,7 +12,7 @@ export const config = {
   },
   mail: {
     sender: {
-      email: '',
+      email: 'noreply@pasteline.com',
       name: 'Pasteline App 📝',
     },
     smtp: {
@@ -26,4 +26,7 @@ export const config = {
     secret: '75186ae9d2b71f54360d',
     expiresIn: '1d',
   },
+  app: {
+    url: 'http://localhost:5173',
+  }
 };

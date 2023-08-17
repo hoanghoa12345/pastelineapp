@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import { config } from '../../config';
 import { ApiError } from '../../utils/response/ApiError';
 import { PutCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
+import { sendWelcomeEmail } from '../../utils/emails/sendEmail';
 
 const client = new DynamoDBClient({
   region: config.dynamodb.region,
@@ -46,7 +47,7 @@ export const verify = async (req: Request, res: Response, next: NextFunction) =>
         }),
       );      
       console.log(response);
-        
+      sendWelcomeEmail(user.email)
       res.onSuccess(200, 'Verify email successful!', {});
     } else {
       return next(ApiError.badRequest('Could not verify email', {}));

@@ -13,7 +13,7 @@ const logoUrl = 'https://cdn-icons-png.flaticon.com/512/8860/8860785.png';
 const appName = 'Pasteline';
 const emailSupport = 'support@pasterlineapp.com';
 const unsubscribeLink = 'about:blank';
-const appUrl = 'https://main.dvu4jke4gnxd7.amplifyapp.com/';
+const appUrl = config.app.url;
 
 const transporter = nodemailer.createTransport({
   host: config.mail.smtp.host,
