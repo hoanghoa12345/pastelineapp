@@ -9,6 +9,7 @@ Todo:
     - [x] View details
     - [x] Update by note Id
     - [x] Delete by note Id
-- [ ] Update user
-- [ ] Verify email
-- [ ] Add favorites list
+- [x] Update user
+- [x] Add send email SMTP function
+- [x] Verify email
+- [x] Add favorites list

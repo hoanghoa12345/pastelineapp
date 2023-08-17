@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { DynamoDBClient, GetItemCommand, ScanCommand } from '@aws-sdk/client-dynamodb';
+import { DynamoDBClient, ScanCommand } from '@aws-sdk/client-dynamodb';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import { config } from '../../config';
 import { ApiError } from '../../utils/response/ApiError';
@@ -11,7 +11,7 @@ const client = new DynamoDBClient({
 export const list = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { userId } = req.user;
-    const { page, limit, favorite, pinned, category } = req.query;
+    const { page, limit, favorite, pinned, category, deleted } = req.query;
 
     const attributeNames: Record<string, string> = {
       '#userId': 'userId',
@@ -36,6 +36,10 @@ export const list = async (req: Request, res: Response, next: NextFunction) => {
     if (category) {
       attributeNames['#category'] = 'category';
       attributeValues[':category'] = `${category}`;
+    }
+
+    if (deleted) {
+      attributeValues[':isDeleted'] = true;
     }
 
     const { Items, LastEvaluatedKey, Count } = await client.send(

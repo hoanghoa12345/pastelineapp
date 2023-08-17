@@ -7,7 +7,7 @@ import { v4 } from 'uuid';
 import jwt from 'jsonwebtoken';
 import { config } from '../../config';
 import { ApiError } from '../../utils/response/ApiError';
-import { sendWelcomeEmail, sendResetPasswordEmail } from '../../utils/emails/sendEmail';
+import { sendWelcomeEmail, sendResetPasswordEmail, sendVerifyEmail } from '../../utils/emails/sendEmail';
 
 const client = new DynamoDBClient({
   region: config.dynamodb.region,
@@ -33,8 +33,12 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
     }
 
     const userId = unmarshall(Items[0]).userId;
-    sendResetPasswordEmail(email, userId);
+    // sendResetPasswordEmail(email, userId);
+    // const result = sendVerifyEmail(email, 'http://localhost:3000/verify')
+    // const result = sendWelcomeEmail(email)
+    sendResetPasswordEmail(email, 'http://localhost:3000/resetPassword')
     res.status(200).json({ userId });
+    // res.send(result)
   } catch (error) {
     console.log(error);
 

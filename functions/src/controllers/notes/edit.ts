@@ -24,11 +24,11 @@ export const edit = async (req: Request, res: Response, next: NextFunction) => {
   }
 
   if (isFavorite !== undefined && isFavorite !== null && validator.isBoolean(isFavorite)) {
-    attributeValues[':isFavorite'] = isFavorite;
+    attributeValues[':isFavorite'] = validator.toBoolean(isFavorite);
   }
 
   if (isPinned !== undefined && isPinned !== null && validator.isBoolean(isPinned)) {
-    attributeValues[':isPinned'] = isPinned;
+    attributeValues[':isPinned'] = validator.toBoolean(isPinned);
   }
 
   if (category !== undefined && category !== null && validator.isAlphanumeric(category)) {
@@ -36,7 +36,7 @@ export const edit = async (req: Request, res: Response, next: NextFunction) => {
   }
 
   if (isDeleted !== undefined && isDeleted !== null && validator.isBoolean(isDeleted)) {
-    attributeValues[':isDeleted'] = isDeleted;
+    attributeValues[':isDeleted'] = validator.toBoolean(isDeleted);
   }
 
   if (Object.keys(attributeValues).length === 0) {
