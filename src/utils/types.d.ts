@@ -6,7 +6,7 @@ export interface LoginForm {
 export interface Note {
   noteId: string;
   title: string;
-  content: string;
+  content?: string;
   userId: string;
   category: string;
   isPinned: boolean;
@@ -31,4 +31,11 @@ export interface SignUpForm {
   password: string;
   confirmPassword: string;
   acceptTerms: string;
+}
+
+export interface GetNoteParams {
+  favorite?: boolean;
+  pinned?: boolean;
+  category?: string;
+  deleted?: boolean;
 }

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { getUser, loginApi } from "@/api/users";
+import { usersApi } from "@/api/users";
 import Cookies from "js-cookie";
 import { generateFromString } from "generate-avatar";
 import { AxiosError } from "axios";
@@ -16,7 +16,7 @@ export const useUserStore = defineStore("user", () => {
     try {
       isLoading.value = true;
       isError.value = false;
-      const { data } = await loginApi(form);
+      const { data } = await usersApi.login(form);
 
       if (data.data?.access_token) {
         Cookies.set("access_token", data.data?.access_token);
@@ -44,7 +44,7 @@ export const useUserStore = defineStore("user", () => {
     const token = Cookies.get("access_token");
     try {
       isError.value = false;
-      const { data } = await getUser(token);
+      const { data } = await usersApi.getUser(token);
       if (data.photoUrl === "" || data.photoUrl == null) {
         data.photoUrl = `data:image/svg+xml;utf8,${generateFromString(
           data.email

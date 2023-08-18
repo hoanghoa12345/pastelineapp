@@ -1,3 +1,4 @@
+import { GetNoteParams } from "@/utils/types";
 import axiosClient from "./axiosClient";
 
 /**
@@ -102,8 +103,25 @@ export const noteApi = {
     };
     return axiosClient.post(url, form, { headers });
   },
-  get: (token: string) => {
-    const url = "/api/v1/notes";
+  get: (token: string, params?: GetNoteParams) => {
+    let url = "/api/v1/notes";
+    if (params) {
+      const searchParams: Record<string, string> = {};
+      if (params.favorite) {
+        searchParams.favorite = params.favorite.toString();
+      }
+      if (params.pinned) {
+        searchParams.pinned = params.pinned.toString();
+      }
+      if (params.category) {
+        searchParams.category = params.category.toString();
+      }
+      if (params.deleted) {
+        searchParams.deleted = params.deleted.toString();
+      }
+      url += "?" + new URLSearchParams(searchParams).toString();
+    }
+
     const headers = {
       Authorization: `Bearer ${token}`,
     };

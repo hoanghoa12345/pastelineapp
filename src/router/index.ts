@@ -36,7 +36,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         name: "collections",
         path: "collections",
-        component: () => import("@/views/collections/DeletedPage.vue"),
+        component: () => import("@/views/collections/Collections.vue"),
       },
       {
         name: "Docs",
