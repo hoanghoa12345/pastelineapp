@@ -17,57 +17,68 @@
           <h1
             class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
           >
-            Reset your password
+            Forgot your password?
           </h1>
-          <form
-            v-if="result.status === 'idle'"
-            class="space-y-4 md:space-y-6"
-            @submit="requestResetPassword"
-          >
+          <p class="font-light text-gray-500 dark:text-gray-400">
+            Don't fret! Just type in your email and we will send you a code to
+            reset your password!
+          </p>
+          <form class="space-y-4 md:space-y-6" @submit="sendRequest">
             <div>
               <label
-                for="password"
+                for="email"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >New password</label
+                >Your email</label
               >
               <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="••••••••"
-                v-bind="password"
-                class="border sm:text-sm rounded-lg block w-full p-2.5"
+                v-bind="email"
+                type="email"
+                name="email"
+                id="email"
+                class="border sm:text-sm rounded-lg w-full p-2.5 block"
+                placeholder="name@email.com"
                 :class="
-                  errors.password
+                  errors.email
                     ? 'bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
                     : 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-primary-600 focus:border-primary-600  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                 "
               />
-              <span class="text-red-500 text-sm">{{ errors.password }}</span>
+              <span class="text-red-500 text-sm">{{ errors.email }}</span>
             </div>
-            <div>
-              <label
-                for="confirm"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Confirm new password</label
+            <div class="flex items-start">
+              <Field
+                v-slot="{ field }"
+                name="acceptTerms"
+                type="checkbox"
+                :value="true"
               >
-              <input
-                type="password"
-                name="confirm"
-                id="confirm"
-                placeholder="••••••••"
-                v-bind="confirmPassword"
-                class="border sm:text-sm rounded-lg block w-full p-2.5"
-                :class="
-                  errors.confirmPassword
-                    ? 'bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
-                    : 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-primary-600 focus:border-primary-600  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                "
-              />
-              <span class="text-red-500 text-sm">{{
-                errors.confirmPassword
-              }}</span>
+                <div class="flex items-center h-5">
+                  <input
+                    id="acceptTerms"
+                    title="Accept Terms and Conditions"
+                    type="checkbox"
+                    name="acceptTerms"
+                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                    v-bind="field"
+                    :value="true"
+                  />
+                </div>
+
+                <div class="ml-3 text-sm">
+                  <label
+                    for="terms"
+                    class="font-light text-gray-500 dark:text-gray-300"
+                    >I accept the
+                    <router-link
+                      class="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                      to="/terms-and-conditions"
+                      >Terms and Conditions</router-link
+                    ></label
+                  >
+                </div>
+              </Field>
             </div>
+            <span class="text-red-500 text-sm">{{ errors.acceptTerms }}</span>
             <button
               type="submit"
               class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
@@ -90,10 +101,10 @@
                   fill="currentColor"
                 />
               </svg>
-              Update password
+              Reset password
             </button>
             <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-              Go back to login?
+              Go back to login
               <router-link
                 to="/login"
                 class="font-medium text-primary-600 hover:underline dark:text-primary-500"
@@ -101,36 +112,6 @@
               >
             </p>
           </form>
-          <div v-else class="flex flex-col items-center">
-            <div
-              class="w-12 h-12 rounded-full p-2 flex items-center justify-center mx-auto mb-3.5"
-              :class="
-                result.status === 'success'
-                  ? 'bg-green-100 dark:bg-green-900'
-                  : 'bg-red-100 dark:bg-red-900'
-              "
-            >
-              <CheckIcon
-                v-if="result.status === 'success'"
-                class="w-8 h-8 text-green-500 dark:text-green-400"
-              />
-              <XMarkIcon
-                v-if="result.status === 'error'"
-                class="w-8 h-8 text-red-500 dark:text-red-400"
-              />
-            </div>
-            <p
-              class="mb-4 text-lg text-center font-semibold text-gray-900 dark:text-white"
-            >
-              {{ result.message }}
-            </p>
-            <router-link
-              to="/login"
-              class="py-2 px-3 text-sm font-medium text-center text-white rounded-lg bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:focus:ring-primary-900"
-            >
-              Continue
-            </router-link>
-          </div>
         </div>
       </div>
     </div>
@@ -139,15 +120,10 @@
 </template>
 
 <script setup lang="ts">
-import { CheckIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 import { APP_NAME, LOGO_URL } from "@/utils/constants";
-import { useRecoveryPassword } from "@/composables/useRecoveryPassword";
-const {
-  password,
-  confirmPassword,
-  requestResetPassword,
-  isLoading,
-  errors,
-  result,
-} = useRecoveryPassword();
+import { Field } from "vee-validate";
+
+const { email, sendRequest, errors, isLoading } = useForgotPassword();
 </script>
+
+<style scoped></style>

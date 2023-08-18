@@ -50,4 +50,12 @@ export const usersApi = {
     const url = `api/v1/users/verify?token=${token}`;
     return axiosClient.get(url);
   },
+  requestResetPassword: (email: string) => {
+    const url = "api/v1/users/forgot";
+    return axiosClient.post(url, { email });
+  },
+  confirmResetPassword: (token: string, password: string) => {
+    const url = "api/v1/users/reset";
+    return axiosClient.post(url, { token, password });
+  },
 };
