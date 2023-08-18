@@ -27,7 +27,10 @@ const { token } = route.query;
 watchEffect(async () => {
   try {
     isLoading.value = true;
-    const { data } = await usersApi.verifyEmail(token.toString());
+    if(token) {
+      const { data } = await usersApi.verifyEmail(token.toString());
+      console.log(data);      
+    }
     result.status = "success";
     result.message = "Your email have been verified";
   } catch (error) {
