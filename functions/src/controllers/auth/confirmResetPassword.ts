@@ -1,13 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import { DynamoDBClient, GetItemCommand, QueryCommand } from '@aws-sdk/client-dynamodb';
-import { PutCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
-import { unmarshall } from '@aws-sdk/util-dynamodb';
+import { DynamoDBClient, GetItemCommand } from '@aws-sdk/client-dynamodb';
+import { UpdateCommand } from '@aws-sdk/lib-dynamodb';
 import jwt from 'jsonwebtoken';
-import { v4 } from 'uuid';
 import { config } from '../../config';
 import { ApiError } from '../../utils/response/ApiError';
-import { sendWelcomeEmail, sendResetPasswordEmail, sendVerifyEmail } from '../../utils/emails/sendEmail';
-import { app } from 'app';
 
 const client = new DynamoDBClient({
   region: config.dynamodb.region,
@@ -37,7 +33,7 @@ export const confirmResetPassword = async (req: Request, res: Response, next: Ne
     const paramsUpdate = {
       TableName: config.dynamodb.tables.users,
       Key: {
-        userId: { S: userId },
+        userId: userId,
       },
       UpdateExpression: 'set password = :password',
       ExpressionAttributeValues: {
