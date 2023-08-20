@@ -46,7 +46,6 @@ export const verify = async (req: Request, res: Response, next: NextFunction) =>
           },
         }),
       );
-      console.log(response);
       sendWelcomeEmail(user.email);
       res.onSuccess(200, 'Verify email successful!', {});
     } else {

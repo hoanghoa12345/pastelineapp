@@ -1,15 +1,6 @@
 <template>
   <div class="mt-2">
     <h1 class="text-4xl py-4">Profile</h1>
-    <!--
-  - photoUrl
-  - name
-  - email
-  - password
-  - locale
-  - theme
-  - isAdmin
--->
     <div class="lg:max-w-6xl lg:mx-auto">
       <h3 class="font-semibold py-4">General Information</h3>
       <img

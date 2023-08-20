@@ -7,7 +7,7 @@ import { resetPasswordTemplate } from './templates/resetPassword';
 export const replaceVariable = (html: string, variable: string, value: string) => {
   const regex = new RegExp(`{{ ${variable} }}`, 'g');
   return html.replace(regex, value);
-}
+};
 
 const logoUrl = 'https://cdn-icons-png.flaticon.com/512/8860/8860785.png';
 const appName = 'Pasteline';
@@ -31,7 +31,7 @@ export const sendVerifyEmail = (toEmail: string, verifyLink: string) => {
   htmlTemplate = replaceVariable(htmlTemplate, 'appName', appName);
   htmlTemplate = replaceVariable(htmlTemplate, 'emailSupport', emailSupport);
   htmlTemplate = replaceVariable(htmlTemplate, 'unsubscribeLink', unsubscribeLink);
-  
+
   return transporter.sendMail({
     from: `"${config.mail.sender.name}" <${config.mail.sender.email}>`,
     to: toEmail,
@@ -45,8 +45,8 @@ export const sendWelcomeEmail = (toEmail: string) => {
   htmlTemplate = replaceVariable(htmlTemplate, 'appName', appName);
   htmlTemplate = replaceVariable(htmlTemplate, 'emailSupport', emailSupport);
   htmlTemplate = replaceVariable(htmlTemplate, 'unsubscribeLink', unsubscribeLink);
-  htmlTemplate = replaceVariable(htmlTemplate, 'toEmail', toEmail)
-  htmlTemplate = replaceVariable(htmlTemplate, 'appUrl', appUrl)
+  htmlTemplate = replaceVariable(htmlTemplate, 'toEmail', toEmail);
+  htmlTemplate = replaceVariable(htmlTemplate, 'appUrl', appUrl);
 
   return transporter.sendMail({
     from: `"${config.mail.sender.name}" <${config.mail.sender.email}>`,

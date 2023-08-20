@@ -13,7 +13,7 @@ const client = new DynamoDBClient({
 
 export const requestResetPassword = async (req: Request, res: Response, next: NextFunction) => {
   const { email } = req.body;
-  
+
   try {
     const { Items } = await client.send(
       new QueryCommand({
@@ -32,15 +32,14 @@ export const requestResetPassword = async (req: Request, res: Response, next: Ne
 
     const userId = unmarshall(Items[0]).userId;
     const resetPasswordToken = jwt.sign({ userId }, config.jwt.secret, {
-      expiresIn: '1h',
-    })
+      expiresIn: config.jwt.resetPasswordExpiration,
+    });
     const appUrl = config.app.url;
-    sendResetPasswordEmail(email, `${appUrl}/reset-password?token=${resetPasswordToken}`)
-    res.onSuccess(200, "Send reset password email successfully", {
-      email: email
-    })
+    sendResetPasswordEmail(email, `${appUrl}/reset-password?token=${resetPasswordToken}`);
+    res.onSuccess(200, 'Send reset password email successfully', {
+      email: email,
+    });
   } catch (error) {
-    console.log(error);
     return next(new ApiError(500, 'Internal server error', error));
   }
 };

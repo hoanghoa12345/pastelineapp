@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { DynamoDBClient, QueryCommand } from '@aws-sdk/client-dynamodb';
 import { PutCommand } from '@aws-sdk/lib-dynamodb';
-import { unmarshall } from '@aws-sdk/util-dynamodb';
 import bcrypt from 'bcryptjs';
 import { v4 } from 'uuid';
 import jwt from 'jsonwebtoken';
@@ -58,7 +57,9 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
 
     const appUrl = config.app.url;
 
-    const token = jwt.sign({ userId: newUser.userId }, config.jwt.secret, { expiresIn: config.jwt.expiresIn });
+    const token = jwt.sign({ userId: newUser.userId }, config.jwt.secret, {
+      expiresIn: config.jwt.verifyEmailExpiresIn,
+    });
 
     sendVerifyToken(email, appUrl, token);
 

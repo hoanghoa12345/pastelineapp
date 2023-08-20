@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { DynamoDBClient, GetItemCommand } from '@aws-sdk/client-dynamodb';
 import { UpdateCommand } from '@aws-sdk/lib-dynamodb';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import { config } from '../../config';
 import { ApiError } from '../../utils/response/ApiError';
 
@@ -30,6 +31,8 @@ export const confirmResetPassword = async (req: Request, res: Response, next: Ne
       return next(ApiError.notFound('User not found'));
     }
 
+    const hashPassword = bcrypt.hashSync(password);
+
     const paramsUpdate = {
       TableName: config.dynamodb.tables.users,
       Key: {
@@ -37,7 +40,7 @@ export const confirmResetPassword = async (req: Request, res: Response, next: Ne
       },
       UpdateExpression: 'set password = :password',
       ExpressionAttributeValues: {
-        ':password': password,
+        ':password': hashPassword,
       },
     };
     await client.send(new UpdateCommand(paramsUpdate));

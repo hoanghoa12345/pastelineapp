@@ -1,9 +1,9 @@
 export const config = {
   dynamodb: {
-    region: 'ap-southeast-1',
+    region: process.env.DYNAMODB_REGION,
     tables: {
-      users: 'users',
-      notes: 'notes',
+      users: process.env.DYNAMODB_USERS_TABLE,
+      notes: process.env.DYNAMODB_NOTES_TABLE,
     },
   },
   ses: {
@@ -12,21 +12,23 @@ export const config = {
   },
   mail: {
     sender: {
-      email: 'noreply@pasteline.com',
-      name: 'Pasteline App 📝',
+      email: process.env.SENDER_EMAIL,
+      name: process.env.SENDER_NAME,
     },
     smtp: {
-      host: '',
-      port: 465,
-      user: '',
-      pass: '',
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
     },
   },
   jwt: {
-    secret: '75186ae9d2b71f54360d',
-    expiresIn: '1d',
+    secret: process.env.JWT_SECRET,
+    expiresIn: process.env.JWT_EXPIRES_IN,
+    verifyEmailExpiresIn: process.env.JWT_VERIFY_EMAIL_EXPIRES_IN,
+    resetPasswordExpiration: process.env.JWT_RESET_PASSWORD_EXPIRATION,
   },
   app: {
-    url: 'http://localhost:5173',
-  }
+    url: process.env.APP_URL,
+  },
 };

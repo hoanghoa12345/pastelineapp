@@ -8,7 +8,7 @@
     "dev": "nodemon src/server.ts",
     "build": "rimraf dist && tsc",
     "tsc": "tsc --noEmit",
-    "package": "serverless package",
+    "package": "build.sh",
     "lint": "eslint --max-warnings 0 . && npm run tsc",
     "lint-fix": "eslint --fix .",
     "format-lint": "prettier --config .prettierrc -l --ignore-unknown .",

@@ -14,7 +14,7 @@ export const requestActive = async (req: Request, res: Response, next: NextFunct
   try {
     const { email } = req.body;
 
-    if(!email) {
+    if (!email) {
       return next(ApiError.badRequest('Email is required'));
     }
 
@@ -39,7 +39,7 @@ export const requestActive = async (req: Request, res: Response, next: NextFunct
       return next(ApiError.badRequest('User already active'));
     }
 
-    const token = jwt.sign({ userId }, config.jwt.secret, { expiresIn: config.jwt.expiresIn });
+    const token = jwt.sign({ userId }, config.jwt.secret, { expiresIn: config.jwt.verifyEmailExpiresIn });
 
     const verifyURL = `${config.app.url}/verify?token=${token}`;
     sendVerifyEmail(email, verifyURL);
