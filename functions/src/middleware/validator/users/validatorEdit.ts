@@ -14,10 +14,10 @@ export const validatorEdit = (req: Request, res: Response, next: NextFunction) =
   if (name && !validator.isLength(name, { min: 2, max: 30 })) {
     errorsValidation.push('Name is invalid');
   }
-  if (photoUrl && !validator.isURL(photoUrl, { require_protocol: true })) {
+  if (photoUrl && validator.isEmpty(photoUrl)) {
     errorsValidation.push('PhotoUrl is invalid');
   }
-  if (locale && !validator.isLength(locale, { min: 2, max: 4 })) {
+  if (locale && !validator.isLength(locale, { min: 2, max: 6 })) {
     errorsValidation.push('Locale is invalid');
   }
   if (theme && !validator.isIn(theme, ['light', 'dark'])) {

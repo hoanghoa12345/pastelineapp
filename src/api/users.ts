@@ -1,4 +1,4 @@
-import { LoginForm, SignUpForm } from "@/utils/types";
+import { LoginForm, SignUpForm, UserProfile } from "@/utils/types";
 import axios from "axios";
 import axiosClient from "./axiosClient";
 
@@ -57,5 +57,22 @@ export const usersApi = {
   confirmResetPassword: (token: string, password: string) => {
     const url = "api/v1/users/reset";
     return axiosClient.post(url, { token, password });
+  },
+  updateUser: (token: string, form: UserProfile) => {
+    const url = "api/v1/users";
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return axiosClient.patch(url, form, { headers });
+  },
+  changePassword: (
+    token: string,
+    form: { oldPassword: string; newPassword: string }
+  ) => {
+    const url = "api/v1/users/change-password";
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return axiosClient.patch(url, form, { headers });
   },
 };

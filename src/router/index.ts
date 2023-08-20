@@ -54,6 +54,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/personal/Profile.vue"),
       },
       {
+        name: "AccountSettings",
+        path: "account-settings",
+        component: () => import("@/views/personal/AccountSettings.vue"),
+      },
+      {
         path: "/:pathMatch(.*)*",
         name: "NotFound",
         component: () => import("@/views/not-found/NotFound.vue"),
@@ -63,10 +68,13 @@ const routes: Array<RouteRecordRaw> = [
       const userStore = useUserStore();
       try {
         await userStore.getProfile();
-        if (userStore.user || userStore.errorCode === "ERR_NETWORK") {
+        if (userStore.user) {
           return true;
         }
       } catch (error) {
+        if (userStore.errorCode === "ERR_NETWORK") {
+          return true;
+        }
         return {
           path: "/login",
         };

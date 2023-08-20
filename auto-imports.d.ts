@@ -55,6 +55,7 @@ declare global {
   const toValue: typeof import('vue')['toValue']
   const triggerRef: typeof import('vue')['triggerRef']
   const unref: typeof import('vue')['unref']
+  const useAccountSettings: typeof import('./src/composables/useAccountSettings')['useAccountSettings']
   const useAddNote: typeof import('./src/composables/useAddNote')['useAddNote']
   const useAllNotes: typeof import('./src/composables/useAllNotes')['useAllNotes']
   const useAttrs: typeof import('vue')['useAttrs']

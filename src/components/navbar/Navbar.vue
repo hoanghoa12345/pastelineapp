@@ -358,9 +358,9 @@
                   profile</router-link>
               </li>
               <li>
-                <a href="#"
+                <router-link to="/account-settings"
                   class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Account
-                  settings</a>
+                  settings</router-link>
               </li>
             </ul>
             <ul class="py-1 text-gray-700 dark:text-gray-300" aria-labelledby="dropdown">
