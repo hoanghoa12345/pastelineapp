@@ -62,6 +62,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     });
 
     sendVerifyToken(email, appUrl, token);
+    res.cookie('token', token, { maxAge: 3600 * 1000, httpOnly: true });
 
     res.onSuccess(201, 'Create account successful!', {
       user: newUser,

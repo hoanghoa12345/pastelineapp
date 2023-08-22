@@ -42,8 +42,8 @@ export const requestActive = async (req: Request, res: Response, next: NextFunct
     const token = jwt.sign({ userId }, config.jwt.secret, { expiresIn: config.jwt.verifyEmailExpiresIn });
 
     const verifyURL = `${config.app.url}/verify?token=${token}`;
-    sendVerifyEmail(email, verifyURL);
-
+    // sendVerifyEmail(email, verifyURL);
+    res.cookie('verifyEmail', token, { maxAge: 3600 * 1000, httpOnly: true });
     res.onSuccess(200, 'Send verify email successfully', email);
   } catch (e) {
     return next(ApiError.badRequest('Something went wrong'));

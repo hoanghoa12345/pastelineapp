@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { DynamoDBClient, GetItemCommand, QueryCommand } from '@aws-sdk/client-dynamodb';
+import { DynamoDBClient, GetItemCommand } from '@aws-sdk/client-dynamodb';
 import { UpdateCommand } from '@aws-sdk/lib-dynamodb';
 import { unmarshall } from '@aws-sdk/util-dynamodb';
 import bcrypt from 'bcryptjs';
@@ -34,14 +34,16 @@ export const changePassword = async (req: Request, res: Response, next: NextFunc
       new UpdateCommand({
         TableName: config.dynamodb.tables.users,
         Key: {
-          userId: { S: userId },
+          userId,
         },
         UpdateExpression: 'set password = :password',
         ExpressionAttributeValues: {
-          ':password': { S: hashPassword },
+          ':password': hashPassword,
         },
       }),
     );
+
+    res.onSuccess(200, 'Update password successfully');
   } catch (error) {
     return next(ApiError.badRequest('Cannot change password', error));
   }

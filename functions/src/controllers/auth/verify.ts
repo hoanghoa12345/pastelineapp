@@ -46,7 +46,7 @@ export const verify = async (req: Request, res: Response, next: NextFunction) =>
           },
         }),
       );
-      sendWelcomeEmail(user.email);
+      // sendWelcomeEmail(user.email);
       res.onSuccess(200, 'Verify email successful!', {});
     } else {
       return next(ApiError.badRequest('Could not verify email', {}));
