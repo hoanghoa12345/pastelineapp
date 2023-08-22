@@ -17,11 +17,14 @@ const appUrl = config.app.url;
 
 const transporter = nodemailer.createTransport({
   host: config.mail.smtp.host,
-  port: config.mail.smtp.port,
-  secure: true,
+  port: Number(config.mail.smtp.port),
+  secure: false,
   auth: {
     user: config.mail.smtp.user,
     pass: config.mail.smtp.pass,
+  },
+  tls: {
+    ciphers: 'SSLv3',
   },
 });
 

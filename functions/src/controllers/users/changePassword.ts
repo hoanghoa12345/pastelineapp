@@ -27,6 +27,8 @@ export const changePassword = async (req: Request, res: Response, next: NextFunc
       return next(ApiError.badRequest('Old password is incorrect', {}));
     }
 
+    const hashPassword = bcrypt.hashSync(newPassword);
+
     // update password
     client.send(
       new UpdateCommand({
@@ -36,7 +38,7 @@ export const changePassword = async (req: Request, res: Response, next: NextFunc
         },
         UpdateExpression: 'set password = :password',
         ExpressionAttributeValues: {
-          ':password': { S: newPassword },
+          ':password': { S: hashPassword },
         },
       }),
     );
