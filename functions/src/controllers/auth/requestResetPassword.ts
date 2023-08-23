@@ -6,6 +6,7 @@ import { v4 } from 'uuid';
 import { config } from '../../config';
 import { ApiError } from '../../utils/response/ApiError';
 import { sendResetPasswordEmail } from '../../utils/emails/sendEmail';
+import { Logger } from '../../utils/logger/Logger';
 
 const client = new DynamoDBClient({
   region: config.dynamodb.region,
@@ -13,7 +14,7 @@ const client = new DynamoDBClient({
 
 export const requestResetPassword = async (req: Request, res: Response, next: NextFunction) => {
   const { email } = req.body;
-
+  const logger = new Logger();
   try {
     const { Items } = await client.send(
       new QueryCommand({
@@ -41,6 +42,7 @@ export const requestResetPassword = async (req: Request, res: Response, next: Ne
       email: email,
     });
   } catch (error) {
+    logger.error(error);
     return next(new ApiError(500, 'Internal server error', error));
   }
 };

@@ -5,6 +5,8 @@ import { unmarshall } from '@aws-sdk/util-dynamodb';
 import bcrypt from 'bcryptjs';
 import { config } from '../../config';
 import { ApiError } from '../../utils/response/ApiError';
+import { Logger } from '../../utils/logger/Logger';
+import { log } from 'console';
 
 const client = new DynamoDBClient({
   region: config.dynamodb.region,
@@ -13,6 +15,10 @@ const client = new DynamoDBClient({
 export const changePassword = async (req: Request, res: Response, next: NextFunction) => {
   const { oldPassword, newPassword } = req.body;
   const { userId } = req.user;
+  const logger = new Logger();
+  logger.info('changePassword');
+  logger.info('oldPassword', oldPassword);
+  logger.info('newPassword', newPassword);
   try {
     // check old password is correct
     const getItemCommand = new GetItemCommand({
@@ -45,6 +51,7 @@ export const changePassword = async (req: Request, res: Response, next: NextFunc
 
     res.onSuccess(200, 'Update password successfully');
   } catch (error) {
+    logger.error(error);
     return next(ApiError.badRequest('Cannot change password', error));
   }
 };

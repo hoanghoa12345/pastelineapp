@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken';
 import { config } from '../../config';
 import { ApiError } from '../../utils/response/ApiError';
 import { sendVerifyEmail } from '../../utils/emails/sendEmail';
+import { Logger } from '../../utils/logger/Logger';
 
 const client = new DynamoDBClient({
   region: config.dynamodb.region,
@@ -14,7 +15,7 @@ const client = new DynamoDBClient({
 
 export const register = async (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
-
+  const logger = new Logger();
   try {
     const { Items } = await client.send(
       new QueryCommand({
@@ -69,6 +70,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
       message: 'Please check email and verify email address',
     });
   } catch (error) {
+    logger.error(error);
     return next(new ApiError(500, 'Could not create account', error));
   }
 };

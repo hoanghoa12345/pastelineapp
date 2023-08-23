@@ -3,6 +3,7 @@ import nodemailer from 'nodemailer';
 import { verifyEmailTemplate } from './templates/verifyEmail';
 import { welcomeEmailTemplate } from './templates/welcome';
 import { resetPasswordTemplate } from './templates/resetPassword';
+import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 export const replaceVariable = (html: string, variable: string, value: string) => {
   const regex = new RegExp(`{{ ${variable} }}`, 'g');
@@ -15,7 +16,7 @@ const emailSupport = 'support@pasterlineapp.com';
 const unsubscribeLink = 'about:blank';
 const appUrl = config.app.url;
 
-const transporter = nodemailer.createTransport({
+const SMTPTransportOption: SMTPTransport.Options = {
   host: config.mail.smtp.host,
   port: Number(config.mail.smtp.port),
   secure: false,
@@ -23,10 +24,9 @@ const transporter = nodemailer.createTransport({
     user: config.mail.smtp.user,
     pass: config.mail.smtp.pass,
   },
-  tls: {
-    ciphers: 'SSLv3',
-  },
-});
+};
+
+const transporter = nodemailer.createTransport(SMTPTransportOption);
 
 export const sendVerifyEmail = (toEmail: string, verifyLink: string) => {
   let htmlTemplate = replaceVariable(verifyEmailTemplate, 'verifyLink', verifyLink);
