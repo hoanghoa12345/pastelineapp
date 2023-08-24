@@ -6,7 +6,6 @@ import { v4 } from 'uuid';
 import jwt from 'jsonwebtoken';
 import { config } from '../../config';
 import { ApiError } from '../../utils/response/ApiError';
-import { sendVerifyEmail } from '../../utils/emails/sendEmail';
 import { Logger } from '../../utils/logger/Logger';
 
 const client = new DynamoDBClient({
@@ -56,13 +55,10 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
       }),
     );
 
-    const appUrl = config.app.url;
-
     const token = jwt.sign({ userId: newUser.userId }, config.jwt.secret, {
       expiresIn: config.jwt.verifyEmailExpiresIn,
     });
 
-    sendVerifyToken(email, appUrl, token);
     res.cookie('token', token, { maxAge: 3600 * 1000, httpOnly: true });
 
     res.onSuccess(201, 'Create account successful!', {
@@ -73,9 +69,4 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     logger.error(error);
     return next(new ApiError(500, 'Could not create account', error));
   }
-};
-
-const sendVerifyToken = (email: string, appUrl: string, token: string) => {
-  const verifyURL = `${appUrl}/verify?token=${token}`;
-  sendVerifyEmail(email, verifyURL);
 };

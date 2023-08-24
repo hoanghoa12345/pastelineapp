@@ -6,10 +6,6 @@ export const config = {
       notes: process.env.DYNAMODB_NOTES_TABLE,
     },
   },
-  ses: {
-    region: '',
-    sender: '',
-  },
   mail: {
     sender: {
       email: process.env.SENDER_EMAIL,
@@ -27,8 +23,5 @@ export const config = {
     expiresIn: process.env.JWT_EXPIRES_IN,
     verifyEmailExpiresIn: process.env.JWT_VERIFY_EMAIL_EXPIRES_IN,
     resetPasswordExpiration: process.env.JWT_RESET_PASSWORD_EXPIRATION,
-  },
-  app: {
-    url: process.env.APP_URL,
   },
 };

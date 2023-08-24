@@ -2,10 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import { DynamoDBClient, QueryCommand } from '@aws-sdk/client-dynamodb';
 import { unmarshall } from '@aws-sdk/util-dynamodb';
 import jwt from 'jsonwebtoken';
-import { v4 } from 'uuid';
 import { config } from '../../config';
 import { ApiError } from '../../utils/response/ApiError';
-import { sendResetPasswordEmail } from '../../utils/emails/sendEmail';
 import { Logger } from '../../utils/logger/Logger';
 
 const client = new DynamoDBClient({
@@ -35,8 +33,7 @@ export const requestResetPassword = async (req: Request, res: Response, next: Ne
     const resetPasswordToken = jwt.sign({ userId }, config.jwt.secret, {
       expiresIn: config.jwt.resetPasswordExpiration,
     });
-    const appUrl = config.app.url;
-    // sendResetPasswordEmail(email, `${appUrl}/reset-password?token=${resetPasswordToken}`);
+
     res.cookie('resetPasswordToken', resetPasswordToken);
     res.onSuccess(200, 'Send reset password email successfully', {
       email: email,

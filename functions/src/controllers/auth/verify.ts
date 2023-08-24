@@ -1,11 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
-import { DynamoDBClient, GetItemCommand, QueryCommand } from '@aws-sdk/client-dynamodb';
+import { DynamoDBClient, GetItemCommand } from '@aws-sdk/client-dynamodb';
 import { unmarshall } from '@aws-sdk/util-dynamodb';
 import jwt from 'jsonwebtoken';
 import { config } from '../../config';
 import { ApiError } from '../../utils/response/ApiError';
-import { PutCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
-import { sendWelcomeEmail } from '../../utils/emails/sendEmail';
+import { PutCommand } from '@aws-sdk/lib-dynamodb';
 
 const client = new DynamoDBClient({
   region: config.dynamodb.region,
@@ -46,8 +45,7 @@ export const verify = async (req: Request, res: Response, next: NextFunction) =>
           },
         }),
       );
-      // sendWelcomeEmail(user.email);
-      res.onSuccess(200, 'Verify email successful!', {});
+      res.onSuccess(200, 'Verify email successful!', { response });
     } else {
       return next(ApiError.badRequest('Could not verify email', {}));
     }

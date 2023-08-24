@@ -4,7 +4,6 @@ import { unmarshall } from '@aws-sdk/util-dynamodb';
 import jwt from 'jsonwebtoken';
 import { config } from '../../config';
 import { ApiError } from '../../utils/response/ApiError';
-import { sendVerifyEmail } from '../../utils/emails/sendEmail';
 
 const client = new DynamoDBClient({
   region: config.dynamodb.region,
@@ -41,8 +40,6 @@ export const requestActive = async (req: Request, res: Response, next: NextFunct
 
     const token = jwt.sign({ userId }, config.jwt.secret, { expiresIn: config.jwt.verifyEmailExpiresIn });
 
-    const verifyURL = `${config.app.url}/verify?token=${token}`;
-    // sendVerifyEmail(email, verifyURL);
     res.cookie('verifyEmail', token, { maxAge: 3600 * 1000, httpOnly: true });
     res.onSuccess(200, 'Send verify email successfully', email);
   } catch (e) {

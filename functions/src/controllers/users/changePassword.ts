@@ -40,7 +40,7 @@ export const changePassword = async (req: Request, res: Response, next: NextFunc
       new UpdateCommand({
         TableName: config.dynamodb.tables.users,
         Key: {
-          userId,
+          userId: userId,
         },
         UpdateExpression: 'set password = :password',
         ExpressionAttributeValues: {
