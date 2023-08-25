@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import { config } from '../../config';
 import { ApiError } from '../../utils/response/ApiError';
 import { PutCommand } from '@aws-sdk/lib-dynamodb';
+import { Logger } from '../../utils/logger/Logger';
 
 const client = new DynamoDBClient({
   region: config.dynamodb.region,
@@ -12,7 +13,7 @@ const client = new DynamoDBClient({
 
 export const verify = async (req: Request, res: Response, next: NextFunction) => {
   const { token } = req.query;
-
+  const logger = new Logger();
   if (!token) {
     return next(new ApiError(400, 'No token provided', {}));
   }
@@ -50,6 +51,7 @@ export const verify = async (req: Request, res: Response, next: NextFunction) =>
       return next(ApiError.badRequest('Could not verify email', {}));
     }
   } catch (error) {
+    logger.error(error);
     return next(new ApiError(400, error.message, error));
   }
 };

@@ -59,11 +59,10 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
       expiresIn: config.jwt.verifyEmailExpiresIn,
     });
 
-    res.cookie('token', token, { maxAge: 3600 * 1000, httpOnly: true });
-
     res.onSuccess(201, 'Create account successful!', {
       user: newUser,
       message: 'Please check email and verify email address',
+      token,
     });
   } catch (error) {
     logger.error(error);

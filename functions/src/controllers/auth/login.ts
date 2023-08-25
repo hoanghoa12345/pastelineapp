@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs';
 import { config } from '../../config';
 import { ApiError } from '../../utils/response/ApiError';
 import { createJwtToken } from '../../utils/jwt-token/createJwtToken';
+import { Logger } from '../../utils/logger/Logger';
 
 const client = new DynamoDBClient({
   region: config.dynamodb.region,
@@ -12,6 +13,7 @@ const client = new DynamoDBClient({
 
 export const login = async (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
+  const logger = new Logger();
   try {
     const { Items } = await client.send(
       new QueryCommand({
@@ -28,7 +30,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     );
     if (Items.length > 0) {
       const user = unmarshall(Items[0]);
-      if (user.isActive === false) return next(new ApiError(400, 'Account is not active', null));
+      if (user?.isActive === false) return next(new ApiError(400, 'Account is not active!', {}));
       if (bcrypt.compareSync(password, user.password)) {
         const payload = {
           userId: user.userId,
@@ -38,7 +40,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         };
         user.password = '';
         res.send({
-          message: 'Login successful',
+          message: 'Login successful!',
           data: {
             user,
             access_token: createJwtToken(payload),
@@ -49,6 +51,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     }
     return next(new ApiError(400, 'Invalided email or password', null));
   } catch (error) {
+    logger.error(error);
     return next(new ApiError(400, error.message, error));
   }
 };

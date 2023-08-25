@@ -34,9 +34,9 @@ export const requestResetPassword = async (req: Request, res: Response, next: Ne
       expiresIn: config.jwt.resetPasswordExpiration,
     });
 
-    res.cookie('resetPasswordToken', resetPasswordToken);
     res.onSuccess(200, 'Send reset password email successfully', {
       email: email,
+      token: resetPasswordToken,
     });
   } catch (error) {
     logger.error(error);
