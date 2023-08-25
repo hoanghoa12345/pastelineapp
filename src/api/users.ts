@@ -75,4 +75,8 @@ export const usersApi = {
     };
     return axiosClient.patch(url, form, { headers });
   },
+  resendEmail: (email: string) => {
+    const url = "api/v1/users/send-verify";
+    return axiosClient.post(url, { email });
+  },
 };

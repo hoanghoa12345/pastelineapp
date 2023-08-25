@@ -2,6 +2,7 @@ import { useForm } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
 import { usersApi } from "@/api/users";
+import EmailJS from "@emailjs/browser";
 
 export const useForgotPassword = () => {
   const isLoading = ref(false);
@@ -30,6 +31,15 @@ export const useForgotPassword = () => {
     try {
       isLoading.value = true;
       const { data } = await usersApi.requestResetPassword(values.email);
+      EmailJS.send(
+        "service_ydm001",
+        "template_51swfqn",
+        {
+          to_email: values.email,
+          link_token: data.data?.token,
+        },
+        import.meta.env.VITE_EMAILJS_USER_ID
+      );
       toast.sendToast("Success", data.message, "success", 3000);
     } catch (error) {
       if (error.response)

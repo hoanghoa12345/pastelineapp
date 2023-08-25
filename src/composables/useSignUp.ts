@@ -2,6 +2,7 @@ import { useForm } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
 import { usersApi } from "@/api/users";
+import EmailJs from "@emailjs/browser";
 
 export function useSignUp() {
   const userStore = useUserStore();
@@ -11,6 +12,7 @@ export function useSignUp() {
     status: "",
     message: "",
   });
+  const emailToResend = ref("");
   const toast = useToastStore();
 
   const schema = toTypedSchema(
@@ -62,6 +64,18 @@ export function useSignUp() {
       const { data } = await usersApi.register(form);
       result.status = "success";
       result.message = data.data.message;
+      emailToResend.value = form.email;
+      EmailJs.send(
+        "service_ydm001",
+        "template_puu8yes",
+        {
+          to_email: form.email,
+          link_token: data.data?.token,
+        },
+        import.meta.env.VITE_EMAILJS_USER_ID
+      );
+      isOpen.value = true;
+      toast.sendToast("Success", data.data.message, "success", 3000);
     } catch (error) {
       isOpen.value = true;
       result.status = "error";
@@ -72,6 +86,26 @@ export function useSignUp() {
       isLoading.value = false;
     }
   });
+
+  const resendEmail = async () => {
+    if (emailToResend.value === "") return;
+
+    try {
+      const { data } = await usersApi.resendEmail(emailToResend.value);
+      EmailJs.send(
+        "ytm001",
+        "template_puu8yes",
+        {
+          to_email: email,
+          link_token: data.data?.token,
+        },
+        import.meta.env.VITE_EMAILJS_USER_ID
+      );
+      toast.sendToast("Success", data.message, "success", 3000);
+    } catch (error) {
+      toast.sendToast("Error", error.response.data.message, "error", 3000);
+    }
+  };
 
   return {
     email,
@@ -85,5 +119,6 @@ export function useSignUp() {
     isLoading,
     isOpen,
     result,
+    resendEmail,
   };
 }

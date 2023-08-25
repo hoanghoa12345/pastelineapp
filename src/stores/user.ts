@@ -5,17 +5,27 @@ import { generateFromString } from "generate-avatar";
 import { AxiosError } from "axios";
 import { LoginForm } from "@/utils/types";
 
+type AuthError = {
+  isError: boolean;
+  errorMessage: string;
+};
+
 export const useUserStore = defineStore("user", () => {
   const user = ref(null);
   const isLoading = ref<boolean>(false);
   const router = useRouter();
-  const isError = ref<boolean>(false);
+  const authError = reactive<AuthError>({
+    isError: false,
+    errorMessage: null,
+  });
+
   const errorCode = ref<string>(null);
 
   async function login(form: LoginForm) {
     try {
       isLoading.value = true;
-      isError.value = false;
+      authError.isError = false;
+      authError.errorMessage = null;
       const { data } = await usersApi.login(form);
 
       if (data.data?.access_token) {
@@ -28,7 +38,12 @@ export const useUserStore = defineStore("user", () => {
 
       router.push("/");
     } catch (error) {
-      isError.value = true;
+      authError.isError = true;
+      console.log("Login error", error);
+      if (error.response) {
+        authError.errorMessage = error.response.data.message;
+      }
+      authError.errorMessage = error.message;
       throw Error(error);
     } finally {
       isLoading.value = false;
@@ -43,7 +58,8 @@ export const useUserStore = defineStore("user", () => {
   async function getProfile() {
     const token = Cookies.get("access_token");
     try {
-      isError.value = false;
+      authError.isError = false;
+      authError.errorMessage = null;
       const { data } = await usersApi.getUser(token);
       if (data.photoUrl === "" || data.photoUrl == null) {
         data.photoUrl = `data:image/svg+xml;utf8,${generateFromString(
@@ -52,7 +68,11 @@ export const useUserStore = defineStore("user", () => {
       }
       user.value = data;
     } catch (error) {
-      isError.value = false;
+      authError.isError = true;
+      if (error.response) {
+        authError.errorMessage = error.response.data.message;
+      }
+      authError.errorMessage = error.message;
       if (error instanceof AxiosError) {
         errorCode.value = error.code;
       }
@@ -60,5 +80,5 @@ export const useUserStore = defineStore("user", () => {
     }
   }
 
-  return { isLoading, user, login, logout, getProfile, isError, errorCode };
+  return { isLoading, user, login, logout, getProfile, authError, errorCode };
 });

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.11.0",
     "@headlessui/vue": "^1.7.14",
     "@heroicons/vue": "^2.0.18",
     "@milkdown/core": "^7.2.4",
