@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import MainLayout from "@/layouts/MainLayout.vue";
 import NProgress from "@/utils/nprogress";
+import { checkUserLoggedIn } from "@/utils/helper";
 
 NProgress.configure({ showSpinner: false });
 
@@ -85,11 +86,13 @@ const routes: Array<RouteRecordRaw> = [
     name: "Login",
     path: "/login",
     component: () => import("@/views/signin/SignIn.vue"),
+    beforeEnter: [checkUserLoggedIn],
   },
   {
     name: "SignUp",
     path: "/signup",
     component: () => import("@/views/signup/SignUp.vue"),
+    beforeEnter: [checkUserLoggedIn],
   },
   {
     name: "ForgotPassword",

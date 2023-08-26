@@ -65,7 +65,7 @@ export function useSignUp() {
       result.status = "success";
       result.message = data.data.message;
       emailToResend.value = form.email;
-      EmailJs.send(
+      const sendResult = await EmailJs.send(
         "service_ydm001",
         "template_puu8yes",
         {
@@ -75,7 +75,11 @@ export function useSignUp() {
         import.meta.env.VITE_EMAILJS_USER_ID
       );
       isOpen.value = true;
-      toast.sendToast("Success", data.data.message, "success", 3000);
+      if (sendResult.status === 200) {
+        toast.sendToast("Success", data.data.message, "success", 3000);
+      } else {
+        toast.sendToast("Error", sendResult.text, "error", 3000);
+      }
     } catch (error) {
       isOpen.value = true;
       result.status = "error";

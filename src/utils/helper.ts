@@ -24,4 +24,19 @@ function generateAvatar(username, foregroundColor, backgroundColor) {
   return canvas.toDataURL("image/png");
 }
 
-export { getToken, generateAvatar };
+async function checkUserLoggedIn(): Promise<boolean | { path: string }> {
+  const user = useUserStore();
+  try {
+    await user.getProfile();
+    if (user.user === null) {
+      return true;
+    }
+    return {
+      path: "/",
+    };
+  } catch (error) {
+    return true;
+  }
+}
+
+export { getToken, generateAvatar, checkUserLoggedIn };

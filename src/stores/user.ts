@@ -39,11 +39,10 @@ export const useUserStore = defineStore("user", () => {
       router.push("/");
     } catch (error) {
       authError.isError = true;
-      console.log("Login error", error);
-      if (error.response) {
+      authError.errorMessage = error.message;
+      if (error instanceof AxiosError && error.response) {
         authError.errorMessage = error.response.data.message;
       }
-      authError.errorMessage = error.message;
       throw Error(error);
     } finally {
       isLoading.value = false;
@@ -69,10 +68,10 @@ export const useUserStore = defineStore("user", () => {
       user.value = data;
     } catch (error) {
       authError.isError = true;
+      authError.errorMessage = error.message;
       if (error.response) {
         authError.errorMessage = error.response.data.message;
       }
-      authError.errorMessage = error.message;
       if (error instanceof AxiosError) {
         errorCode.value = error.code;
       }
