@@ -36,6 +36,10 @@ export function useEditNote() {
     notesStore.getFavoriteNotes();
   };
 
+  const deleteNote = (noteId: string) => {
+    notesStore.deleteNoteById(noteId);
+  };
+
   const debouncedWatch = debounce(async () => {
     if (isInitialValueSet.value) {
       notesStore.setSyncNoteState("sync");
@@ -84,6 +88,7 @@ export function useEditNote() {
     setCurrentNote,
     addToFavorite,
     getFavoriteNotes,
+    deleteNote,
     VueEditor,
   };
 }

@@ -152,4 +152,14 @@ export const noteApi = {
     };
     return axiosClient.delete(url, { headers });
   },
+  favorite: (noteId: string, token: string) => {
+    const url = "/api/v1/notes/" + noteId;
+    const form = {
+      isFavorite: "true",
+    };
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return axiosClient.patch(url, form, { headers });
+  },
 };

@@ -71,6 +71,7 @@ export const useNotesStore = defineStore("notes", () => {
   }
 
   function addToFavorite(noteId: string) {
+    noteApi.favorite(noteId, getToken());
     favoriteNotes.value = [...favoriteNotes.value, noteId];
   }
 
@@ -80,7 +81,15 @@ export const useNotesStore = defineStore("notes", () => {
     );
   }
 
-  async function deleteNoteById(noteId: string) {}
+  async function deleteNoteById(noteId: string) {
+    try {
+      await noteApi.delete(noteId, getToken());
+      toastStore.sendToast("", "Delete page success", "success", 2500);
+    } catch (error) {
+      toastStore.sendToast("", "Delete page error", "error", 2500);
+      throw Error(error);
+    }
+  }
 
   function searchNote(search: string) {
     searchResults.value = notes.value.filter(

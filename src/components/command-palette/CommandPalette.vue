@@ -72,7 +72,7 @@ import {
   ComboboxOptions,
   ComboboxOption,
 } from "@headlessui/vue";
-import { Note } from "@/types/note";
+import { Note } from "@/utils/types";
 
 const router = useRouter();
 
