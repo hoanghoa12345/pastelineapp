@@ -75,7 +75,7 @@
             </a>
           </li>
           <li>
-            <ul class="flex">
+            <ul class="hidden md:flex">
               <li v-for="(page, i) in api.pages" :key="page.type === 'page' ? page.value : `ellipsis-${i}`" class="">
                 <span v-if="page.type === 'page'">
                   <a class="text-gray-500 dark:text-gray-300 px-4 py-3 border-t-2 border-gray-300 dark:border-gray-600 border-opacity-0 hover:border-opacity-100"
@@ -166,7 +166,7 @@ const {
 } = useAllNotes();
 </script>
 
-<style>
+<style scoped>
 a[aria-current="page"] {
   color: #0284c7;
   border-color: #0284c7;
