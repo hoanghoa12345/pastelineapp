@@ -209,7 +209,7 @@ const ThemeModeIcon = defineComponent({
   },
 });
 
-watchEffect(() => {
+onMounted(() => {
   if (user.value?.theme === 'dark') {
     toggleDark(true)
   } else if (user.value.theme === 'light') {

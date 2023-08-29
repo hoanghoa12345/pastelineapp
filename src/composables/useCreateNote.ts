@@ -4,7 +4,9 @@ import removeMd from "remove-markdown";
 import { getToken } from "@/utils/helper";
 
 export function useCreateNote() {
-  const content = ref<string>("# Untitled");
+  const route = useRoute();
+  const { title } = route.query;
+  const content = ref<string>("# " + title.toString() || "Untitled");
   const noteId = ref<string>(null);
   const notesStore = useNotesStore();
 

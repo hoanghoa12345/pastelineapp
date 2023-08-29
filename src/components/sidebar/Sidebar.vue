@@ -129,18 +129,42 @@
       </button>
     </div>
   </aside>
+  <Modal :open="isCreate" @closeModal="isCreate = false">
+    <template #title>
+      Create new page
+    </template>
+    <template #content>
+      <Form @submit="onSubmit" v-slot="{ errors }">
+        <div>
+          <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Page Title</label>
+          <Field type="text" name="title" id="title" placeholder="Enter page title" :rules="validateTitle"
+            class="border sm:text-sm rounded-lg block w-full p-2.5" label="Page title" :class="errors?.title
+              ? 'bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
+              : 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-primary-600 focus:border-primary-600  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              " />
+          <ErrorMessage name="title" class="text-red-500 text-sm" />
+          <div class="flex justify-end mt-4">
+            <button type="submit"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create</button>
+          </div>
+        </div>
+      </Form>
+    </template>
+  </Modal>
 </template>
 <script lang="ts" setup>
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 import { PlusIcon, StarIcon } from "@heroicons/vue/24/solid";
+import { Form, Field, ErrorMessage } from 'vee-validate';
 import { useDrawerStore } from "@/stores/drawer";
 
 const drawer = useDrawerStore();
 const notes = useNotesStore();
 const router = useRouter();
 const route = useRoute();
+const isCreate = ref(false)
 const handleCreate = () => {
-  router.push("/create");
+  isCreate.value = true
 };
 const recentNotes = computed(() => notes.notes ? notes.getRecentNotes() : []);
 const favoriteNotes = computed(() => notes.notes ? notes.getFavoriteNotes() : []);
@@ -148,5 +172,17 @@ const favoriteNotes = computed(() => notes.notes ? notes.getFavoriteNotes() : []
 watch(route, () => {
   drawer.setOpen(false);
 });
+
+const validateTitle = (value) => {
+  if (!value) return 'Title is required'
+  if (value.length < 5) return 'Title is too short'
+  if (value.length > 200) return 'Title is too long'
+  return true;
+}
+
+const onSubmit = (values) => {
+  router.push({ path: '/create', query: values })
+  isCreate.value = false;
+}
 </script>
 <style lang="css"></style>

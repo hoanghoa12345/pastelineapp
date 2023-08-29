@@ -117,7 +117,7 @@
           <tr v-for="(note, index) in notesStore.getSelectedNote()"
             class="text-sm bg-white border-b dark:bg-gray-800 dark:border-gray-700">
             <td class="px-3 py-2">{{ index + 1 }}</td>
-            <th scope="row" class="px-3 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <th scope="row" class="px-3 py-2 font-medium text-gray-900 dark:text-white">
               {{ note.title }}
             </th>
             <td class="px-3 py-2">

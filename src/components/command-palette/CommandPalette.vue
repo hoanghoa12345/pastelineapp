@@ -18,7 +18,7 @@
                   <div
                     class="flex flex-row-reverse w-full text-left border-b rounded-t-md overflow-hidden border-gray-200 dark:border-gray-600 focus:outline-none sm:text-sm font-light">
                     <ComboboxInput
-                      class="w-full border-none outline-none py-3 px-3 text-sm leading-5 text-gray-900 focus:ring-0 dark:bg-slate-700 dark:text-gray-200 dark:placeholder:text-gray-500"
+                      class="w-full border-none outline-none py-3 px-3 text-sm leading-5 text-gray-900 focus:ring-0 dark:bg-gray-700 dark:text-gray-200 dark:placeholder:text-gray-500"
                       @change="query = $event.target.value" placeholder="Search any thing" />
                     <ComboboxButton class="inset-y-0 py-4 pl-4">
                       <MagnifyingGlassIcon class="h-4 w-4 text-gray-400" aria-hidden="true" />
@@ -26,13 +26,14 @@
                   </div>
                   <TransitionRoot leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0"
                     @after-leave="query = ''">
-                    <ComboboxOptions class="max-h-[20rem] w-full overflow-auto py-4 text-base" :hold="true">
+                    <ComboboxOptions v-if="filteredNotes" class="max-h-[20rem] w-full overflow-auto py-4 text-base"
+                      :hold="true">
                       <div v-if="filteredNotes.length === 0 && query !== ''"
                         class="select-none py-2 px-4 text-gray-700 dark:text-gray-300 text-sm">
                         Nothing found
                       </div>
 
-                      <ComboboxOption v-for="note in filteredNotes" as="template" :key="note.noteId" :value="note"
+                      <ComboboxOption v-else v-for="note in filteredNotes" as="template" :key="note.noteId" :value="note"
                         v-slot="{ selected, active }" @click="openNote(note.noteId)">
                         <li class="cursor-pointer py-4 px-4 mb-2 mx-2 rounded-md text-sm" :class="{
                           'bg-blue-600 text-white dark:bg-blue-400': active,
@@ -89,8 +90,9 @@ const notes = computed(() => notesStore.notes);
 let selected = ref<Note>();
 let query = ref<string>();
 
-let filteredNotes = computed(() =>
-  query.value === ""
+let filteredNotes = computed(() => {
+  if (notes.value === null) return;
+  return query.value === ""
     ? notes.value
     : notes.value.filter((note) =>
       note.title
@@ -98,6 +100,8 @@ let filteredNotes = computed(() =>
         .replace(/\s+/g, "")
         .includes(query.value.toLowerCase().replace(/\s+/g, ""))
     )
+}
+
 );
 
 watch(selected, (value) => {
@@ -108,4 +112,10 @@ function openNote(nodeId: string) {
   emit("close");
   router.push("/notes/" + nodeId);
 }
+
+onMounted(() => {
+  if (notes.value === null) {
+    notesStore.getAll();
+  }
+})
 </script>
