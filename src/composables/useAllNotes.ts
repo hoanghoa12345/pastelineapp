@@ -11,6 +11,7 @@ export function useAllNotes() {
     pagination.machine({
       id: "1",
       count: 0,
+      type: "link",
     })
   );
 

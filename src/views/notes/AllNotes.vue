@@ -27,6 +27,7 @@
 
     <Spinner v-if="isLoading" />
     <div v-else class="relative overflow-x-auto">
+      <!-- Notes table -->
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -66,31 +67,34 @@
           </tr>
         </tbody>
       </table>
-      <nav v-if="api.totalPages > 1" v-bind="api.rootProps">
+      <!-- Pagination -->
+      <nav v-if="api.totalPages > 1" v-bind="api.rootProps" class="py-2">
         <ul class="flex justify-between items-center">
           <li>
             <a href="#previous" v-bind="api.prevPageTriggerProps"
-              class="inline-flex space-x-2 text-sm text-gray-500 dark:text-gray-300 px-4 py-3 border-t-2 border-gray-300 dark:border-gray-600 border-opacity-0 hover:border-opacity-100">
+              class="inline-flex space-x-2 py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
               <ArrowLongLeftIcon class="w-5 h-5" /> <span>Previous</span>
             </a>
           </li>
           <li>
             <ul class="hidden md:flex">
-              <li v-for="(page, i) in api.pages" :key="page.type === 'page' ? page.value : `ellipsis-${i}`" class="">
+              <li v-for="(page, i) in api.pages" :key="page.type === 'page' ? page.value : `ellipsis-${i}`">
                 <span v-if="page.type === 'page'">
-                  <a class="text-gray-500 dark:text-gray-300 px-4 py-3 border-t-2 border-gray-300 dark:border-gray-600 border-opacity-0 hover:border-opacity-100"
+                  <a class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                     :href="`#${page.value}`" v-bind="api.getPageTriggerProps(page)">
                     {{ page.value }}
                   </a></span>
                 <span v-else>
-                  <span v-bind="api.getEllipsisProps({ index: i })">&#8230;</span>
+                  <span
+                    class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                    v-bind="api.getEllipsisProps({ index: i })">&#8230;</span>
                 </span>
               </li>
             </ul>
           </li>
           <li>
             <a href="#next" v-bind="api.nextPageTriggerProps"
-              class="inline-flex space-x-2 text-sm text-gray-500 dark:text-gray-300 px-4 py-3 border-t-2 border-gray-300 dark:border-gray-600 border-opacity-0 hover:border-opacity-100">
+              class="inline-flex space-x-2 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
               <span>Next</span>
               <ArrowLongRightIcon class="w-5 h-5" />
             </a>
@@ -148,7 +152,7 @@
 <script lang="ts" setup>
 import { format } from "date-fns";
 import { TrashIcon } from "@heroicons/vue/24/outline";
-import { MagnifyingGlassIcon, ArrowLongLeftIcon, ArrowLongRightIcon } from "@heroicons/vue/24/solid";
+import { MagnifyingGlassIcon, ArrowLongLeftIcon, ArrowLongRightIcon, EllipsisVerticalIcon } from "@heroicons/vue/24/solid";
 import Spinner from "@/components/spinner/Spinner.vue";
 
 const {
@@ -167,8 +171,15 @@ const {
 </script>
 
 <style scoped>
-a[aria-current="page"] {
-  color: #0284c7;
-  border-color: #0284c7;
+a[data-selected] {
+  background-color: rgb(29, 78, 216);
+  border: 1px solid rgb(29, 78, 216);
+  color: white;
+}
+
+html.dark a[data-selected] {
+  background-color: rgb(37, 99, 235);
+  border: 1px solid rgb(37, 99, 235);
+  color: white;
 }
 </style>
