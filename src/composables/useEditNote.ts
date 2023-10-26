@@ -2,7 +2,7 @@ import { getToken } from "@/utils/helper";
 import { debounce } from "lodash-es";
 import removeMd from "remove-markdown";
 import { noteApi } from "@/api/notes";
-import SpinnerVue from "@/components/spinner/Spinner.vue";
+import EditorSkeleton from "@/components/skeletons/EditorSkeleton.vue";
 import MilkdownEditorVue from "@/components/editor/MilkdownEditor.vue";
 import NotFoundVue from "@/views/not-found/NotFound.vue";
 
@@ -43,12 +43,7 @@ export function useEditNote() {
   const debouncedWatch = debounce(async () => {
     if (isInitialValueSet.value) {
       notesStore.setSyncNoteState("sync");
-      await noteApi.update(
-        noteId,
-        removeMd(content.value.split("\n")[0]),
-        content.value,
-        getToken()
-      );
+      await noteApi.update(noteId, removeMd(content.value.split("\n")[0]), content.value, getToken());
       notesStore.setSyncNoteState("saved");
     } else {
       isInitialValueSet.value = true;
@@ -73,7 +68,7 @@ export function useEditNote() {
         return NotFoundVue;
       }
     },
-    loadingComponent: SpinnerVue,
+    loadingComponent: EditorSkeleton,
     errorComponent: NotFoundVue,
     timeout: 3000,
   });

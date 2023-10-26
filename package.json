@@ -19,10 +19,9 @@
     "@milkdown/theme-nord": "^7.2.4",
     "@milkdown/transformer": "^7.2.4",
     "@milkdown/vue": "^7.2.4",
+    "@radix-ui/colors": "^3.0.0",
     "@vee-validate/zod": "^4.11.1",
     "@vueuse/core": "^10.3.0",
-    "@zag-js/pagination": "^0.17.0",
-    "@zag-js/vue": "^0.17.0",
     "axios": "^1.4.0",
     "date-fns": "^2.30.0",
     "generate-avatar": "^1.4.10",
@@ -30,6 +29,7 @@
     "lodash-es": "^4.17.21",
     "nprogress": "^0.2.0",
     "pinia": "^2.1.4",
+    "radix-vue": "^1.0.1",
     "remove-markdown": "^0.5.0",
     "vee-validate": "^4.10.8",
     "vue": "^3.2.47",
@@ -37,6 +37,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@iconify/vue": "^4.1.1",
     "@milkdown/plugin-listener": "^7.2.4",
     "@tailwindcss/forms": "^0.5.4",
     "@tailwindcss/typography": "^0.5.9",

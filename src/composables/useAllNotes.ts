@@ -1,5 +1,3 @@
-import * as pagination from "@zag-js/pagination";
-import { normalizeProps, useMachine } from "@zag-js/vue";
 import { sortBy } from "lodash-es";
 import { format } from "date-fns";
 
@@ -7,17 +5,11 @@ export function useAllNotes() {
   const notesStore = useNotesStore();
   const searchQuery = ref<string>("");
   const isConfirm = ref<boolean>(false);
-  const [state, send] = useMachine(
-    pagination.machine({
-      id: "1",
-      count: 0,
-      type: "link",
-    })
-  );
-
-  const api = computed(() =>
-    pagination.connect(state.value, send, normalizeProps)
-  );
+  const perPage = 10;
+  const pagination = reactive({
+    start: 0,
+    end: perPage,
+  });
 
   const getAll = () => {
     notesStore.getAll();
@@ -56,10 +48,7 @@ export function useAllNotes() {
   });
 
   const checkAll = computed({
-    get: () =>
-      notes.value
-        ? notesStore.selectedNote.length == notes.value.length
-        : false,
+    get: () => (notes.value ? notesStore.selectedNote.length == notes.value.length : false),
     set: (val) => {
       let checked = [];
       if (val) {
@@ -73,21 +62,17 @@ export function useAllNotes() {
 
   const filterResult = computed(() => {
     if (notes.value instanceof Array) {
-      return notes.value.filter(
-        (note) =>
-          note.title.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1
-      );
+      return notes.value.filter((note) => note.title.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1);
     }
     return [];
   });
 
-  watch(filterResult, (value) => {
-    api.value.setCount(value.length);
-  });
+  const currentPageData = computed(() => filterResult.value.slice(pagination.start, pagination.end));
 
-  const currentPageData = computed(() =>
-    filterResult.value.slice(api.value.pageRange.start, api.value.pageRange.end)
-  );
+  const updatePage = (value: number) => {
+    pagination.start = (value - 1) * perPage;
+    pagination.end = value * perPage;
+  };
 
   return {
     notesStore,
@@ -101,7 +86,8 @@ export function useAllNotes() {
     filterResult,
     checkAll,
     isLoading,
-    api,
     currentPageData,
+    updatePage,
+    perPage,
   };
 }

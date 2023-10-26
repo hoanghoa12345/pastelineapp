@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <MilkdownProvider>
-      <VueEditor v-model="content" />
+      <VueEditor v-model="content"/>
     </MilkdownProvider>
     <Menu>
       <MenuButton as="button" type="button"
@@ -48,12 +48,11 @@
 import { EllipsisHorizontalIcon } from "@heroicons/vue/24/outline";
 import { MilkdownProvider } from "@milkdown/vue";
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
-
 const {
   noteId,
   content,
   addToFavorite,
   deleteNote,
-  VueEditor
+  VueEditor,
 } = useEditNote();
 </script>

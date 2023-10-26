@@ -1,3 +1,5 @@
+const { blackA, grass } = require("@radix-ui/colors");
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: "class",
@@ -5,6 +7,8 @@ export default {
   theme: {
     extend: {
       colors: {
+        ...blackA,
+        ...grass,
         primary: {
           50: "#eff6ff",
           100: "#dbeafe",

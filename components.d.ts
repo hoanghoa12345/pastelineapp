@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     Button: typeof import('./src/components/forms/Button.vue')['default']
     CommandPalette: typeof import('./src/components/command-palette/CommandPalette.vue')['default']
+    EditorSkeleton: typeof import('./src/components/skeletons/EditorSkeleton.vue')['default']
     MilkdownEditor: typeof import('./src/components/editor/MilkdownEditor.vue')['default']
     Modal: typeof import('./src/components/modal/Modal.vue')['default']
     Navbar: typeof import('./src/components/navbar/Navbar.vue')['default']
