@@ -6,8 +6,9 @@ export function useAllNotes() {
   const searchQuery = ref<string>("");
   const isConfirm = ref<boolean>(false);
   const perPage = 10;
+  const pageStart = 0;
   const pagination = reactive({
-    start: 0,
+    start: pageStart,
     end: perPage,
   });
 
@@ -89,5 +90,6 @@ export function useAllNotes() {
     currentPageData,
     updatePage,
     perPage,
+    pageStart
   };
 }

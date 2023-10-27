@@ -12,14 +12,14 @@ export function useCreateNote() {
 
   const debouncedWatch = debounce(async () => {
     if (noteId.value.length === 36) {
-      notesStore.setSyncNoteState("sync");
+      // notesStore.setSyncNoteState("sync");
       await noteApi.update(
         noteId.value,
         removeMd(content.value.split("\n")[0]),
         content.value,
         getToken()
       );
-      notesStore.setSyncNoteState("saved");
+      // notesStore.setSyncNoteState("saved");
     }
   }, 2000);
 

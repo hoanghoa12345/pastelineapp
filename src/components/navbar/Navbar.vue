@@ -38,7 +38,7 @@
               d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"></path>
           </svg>
         </button>
-        <div v-if="route.name === 'CreateNote' || route.name === 'editNote'" class="p-2 mr-1">
+        <!--<div v-if="route.name === 'CreateNote' || route.name === 'editNote'" class="p-2 mr-1">
           <svg
             v-if="syncState === 'saved'"
             class="w-6 h-6 text-gray-500 dark:text-gray-400"
@@ -52,7 +52,7 @@
               d="M12 4.5a4.5 4.5 0 0 0-4.495 4.285a.75.75 0 0 1-.75.715H6.5a3 3 0 1 0 0 6h3.576a6.554 6.554 0 0 0-.057 1.5H6.5a4.5 4.5 0 0 1-.42-8.98a6.001 6.001 0 0 1 11.84 0a4.5 4.5 0 0 1 4.053 4.973a6.534 6.534 0 0 0-1.8-1.857A3 3 0 0 0 17.5 9.5h-.256a.75.75 0 0 1-.749-.715A4.5 4.5 0 0 0 12 4.5Zm10 12a5.5 5.5 0 1 1-11 0a5.5 5.5 0 0 1 11 0Zm-2.146-2.354a.5.5 0 0 0-.708 0L15.5 17.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708Z" />
           </svg>
           <span v-else class="text-xs font-semibold text-gray-500 dark:text-gray-400">Saving...</span>
-        </div>
+        </div>-->
         <button
           type="button"
           @click="toggleDark()"
@@ -113,7 +113,7 @@
       </div>
     </div>
   </nav>
-
+  <!-- Command Palette -->
   <CommandPalette :open="showCommandPalette" @close="showCommandPalette = false" />
 </template>
 <script lang="ts" setup>
@@ -134,7 +134,7 @@ const isDark = useDark();
 const toggleDark = useToggle(isDark);
 const user = computed(() => userStore.user);
 const showCommandPalette = ref<boolean>(false);
-const syncState = computed(() => notesStore.syncNoteState);
+// const syncState = computed(() => notesStore.syncNoteState);
 const route = useRoute();
 
 type MenuItemData = {
