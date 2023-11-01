@@ -85,7 +85,7 @@ const authError = computed(() => userStore.authError);
 const toast = useToastStore();
 
 watch(authError.value, (value) => {
-  if (value.errorMessage.length > 0) {
+  if (value.errorMessage && value.errorMessage.length > 0) {
     toast.sendToast(
       "Error",
       value.errorMessage,
