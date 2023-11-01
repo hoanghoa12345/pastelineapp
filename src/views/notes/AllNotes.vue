@@ -86,7 +86,7 @@
         :total="filterResult.length"
         :sibling-count="1"
         show-edges
-        :default-page="2"
+        :default-page="pageStart"
         class="my-4"
         @update:page="updatePage"
         :itemsPerPage="perPage">
@@ -199,6 +199,7 @@ const {
   currentPageData,
   updatePage,
   perPage,
+  pageStart
 } = useAllNotes();
 </script>
 
