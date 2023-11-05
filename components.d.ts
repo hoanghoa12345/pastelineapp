@@ -14,7 +14,6 @@ declare module 'vue' {
     Modal: typeof import('./src/components/modal/Modal.vue')['default']
     Navbar: typeof import('./src/components/navbar/Navbar.vue')['default']
     NotesList: typeof import('./src/components/notes-list/NotesList.vue')['default']
-    Pagination: typeof import('./src/components/table/Pagination.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Sidebar: typeof import('./src/components/sidebar/Sidebar.vue')['default']

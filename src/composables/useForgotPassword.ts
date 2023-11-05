@@ -3,10 +3,10 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
 import { usersApi } from "@/api/users";
 import EmailJS, { EmailJSResponseStatus } from "@emailjs/browser";
+import { toast } from "vue3-toastify";
 
 export const useForgotPassword = () => {
   const isLoading = ref(false);
-  const toast = useToastStore();
   const schema = toTypedSchema(
     z.object({
       email: z
@@ -41,24 +41,13 @@ export const useForgotPassword = () => {
         import.meta.env.VITE_EMAILJS_USER_ID
       );
       if (result.status === 200) {
-        toast.sendToast("Success", data.message, "success", 3000);
+        toast.success(data.message);
       } else {
-        toast.sendToast("Error", result.text, "error", 3000);
+        toast.error(result.text);
       }
     } catch (error) {
-      if (error.response)
-        toast.sendToast(
-          "Error",
-          error.response.data.message || "Something went wrong",
-          "error",
-          3000
-        );
-      toast.sendToast(
-        "Error",
-        error.message || "Something went wrong",
-        "error",
-        3000
-      );
+      if (error.response) toast.error(error.response.data.message);
+      toast.error(error.message);
     } finally {
       isLoading.value = false;
     }

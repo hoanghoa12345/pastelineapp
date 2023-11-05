@@ -12,14 +12,7 @@ export function useCreateNote() {
 
   const debouncedWatch = debounce(async () => {
     if (noteId.value.length === 36) {
-      // notesStore.setSyncNoteState("sync");
-      await noteApi.update(
-        noteId.value,
-        removeMd(content.value.split("\n")[0]),
-        content.value,
-        getToken()
-      );
-      // notesStore.setSyncNoteState("saved");
+      await noteApi.update(noteId.value, removeMd(content.value.split("\n")[0]), content.value, getToken());
     }
   }, 2000);
 
@@ -34,11 +27,7 @@ export function useCreateNote() {
     if (newNoteId && newNoteId.length === 36) {
       localStorage.setItem("newNoteId", newNoteId);
     } else {
-      const { data } = await noteApi.create(
-        removeMd(content.value.split("\n")[0]),
-        content.value,
-        getToken()
-      );
+      const { data } = await noteApi.create(removeMd(content.value.split("\n")[0]), content.value, getToken());
       noteId.value = data.data.noteId;
       localStorage.setItem("newNoteId", data.data.noteId);
     }

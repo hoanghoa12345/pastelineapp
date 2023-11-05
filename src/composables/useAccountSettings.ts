@@ -3,10 +3,10 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
 import { usersApi } from "@/api/users";
 import { getToken } from "@/utils/helper";
+import { toast } from "vue3-toastify";
 
 export function useAccountSettings() {
   const isLoading = ref(false);
-  const toast = useToastStore();
   const route = useRoute();
 
   const schema = toTypedSchema(
@@ -28,13 +28,10 @@ export function useAccountSettings() {
           })
           .min(6, "Minium length of password is 6"),
       })
-      .refine(
-        ({ newPassword, confirmPassword }) => newPassword === confirmPassword,
-        {
-          message: "Password and confirm password doesn't match",
-          path: ["confirmPassword"],
-        }
-      )
+      .refine(({ newPassword, confirmPassword }) => newPassword === confirmPassword, {
+        message: "Password and confirm password doesn't match",
+        path: ["confirmPassword"],
+      })
   );
 
   const { defineInputBinds, handleSubmit, errors } = useForm({
@@ -52,22 +49,12 @@ export function useAccountSettings() {
         oldPassword: values.currentPassword,
         newPassword: values.newPassword,
       });
-      toast.sendToast("Success", data.message, "success", 3000);
+      toast.success(data.message);
     } catch (error) {
       if (error.response) {
-        toast.sendToast(
-          "Error",
-          error.response.data.message || "Something went wrong",
-          "error",
-          3000
-        );
+        toast.error(error.response.data.message);
       } else {
-        toast.sendToast(
-          "Error",
-          error.message || "Something went wrong",
-          "error",
-          3000
-        );
+        toast.error(error.message);
       }
     } finally {
       isLoading.value = false;

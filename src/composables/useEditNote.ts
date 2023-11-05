@@ -42,9 +42,7 @@ export function useEditNote() {
 
   const debouncedWatch = debounce(async () => {
     if (isInitialValueSet.value) {
-      // notesStore.setSyncNoteState("sync");
       await noteApi.update(noteId, removeMd(content.value.split("\n")[0]), content.value, getToken());
-      // notesStore.setSyncNoteState("saved");
     } else {
       isInitialValueSet.value = true;
     }

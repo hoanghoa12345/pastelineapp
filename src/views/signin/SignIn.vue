@@ -5,53 +5,75 @@
         <img class="w-8 h-8 mr-2" :src="LOGO_URL" alt="logo" />
         {{ APP_NAME }}
       </router-link>
-      <div
-        class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-            Sign in to your account
-          </h1>
+          <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">Sign in to your account</h1>
           <form class="space-y-4 md:space-y-6" @submit="signIn">
             <div>
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-              <input v-bind="email" type="email" name="email" id="email"
-                class="border sm:text-sm rounded-lg w-full p-2.5 block" placeholder="name@email.com" :class="errors.email
-                  ? 'bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
-                  : 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-primary-600 focus:border-primary-600  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                  " />
+              <input
+                v-bind="email"
+                type="email"
+                name="email"
+                id="email"
+                class="border sm:text-sm rounded-lg w-full p-2.5 block"
+                placeholder="name@email.com"
+                :class="
+                  errors.email
+                    ? 'bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
+                    : 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-primary-600 focus:border-primary-600  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                " />
               <span class="text-red-500 text-sm">{{ errors.email }}</span>
             </div>
             <div>
               <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-              <input v-bind="password" type="password" name="password" id="password" placeholder="••••••••"
-                class="border sm:text-sm rounded-lg block w-full p-2.5" :class="errors.password
-                  ? 'bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
-                  : 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-primary-600 focus:border-primary-600  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                  " />
+              <input
+                v-bind="password"
+                type="password"
+                name="password"
+                id="password"
+                placeholder="••••••••"
+                class="border sm:text-sm rounded-lg block w-full p-2.5"
+                :class="
+                  errors.password
+                    ? 'bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
+                    : 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-primary-600 focus:border-primary-600  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                " />
               <span class="text-red-500 text-sm">{{ errors.password }}</span>
             </div>
             <div class="flex items-center justify-between">
               <div class="flex items-start">
                 <Field v-slot="{ field }" name="remember" type="checkbox" :value="true">
                   <div class="flex items-center h-5">
-                    <input id="remember" aria-describedby="remember" type="checkbox"
+                    <input
+                      id="remember"
+                      aria-describedby="remember"
+                      type="checkbox"
                       class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                      v-bind="field" :value="true" />
+                      v-bind="field"
+                      :value="true" />
                   </div>
                   <div class="ml-3 text-sm">
                     <label for="remember" class="text-gray-500 dark:text-gray-300">Remember me</label>
                   </div>
                 </Field>
               </div>
-              <router-link to="/forgot-password"
-                class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot
-                password?</router-link>
+              <router-link to="/forgot-password" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
+                >Forgot password?</router-link
+              >
             </div>
             <span class="text-red-500 text-sm">{{ errors.remember }}</span>
-            <button type="submit"
+            <button
+              type="submit"
               class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-              <svg v-if="isLoading" aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-white animate-spin"
-                viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                v-if="isLoading"
+                aria-hidden="true"
+                role="status"
+                class="inline w-4 h-4 mr-3 text-white animate-spin"
+                viewBox="0 0 100 101"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
                   fill="#E5E7EB" />
@@ -63,15 +85,13 @@
             </button>
             <p class="text-sm font-light text-gray-500 dark:text-gray-400">
               Don’t have an account yet?
-              <router-link to="/signup" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign
-                up</router-link>
+              <router-link to="/signup" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</router-link>
             </p>
           </form>
         </div>
       </div>
     </div>
   </section>
-  <Toasts />
 </template>
 
 <script setup lang="ts">
@@ -81,20 +101,6 @@ import { Field } from "vee-validate";
 const { email, password, signIn, userStore, errors } = useLogin();
 
 const isLoading = computed(() => userStore.isLoading);
-const authError = computed(() => userStore.authError);
-const toast = useToastStore();
-
-watch(authError.value, (value) => {
-  if (value.errorMessage && value.errorMessage.length > 0) {
-    toast.sendToast(
-      "Error",
-      value.errorMessage,
-      "error",
-      3000
-    );
-  }
-
-});
 </script>
 
 <style scoped></style>

@@ -2,10 +2,10 @@ import { usersApi } from "@/api/users";
 import { UserProfile } from "@/utils/types";
 import { useForm } from "vee-validate";
 import { getToken } from "@/utils/helper";
+import { toast } from "vue3-toastify";
 
 export function useProfile() {
   const userStore = useUserStore();
-  const toast = useToastStore();
   const isLoading = ref<boolean>(false);
 
   const initData = {
@@ -17,9 +17,7 @@ export function useProfile() {
     isAdmin: false,
   };
 
-  const userProfile: Ref<UserProfile> = computed(() =>
-    userStore.user ? userStore.user : initData
-  );
+  const userProfile: Ref<UserProfile> = computed(() => (userStore.user ? userStore.user : initData));
 
   const { defineInputBinds, handleSubmit, handleReset } = useForm({
     initialValues: {
@@ -35,26 +33,13 @@ export function useProfile() {
   const onSubmit = handleSubmit(async (values) => {
     try {
       isLoading.value = true;
-      const { data } = await usersApi.updateUser(
-        getToken(),
-        values as UserProfile
-      );
-      toast.sendToast("Success", data.message, "success", 3000);
+      const { data } = await usersApi.updateUser(getToken(), values as UserProfile);
+      toast.success(data.message);
     } catch (error) {
       if (error.response) {
-        toast.sendToast(
-          "Error",
-          error.response.data.message || "Something went wrong",
-          "error",
-          3000
-        );
+        toast.error(error.response.data.message);
       } else {
-        toast.sendToast(
-          "Error",
-          error.message || "Something went wrong",
-          "error",
-          3000
-        );
+        toast.error(error.message);
       }
     } finally {
       isLoading.value = false;

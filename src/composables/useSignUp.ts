@@ -3,6 +3,7 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
 import { usersApi } from "@/api/users";
 import EmailJs from "@emailjs/browser";
+import { toast } from "vue3-toastify";
 
 export function useSignUp() {
   const userStore = useUserStore();
@@ -13,7 +14,6 @@ export function useSignUp() {
     message: "",
   });
   const emailToResend = ref("");
-  const toast = useToastStore();
 
   const schema = toTypedSchema(
     z
@@ -76,16 +76,16 @@ export function useSignUp() {
       );
       isOpen.value = true;
       if (sendResult.status === 200) {
-        toast.sendToast("Success", data.data.message, "success", 3000);
+        toast.success(data.data.message);
       } else {
-        toast.sendToast("Error", sendResult.text, "error", 3000);
+        toast.error(sendResult.text);
       }
     } catch (error) {
       isOpen.value = true;
       result.status = "error";
       if (error.response) result.message = error.response.data.message;
       else result.message = "Something went wrong";
-      toast.sendToast("Error", result.message, "error", 3000);
+      toast.error(result.message);
     } finally {
       isLoading.value = false;
     }
@@ -105,9 +105,9 @@ export function useSignUp() {
         },
         import.meta.env.VITE_EMAILJS_USER_ID
       );
-      toast.sendToast("Success", data.message, "success", 3000);
+      toast.success(data.message);
     } catch (error) {
-      toast.sendToast("Error", error.response.data.message, "error", 3000);
+      toast.error(error.response.data.message);
     }
   };
 

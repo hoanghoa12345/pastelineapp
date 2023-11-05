@@ -2,6 +2,7 @@ import { noteApi } from "@/api/notes";
 import { getToken } from "@/utils/helper";
 import { Note } from "@/utils/types";
 import { defineStore } from "pinia";
+import { toast } from "vue3-toastify";
 
 export const useNotesStore = defineStore("notes", () => {
   const notes = ref<Note[]>(null);
@@ -11,8 +12,6 @@ export const useNotesStore = defineStore("notes", () => {
   const recentNotes = ref<string[]>([]);
   const favoriteNotes = ref<string[]>([]);
   const searchResults = ref<Note[]>([]);
-  // const syncNoteState = ref<"sync" | "saved">("saved");
-  const toastStore = useToastStore();
   async function getAll() {
     try {
       isLoading.value = true;
@@ -20,6 +19,7 @@ export const useNotesStore = defineStore("notes", () => {
       const { data } = await noteApi.get(token);
       notes.value = data.data;
     } catch (error) {
+      toast.error(error.message, { position: toast.POSITION.BOTTOM_RIGHT });
       throw Error(error);
     } finally {
       isLoading.value = false;
@@ -44,18 +44,16 @@ export const useNotesStore = defineStore("notes", () => {
     selectedNote.value.forEach(async (noteId) => {
       try {
         await noteApi.delete(noteId, token);
-        toastStore.sendToast("", "Delete page success", "success", 2500);
+        toast.success("Delete page success", { position: toast.POSITION.BOTTOM_RIGHT });
       } catch (error) {
-        toastStore.sendToast("", "Delete page error", "error", 2500);
+        toast.error("Error when delete page", { position: toast.POSITION.BOTTOM_RIGHT });
         throw Error(error);
       }
     });
   }
 
   function getSelectedNote() {
-    return notes.value.filter((note) =>
-      selectedNote.value.includes(note.noteId)
-    );
+    return notes.value.filter((note) => selectedNote.value.includes(note.noteId));
   }
 
   function addToRecent(noteId: string) {
@@ -76,31 +74,23 @@ export const useNotesStore = defineStore("notes", () => {
   }
 
   function getFavoriteNotes() {
-    return notes.value.filter((obj) =>
-      favoriteNotes.value.includes(obj.noteId)
-    );
+    return notes.value.filter((obj) => favoriteNotes.value.includes(obj.noteId));
   }
 
   async function deleteNoteById(noteId: string) {
     try {
       await noteApi.delete(noteId, getToken());
-      toastStore.sendToast("", "Delete page success", "success", 2500);
+      toast.success("Delete page success", { position: toast.POSITION.BOTTOM_RIGHT });
     } catch (error) {
-      toastStore.sendToast("", "Delete page error", "error", 2500);
+      toast.error("Delete page error", { position: toast.POSITION.BOTTOM_RIGHT });
       throw Error(error);
     }
   }
 
   function searchNote(search: string) {
-    searchResults.value = notes.value.filter(
-      (note) => note.title.toLowerCase().indexOf(search.toLowerCase()) > -1
-    );
-    // console.log(searchResults.value);
+    searchResults.value = notes.value.filter((note) => note.title.toLowerCase().indexOf(search.toLowerCase()) > -1);
   }
 
-  // function setSyncNoteState(state: "sync" | "saved") {
-  //   syncNoteState.value = state;
-  // }
   return {
     notes,
     currentNote,
@@ -118,7 +108,5 @@ export const useNotesStore = defineStore("notes", () => {
     searchNote,
     searchResults,
     getSelectedNote,
-    // syncNoteState,
-    // setSyncNoteState,
   };
 });

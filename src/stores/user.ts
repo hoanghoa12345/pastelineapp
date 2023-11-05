@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { usersApi } from "@/api/users";
 import Cookies from "js-cookie";
+import { toast } from "vue3-toastify";
 import { generateFromString } from "generate-avatar";
 import { AxiosError } from "axios";
 import { LoginForm } from "@/utils/types";
@@ -43,6 +44,7 @@ export const useUserStore = defineStore("user", () => {
       if (error instanceof AxiosError && error.response) {
         authError.errorMessage = error.response.data.message;
       }
+      toast.error(authError.errorMessage, { position: toast.POSITION.BOTTOM_RIGHT });
       throw Error(error);
     } finally {
       isLoading.value = false;
@@ -50,6 +52,7 @@ export const useUserStore = defineStore("user", () => {
   }
 
   async function logout() {
+    toast.success("Logout successfully", { position: toast.POSITION.BOTTOM_RIGHT });
     Cookies.remove("access_token");
     router.replace("/login");
   }
@@ -61,9 +64,7 @@ export const useUserStore = defineStore("user", () => {
       authError.errorMessage = null;
       const { data } = await usersApi.getUser(token);
       if (data.photoUrl === "" || data.photoUrl == null) {
-        data.photoUrl = `data:image/svg+xml;utf8,${generateFromString(
-          data.email
-        )}`;
+        data.photoUrl = `data:image/svg+xml;utf8,${generateFromString(data.email)}`;
       }
       user.value = data;
     } catch (error) {
@@ -75,6 +76,7 @@ export const useUserStore = defineStore("user", () => {
       if (error instanceof AxiosError) {
         errorCode.value = error.code;
       }
+      // toast.error(authError.errorMessage, { position: toast.POSITION.BOTTOM_RIGHT });
       throw Error(error);
     }
   }

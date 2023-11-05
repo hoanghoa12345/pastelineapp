@@ -2,10 +2,10 @@ import { useForm } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
 import { usersApi } from "@/api/users";
+import { toast } from "vue3-toastify";
 
 export function useRecoveryPassword() {
   const isLoading = ref(false);
-  const toast = useToastStore();
   const route = useRoute();
   const { token } = route.query;
   const result = reactive({
@@ -41,36 +41,23 @@ export function useRecoveryPassword() {
 
   const requestResetPassword = handleSubmit(async (values) => {
     if (!token) {
-      toast.sendToast("Error", "Token is required", "error", 3000);
+      toast.error("Token is required");
       return;
     }
     try {
       isLoading.value = true;
-      const { data } = await usersApi.confirmResetPassword(
-        token.toString(),
-        values.password
-      );
-      toast.sendToast("Success", data.message, "success", 3000);
+      const { data } = await usersApi.confirmResetPassword(token.toString(), values.password);
+      toast.success(data.message);
       result.status = "success";
       result.message = data.message;
     } catch (error) {
       result.status = "error";
       if (error.response) {
         result.message = error.response.data.message || "Something went wrong";
-        toast.sendToast(
-          "Error",
-          error.response.data.message || "Something went wrong",
-          "error",
-          3000
-        );
+        toast.error(error.response.data.message);
       } else {
         result.message = error.message || "Something went wrong";
-        toast.sendToast(
-          "Error",
-          error.message || "Something went wrong",
-          "error",
-          3000
-        );
+        toast.error(error.message);
       }
     } finally {
       isLoading.value = false;
