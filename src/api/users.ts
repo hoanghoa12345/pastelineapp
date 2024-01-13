@@ -2,38 +2,14 @@ import { LoginForm, SignUpForm, UserProfile } from "@/utils/types";
 import axios from "axios";
 import axiosClient from "./axiosClient";
 
-axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
-
-/**
- *
- * @param form
- * @returns
- * @deprecated
- */
-function loginApi(form: LoginForm) {
-  return axios.post("api/v1/users/signin", form);
-}
-
-/**
- *
- * @param token
- * @returns
- * @deprecated
- */
-function getUser(token: string) {
-  return axios.get(`api/v1/users/me`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-}
-
-export { loginApi, getUser };
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL || "";
 
 export const usersApi = {
   login: (form: LoginForm) => {
-    const url = "api/v1/users/signin";
-    return axiosClient.post(url, form);
+    const url = "api/v1/users/login";
+    return axiosClient.post(url, form, {
+      withCredentials: true,
+    });
   },
   getUser: (token: string) => {
     const url = "api/v1/users/me";
@@ -65,10 +41,7 @@ export const usersApi = {
     };
     return axiosClient.patch(url, form, { headers });
   },
-  changePassword: (
-    token: string,
-    form: { oldPassword: string; newPassword: string }
-  ) => {
+  changePassword: (token: string, form: { oldPassword: string; newPassword: string }) => {
     const url = "api/v1/users/change-password";
     const headers = {
       Authorization: `Bearer ${token}`,
@@ -78,5 +51,13 @@ export const usersApi = {
   resendEmail: (email: string) => {
     const url = "api/v1/users/send-verify";
     return axiosClient.post(url, { email });
+  },
+  refreshToken: () => {
+    const url = "api/v1/users/refresh-token";
+    return axiosClient.get(url);
+  },
+  logout: () => {
+    const url = "api/v1/users/logout";
+    return axiosClient.get(url);
   },
 };

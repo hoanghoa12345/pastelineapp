@@ -84,7 +84,7 @@
               Sign in
             </button>
             <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-              Don’t have an account yet?
+              Don&#8217;t have an account yet?
               <router-link to="/signup" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</router-link>
             </p>
           </form>

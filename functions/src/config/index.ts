@@ -1,3 +1,9 @@
+import dotenv from 'dotenv';
+
+dotenv.config({
+  path: process.env.NODE_ENV === 'production' ? '.env' : '.env.local',
+});
+
 export const config = {
   dynamodb: {
     region: process.env.DYNAMODB_REGION,
@@ -23,5 +29,6 @@ export const config = {
     expiresIn: process.env.JWT_EXPIRES_IN,
     verifyEmailExpiresIn: process.env.JWT_VERIFY_EMAIL_EXPIRES_IN,
     resetPasswordExpiration: process.env.JWT_RESET_PASSWORD_EXPIRATION,
+    refreshTokenExpiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRES_IN,
   },
 };

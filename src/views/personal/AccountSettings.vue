@@ -1,7 +1,7 @@
 <template>
-  <h1 class="text-4xl py-4">Account settings</h1>
+  <h1 class="text-4xl mx-4 py-4 dark:text-white">Account settings</h1>
   <div class="lg:max-w-2xl lg:mx-auto">
-    <h3 class="font-semibold py-4">Change password</h3>
+    <h3 class="font-semibold py-4 dark:text-white">Change password</h3>
 
     <form @submit="onSubmit">
       <TextInput

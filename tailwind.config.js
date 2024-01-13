@@ -1,5 +1,3 @@
-const { blackA, grass } = require("@radix-ui/colors");
-
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: "class",
@@ -7,8 +5,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        ...blackA,
-        ...grass,
         primary: {
           50: "#eff6ff",
           100: "#dbeafe",
@@ -25,40 +21,8 @@ export default {
       },
     },
     fontFamily: {
-      body: [
-        "Inter",
-        "ui-sans-serif",
-        "system-ui",
-        "-apple-system",
-        "system-ui",
-        "Segoe UI",
-        "Roboto",
-        "Helvetica Neue",
-        "Arial",
-        "Noto Sans",
-        "sans-serif",
-        "Apple Color Emoji",
-        "Segoe UI Emoji",
-        "Segoe UI Symbol",
-        "Noto Color Emoji",
-      ],
-      sans: [
-        "Inter",
-        "ui-sans-serif",
-        "system-ui",
-        "-apple-system",
-        "system-ui",
-        "Segoe UI",
-        "Roboto",
-        "Helvetica Neue",
-        "Arial",
-        "Noto Sans",
-        "sans-serif",
-        "Apple Color Emoji",
-        "Segoe UI Emoji",
-        "Segoe UI Symbol",
-        "Noto Color Emoji",
-      ],
+      body: ["Inter", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif, system-ui"],
+      sans: ["Inter", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif, system-ui"],
     },
   },
   plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms")],

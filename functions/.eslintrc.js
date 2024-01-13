@@ -25,11 +25,9 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 0,
   },
   settings: {
-    'import/resolver': {
-      node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        moduleDirectory: ['node_modules', 'src/'],
-      },
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
+    'import/resolver': {},
   },
 };

@@ -4,7 +4,7 @@ import { unmarshall } from '@aws-sdk/util-dynamodb';
 import bcrypt from 'bcryptjs';
 import { config } from '../../config';
 import { ApiError } from '../../utils/response/ApiError';
-import { createJwtToken } from '../../utils/jwt-token/createJwtToken';
+import { createAccessToken, createRefreshToken, decodeJwtToken } from '../../utils/jwt-token/createJwtToken';
 import { Logger } from '../../utils/logger/Logger';
 
 const client = new DynamoDBClient({
@@ -39,11 +39,15 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
           isAdmin: user.isAdmin,
         };
         user.password = '';
+        const refreshToken = createRefreshToken(payload);
+        const accessToken = createAccessToken(payload);
+        res.cookie('refresh_token', refreshToken, { httpOnly: true, sameSite: 'lax' });
         res.send({
           message: 'Login successful!',
           data: {
             user,
-            access_token: createJwtToken(payload),
+            access_token: accessToken,
+            expiration: decodeJwtToken(accessToken).exp * 1000,
           },
         });
         return;

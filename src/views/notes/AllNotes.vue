@@ -1,11 +1,11 @@
 <template>
   <div class="mt-2">
-    <h1 class="text-4xl py-4">All pages</h1>
+    <h1 class="text-4xl mx-4 py-4 dark:text-white">All pages</h1>
 
-    <p class="pb-4">
-      <span class="font-base" v-if="filterResult">Total {{ filterResult.length }} pages</span>
+    <p class="pb-4 mx-4">
+      <span class="font-base dark:text-white" v-if="filterResult">Total {{ filterResult.length }} pages</span>
     </p>
-    <div class="flex space-x-2 items-center">
+    <div class="flex space-x-2 items-center mx-4">
       <button
         type="button"
         :disabled="notesStore.selectedNote.length === 0"
@@ -103,7 +103,7 @@
             <PaginationListItem
               v-if="page.type === 'page'"
               :key="index"
-              class="w-9 h-9 border rounded data-[selected]:bg-white data-[selected]:text-blackA11 hover:bg-white/10 transition focus-within:outline focus-within:outline-1 focus-within:outline-offset-1"
+              class="w-9 h-9 border rounded data-[selected]:bg-blue-400 data-[selected]:text-white dark:data-[selected]:bg-white dark:data-[selected]:text-black hover:bg-white/10 transition focus-within:outline focus-within:outline-1 focus-within:outline-offset-1"
               :value="page.value">
               {{ page.value }}
             </PaginationListItem>
@@ -173,7 +173,7 @@
 <script lang="ts" setup>
 import { format } from "date-fns";
 import { TrashIcon } from "@heroicons/vue/24/outline";
-import { MagnifyingGlassIcon} from "@heroicons/vue/24/solid";
+import { MagnifyingGlassIcon } from "@heroicons/vue/24/solid";
 import { Icon } from "@iconify/vue";
 import Spinner from "@/components/spinner/Spinner.vue";
 import {
@@ -186,6 +186,7 @@ import {
   PaginationPrev,
   PaginationRoot,
 } from "radix-vue";
+
 const {
   notesStore,
   deleteNotes,
@@ -199,7 +200,7 @@ const {
   currentPageData,
   updatePage,
   perPage,
-  pageStart
+  pageStart,
 } = useAllNotes();
 </script>
 

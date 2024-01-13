@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import MainLayout from "@/layouts/MainLayout.vue";
 import NProgress from "@/utils/nprogress";
-import { checkUserLoggedIn } from "@/utils/helper";
+// import { checkUserLoggedIn } from "@/utils/helper";
 
 NProgress.configure({ showSpinner: false });
 
@@ -60,39 +60,44 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/personal/AccountSettings.vue"),
       },
       {
+        name: "Recent",
+        path: "recent",
+        component: () => import("@/views/recent/Recent.vue"),
+      },
+      {
         path: "/:pathMatch(.*)*",
         name: "NotFound",
         component: () => import("@/views/not-found/NotFound.vue"),
       },
     ],
     beforeEnter: async (to, from) => {
-      const userStore = useUserStore();
-      try {
-        await userStore.getProfile();
-        if (userStore.user) {
-          return true;
-        }
-      } catch (error) {
-        if (userStore.errorCode === "ERR_NETWORK") {
-          return true;
-        }
-        return {
-          path: "/login",
-        };
-      }
+      // const userStore = useUserStore();
+      // try {
+      //   await userStore.getProfile();
+      //   if (userStore.user) {
+      //     return true;
+      //   }
+      // } catch (error) {
+      //   if (userStore.errorCode === "ERR_NETWORK") {
+      //     return true;
+      //   }
+      //   return {
+      //     path: "/login",
+      //   };
+      // }
     },
   },
   {
     name: "Login",
     path: "/login",
     component: () => import("@/views/signin/SignIn.vue"),
-    beforeEnter: [checkUserLoggedIn],
+    // beforeEnter: [checkUserLoggedIn],
   },
   {
     name: "SignUp",
     path: "/signup",
     component: () => import("@/views/signup/SignUp.vue"),
-    beforeEnter: [checkUserLoggedIn],
+    // beforeEnter: [checkUserLoggedIn],
   },
   {
     name: "ForgotPassword",

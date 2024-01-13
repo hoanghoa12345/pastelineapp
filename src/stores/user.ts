@@ -32,10 +32,14 @@ export const useUserStore = defineStore("user", () => {
       if (data.data?.access_token) {
         Cookies.set("access_token", data.data?.access_token);
       }
-
+      if (data.data?.expiration) {
+        Cookies.set("expiration", data.data.expiration);
+      }
       if (data?.data?.user) {
         user.value = data?.user;
       }
+
+      window.localStorage.setItem("LOGIN", new Date().toISOString());
 
       router.push("/");
     } catch (error) {
@@ -52,8 +56,10 @@ export const useUserStore = defineStore("user", () => {
   }
 
   async function logout() {
+    await usersApi.logout();
     toast.success("Logout successfully", { position: toast.POSITION.BOTTOM_RIGHT });
     Cookies.remove("access_token");
+    window.localStorage.setItem("LOGOUT", new Date().toISOString());
     router.replace("/login");
   }
 

@@ -1,6 +1,6 @@
 export class ApiError extends Error {
   private statusCode: number;
-  private errorRaw: unknown;
+  private errorRaw: Error;
 
   constructor(statusCode, message, errorRaw) {
     super(message);
@@ -12,10 +12,10 @@ export class ApiError extends Error {
   }
   get JSON() {
     return {
-      errors: this.errorRaw,
+      errors: this.errorRaw ? this.errorRaw.message : null,
       statusCode: this.statusCode,
       message: this.message,
-      stack: this.stack,
+      // stack: this.stack,
     };
   }
 

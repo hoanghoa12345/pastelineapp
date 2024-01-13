@@ -23,9 +23,14 @@ export function useLogin() {
 
   const { defineInputBinds, handleSubmit, errors } = useForm({
     validationSchema: schema,
+    initialValues: {
+      email: localStorage.getItem("email") || "",
+    },
   });
 
   const signIn = handleSubmit((value) => {
+    localStorage.setItem("remember", value.remember ? "true" : "false");
+    localStorage.setItem("email", value.email);
     userStore.login({ email: value.email, password: value.password });
   });
 

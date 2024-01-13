@@ -81,7 +81,6 @@
       </div>
     </div>
   </section>
-  <Toasts />
   <Modal :open="isOpen" @closeModal="isOpen = false">
     <template #title> Sign up new account </template>
     <template #content>
