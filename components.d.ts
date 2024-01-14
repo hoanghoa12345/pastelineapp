@@ -23,7 +23,5 @@ declare module 'vue' {
     Slash: typeof import('./src/components/editor/Slash.vue')['default']
     Spinner: typeof import('./src/components/spinner/Spinner.vue')['default']
     TextInput: typeof import('./src/components/forms/TextInput.vue')['default']
-    Toast: typeof import('./src/components/toast/Toast.vue')['default']
-    Toasts: typeof import('./src/components/toast/Toasts.vue')['default']
   }
 }
