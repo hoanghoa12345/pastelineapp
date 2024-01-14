@@ -35,7 +35,8 @@ export default {
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            fontSize: "0.9rem",
+            fontSize: "1rem",
+            maxWidth: "85ch",
             h1: {
               fontSize: "1.75rem",
               fontWeight: "600",
@@ -60,7 +61,7 @@ export default {
               lineHeight: "1.5",
             },
             pre: {
-              fontSize: "0.9rem",
+              fontSize: "1em",
             },
             li: {
               marginTop: "0.25rem",
@@ -73,6 +74,8 @@ export default {
     fontFamily: {
       body: ["Inter", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif, system-ui"],
       sans: ["Inter", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif, system-ui"],
+      serif: ["Times New Roman", "Times", "serif"],
+      mono: ["Fira Code", "Fira Mono", "Roboto Mono", "Menlo", "Monaco", "Consolas", "Courier New", "monospace"],
     },
   },
 

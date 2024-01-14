@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import Sidebar from "@/components/sidebar/Sidebar.vue";
 import Navbar from "@/components/navbar/Navbar.vue";
-import Cookies from "js-cookie";
-import { usersApi } from "@/api/users";
 const userStore = useUserStore();
 
-const { tokenExpiration } = useRefreshToken();
+// const { tokenExpiration } = useRefreshToken();
 
 watchEffect(() => {
   userStore.getProfile();

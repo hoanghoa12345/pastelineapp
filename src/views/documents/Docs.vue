@@ -1,5 +1,5 @@
 <template>
-    <div class="prose lg:prose-xl dark:prose-invert mx-auto" v-once>
+    <div class="prose lg:prose-xl dark:prose-invert mx-auto px-4" v-once>
         <h3 id="what-is-markdown-">What is Markdown?</h3>
         <p>Markdown is a lightweight markup language that you can use to format plain text documents.<br>Write docs for your
             GitHub projects, edit your GitHub profile <em>README</em> etc. You fill find it all here. </p>
@@ -32,7 +32,7 @@
         <h2 id="paragraph">Paragraph</h2>
         <p>By writing regular text you are basically writing a paragraph.</p>
         <pre><code>This <span class="hljs-keyword">is</span> a <span class="hljs-built_in">paragraph</span>.
-</code></pre>
+        </code></pre>
         <p>This is a paragraph.</p>
         <hr>
         <p><a name="headings" /></p>
@@ -40,12 +40,12 @@
         <p>There are 6 heading variants. The number of &quot;#&quot; symbols, followed by text, indicates the importance of
             the heading.</p>
         <pre><code># Heading <span class="hljs-number">1</span>
-## Heading <span class="hljs-number">2</span>
-### Heading <span class="hljs-number">3</span>
-#### Heading <span class="hljs-number">4</span>
-##### Heading <span class="hljs-number">5</span>
-###### Heading <span class="hljs-number">6</span>
-</code></pre>
+        ## Heading <span class="hljs-number">2</span>
+        ### Heading <span class="hljs-number">3</span>
+        #### Heading <span class="hljs-number">4</span>
+        ##### Heading <span class="hljs-number">5</span>
+        ###### Heading <span class="hljs-number">6</span>
+        </code></pre>
         <h1 id="heading-1">Heading 1</h1>
         <h2 id="heading-2">Heading 2</h2>
         <h3 id="heading-3">Heading 3</h3>

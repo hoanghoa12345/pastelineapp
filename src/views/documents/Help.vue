@@ -1,5 +1,5 @@
 <template>
-  <div class="prose lg:prose-xl dark:prose-invert mx-auto" v-once>
+  <div class="prose lg:prose-xl dark:prose-invert mx-auto px-4" v-once>
     <blockquote>
       <p>Milkdown is a WYSIWYG markdown editor framework.</p>
     </blockquote>

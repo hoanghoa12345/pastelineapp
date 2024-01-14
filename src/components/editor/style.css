@@ -1,0 +1,70 @@
+.milkdown-theme-pastel blockquote {
+  @apply not-italic font-serif border-l-4 border-gray-800 pl-4;
+}
+
+.milkdown-theme-pastel code {
+  @apply text-gray-900 font-mono font-normal;
+}
+
+.milkdown-theme-pastel pre code {
+  @apply text-inherit;
+}
+
+.milkdown-theme-pastel img {
+  @apply max-w-full !my-0 inline-block;
+}
+
+.milkdown-theme-pastel.prose :where(blockquote):not(:where([class~="not-prose"] *)) {
+  @apply font-normal;
+}
+
+.milkdown-theme-pastel.prose :where(ol > li):not(:where([class~="not-prose"] *))::marker,
+.milkdown-theme-pastel.prose :where(ul > li):not(:where([class~="not-prose"] *))::marker {
+  @apply text-gray-800;
+}
+
+
+.milkdown-theme-pastel.prose :where(blockquote p:first-of-type):not(:where([class~="not-prose"] *))::before,
+.milkdown-theme-pastel.prose :where(blockquote p:first-of-type):not(:where([class~="not-prose"] *))::after {
+  content: '';
+}
+
+.milkdown-theme-pastel.prose :where(code):not(:where([class~="not-prose"] *))::before,
+.milkdown-theme-pastel.prose :where(code):not(:where([class~="not-prose"] *))::after {
+  content: '';
+}
+
+.milkdown-theme-pastel.prose .tableWrapper {
+  @apply mb-2 overflow-x-auto relative;
+}
+
+.milkdown-theme-pastel.prose table {
+  @apply text-sm shadow-md sm:rounded-lg !overflow-visible !m-4;
+}
+
+.milkdown-theme-pastel.prose td,
+.milkdown-theme-pastel.prose th {
+  @apply !py-3 !px-6;
+}
+
+.milkdown-theme-pastel.prose tr {
+  @apply border-b border-gray-200 dark:border-gray-600;
+}
+
+.milkdown-theme-pastel.prose :where(td, th) p {
+  @apply !m-0;
+}
+
+.milkdown-theme-pastel.prose :where(td, th):nth-child(odd) {
+  @apply bg-gray-50 dark:bg-gray-900;
+}
+
+.milkdown-theme-pastel.prose.ProseMirror .selectedCell:after {
+  @apply bg-white;
+}
+
+/* A little workaround to turn the element into a space */
+.milkdown-theme-pastel.prose br[data-is-inline="true"],
+.milkdown-theme-pastel.prose br[data-is-inline="true"]::after {
+  content: ' '
+}
