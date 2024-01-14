@@ -7,7 +7,7 @@
     >
       <div class="relative p-4 w-full max-w-md h-full md:h-auto">
         <div
-          class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5"
+          class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-dark-800 sm:p-5"
         >
           <button
             type="button"

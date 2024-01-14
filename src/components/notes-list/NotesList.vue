@@ -1,7 +1,7 @@
 <template>
   <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
     <thead
-      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-dark-700 dark:text-gray-400"
     >
       <tr>
         <th scope="col" class="p-4">
@@ -10,7 +10,7 @@
               id="checkbox-all-search"
               type="checkbox"
               v-model="checkAll"
-              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-dark-700 dark:border-gray-600"
             />
             <label for="checkbox-all-search" class="sr-only">checkbox</label>
           </div>
@@ -25,7 +25,7 @@
         v-if="props.notes"
         v-for="note in notes"
         :key="note.noteId"
-        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+        class="bg-white border-b dark:bg-dark-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
       >
         <td class="w-4 p-4">
           <div class="flex items-center justify-center">
@@ -33,7 +33,7 @@
               type="checkbox"
               :value="note.noteId"
               v-model="notesStore.selectedNote"
-              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-dark-700 dark:border-gray-600"
             />
             <label for="checkbox-table-search-1" class="sr-only"
               >checkbox</label

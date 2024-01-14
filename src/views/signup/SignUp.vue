@@ -6,7 +6,7 @@
         {{ APP_NAME }}
       </router-link>
       <div
-        class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-dark-800 dark:border-gray-700">
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
           <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
             Create and account
@@ -16,8 +16,8 @@
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
               <input type="email" name="email" id="email" placeholder="name@email.com" v-bind="email"
                 class="border sm:text-sm rounded-lg block w-full p-2.5" :class="errors.email
-                    ? 'bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
-                    : 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-primary-600 focus:border-primary-600  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                    ? 'bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-dark-700 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
+                    : 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-primary-600 focus:border-primary-600  dark:bg-dark-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                   " />
               <span class="text-red-500 text-sm">{{ errors.email }}</span>
             </div>
@@ -25,8 +25,8 @@
               <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
               <input type="password" name="password" id="password" placeholder="••••••••" v-bind="password"
                 class="border sm:text-sm rounded-lg block w-full p-2.5" :class="errors.password
-                    ? 'bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
-                    : 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-primary-600 focus:border-primary-600  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                    ? 'bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-dark-700 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
+                    : 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-primary-600 focus:border-primary-600  dark:bg-dark-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                   " />
               <span class="text-red-500 text-sm">{{ errors.password }}</span>
             </div>
@@ -35,8 +35,8 @@
                 password</label>
               <input type="password" name="confirm" id="confirm" placeholder="••••••••" v-bind="confirmPassword"
                 class="border sm:text-sm rounded-lg block w-full p-2.5" :class="errors.confirmPassword
-                    ? 'bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
-                    : 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-primary-600 focus:border-primary-600  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                    ? 'bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-dark-700 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
+                    : 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-primary-600 focus:border-primary-600  dark:bg-dark-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                   " />
               <span class="text-red-500 text-sm">{{
                 errors.confirmPassword
@@ -46,7 +46,7 @@
               <Field v-slot="{ field }" name="acceptTerms" type="checkbox" :value="true">
                 <div class="flex items-center h-5">
                   <input id="acceptTerms" title="Accept Terms and Conditions" type="checkbox" name="acceptTerms"
-                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-dark-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
                     v-bind="field" :value="true" />
                 </div>
 

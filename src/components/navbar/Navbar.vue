@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-white px-4 py-2 dark:bg-gray-800 dark:border-gray-700">
+  <nav class="bg-white px-4 py-2 dark:bg-dark-800 dark:border-gray-700">
     <div class="flex flex-wrap justify-between items-center">
       <div class="flex justify-start items-center">
         <button v-if="!state.openDrawer" @click="state.setOpenDrawer(!state.openDrawer)" class="hover:text-violet-600"><Icon class="w-5 h-5 dark:text-white" :icon="state.openDrawer ? 'ci:bar-left' : 'ci:bar-right'" /></button>
@@ -28,7 +28,7 @@
           </MenuButton>
           <!-- Dropdown menu -->
           <MenuItems
-            class="absolute right-0 z-50 my-4 w-56 text-base list-none bg-white divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 rounded-xl"
+            class="absolute right-0 z-50 my-4 w-56 text-base list-none bg-white divide-y divide-gray-100 shadow dark:bg-dark-700 dark:divide-gray-600 rounded-xl"
             id="dropdown">
             <div class="py-3 px-4">
               <span class="block text-sm font-semibold text-gray-900 dark:text-white">{{ user?.name }}</span>

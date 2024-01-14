@@ -12,7 +12,7 @@
         enter-to-class="transform scale-100 opacity-100" leave-active-class="transition duration-75 ease-in"
         leave-from-class="transform scale-100 opacity-100" leave-to-class="transform scale-95 opacity-0">
         <MenuItems
-          class="absolute right-0 top-6 z-50 my-4 w-56 text-base list-none bg-white divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 rounded-xl">
+          class="absolute right-0 top-6 z-50 my-4 w-56 text-base list-none bg-white divide-y divide-gray-100 shadow dark:bg-dark-700 dark:divide-gray-600 rounded-xl">
           <div class="py-1 text-gray-700 dark:text-gray-300">
             <div class="px-1 py-1">
               <MenuItem v-slot="{ active }">

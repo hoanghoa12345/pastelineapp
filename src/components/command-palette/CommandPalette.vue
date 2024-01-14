@@ -22,14 +22,14 @@
           leave-from="opacity-100 scale-100"
           leave-to="opacity-0 scale-95">
           <DialogPanel
-            class="w-full mx-auto max-w-xl transform rounded-xl bg-white dark:bg-gray-800 text-left align-middle shadow-xl transition-all">
-            <div class="bg-white dark:bg-gray-700 rounded-md min-h-[14rem] max-h-[32rem] overflow-hidden">
+            class="w-full mx-auto max-w-xl transform rounded-xl bg-white dark:bg-dark-800 text-left align-middle shadow-xl transition-all">
+            <div class="bg-white dark:bg-dark-700 rounded-md min-h-[14rem] max-h-[32rem] overflow-hidden">
               <Combobox v-model="selected">
                 <div class="">
                   <div
                     class="flex flex-row-reverse w-full text-left border-b rounded-t-md overflow-hidden border-gray-200 dark:border-gray-600 focus:outline-none sm:text-sm font-light">
                     <ComboboxInput
-                      class="w-full border-none outline-none py-3 px-3 text-sm leading-5 text-gray-900 focus:ring-0 dark:bg-gray-700 dark:text-gray-200 dark:placeholder:text-gray-500"
+                      class="w-full border-none outline-none py-3 px-3 text-sm leading-5 text-gray-900 focus:ring-0 dark:bg-dark-700 dark:text-gray-200 dark:placeholder:text-gray-500"
                       @change="query = $event.target.value"
                       placeholder="Search any thing" />
                     <ComboboxButton class="inset-y-0 py-4 pl-4">

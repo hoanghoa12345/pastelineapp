@@ -24,7 +24,7 @@
           <input
             type="search"
             id="default-search"
-            class="block w-full p-1 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="block w-full p-1 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-dark-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search page names"
             v-model="searchQuery"
             required />
@@ -36,7 +36,7 @@
     <div v-else class="relative overflow-x-auto">
       <!-- Notes table -->
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 overflow-x-auto">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-dark-700 dark:text-gray-400">
           <tr>
             <th scope="col" class="p-4">
               <div class="flex items-center">
@@ -44,7 +44,7 @@
                   id="checkbox-all-search"
                   type="checkbox"
                   v-model="checkAll"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-dark-700 dark:border-gray-600" />
                 <label for="checkbox-all-search" class="sr-only">checkbox</label>
               </div>
             </th>
@@ -58,14 +58,14 @@
             v-if="filterResult"
             v-for="note in currentPageData"
             :key="note.noteId"
-            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            class="bg-white border-b dark:bg-dark-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
             <td class="w-4 p-4">
               <div class="flex items-center justify-center">
                 <input
                   type="checkbox"
                   :value="note.noteId"
                   v-model="notesStore.selectedNote"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-dark-700 dark:border-gray-600" />
                 <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
               </div>
             </td>
@@ -127,7 +127,7 @@
     <template #title> Are you sure you want to delete this page and its file? </template>
     <template #content>
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-xs font-light text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <thead class="text-xs font-light text-gray-700 bg-gray-50 dark:bg-dark-700 dark:text-gray-400">
           <tr>
             <th scope="col" class="px-3 py-2">#</th>
             <th scope="col" class="px-3 py-2">Page name</th>
@@ -136,7 +136,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(note, index) in notesStore.getSelectedNote()" class="text-sm bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <tr v-for="(note, index) in notesStore.getSelectedNote()" class="text-sm bg-white border-b dark:bg-dark-800 dark:border-gray-700">
             <td class="px-3 py-2">{{ index + 1 }}</td>
             <th scope="row" class="px-3 py-2 font-medium text-gray-900 dark:text-white">
               {{ note.title }}
@@ -156,7 +156,7 @@
         <button
           type="button"
           @click="isConfirm = false"
-          class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-4 py-2 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+          class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-4 py-2 hover:text-gray-900 focus:z-10 dark:bg-dark-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
           Cancel
         </button>
         <button

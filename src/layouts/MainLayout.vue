@@ -13,7 +13,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="flex bg-white dark:bg-gray-800 h-screen overflow-x-hidden">
+  <div class="flex bg-white dark:bg-dark-800 h-screen overflow-x-hidden">
     <Sidebar />
     <main class="flex-1 overflow-x-auto">
       <Navbar />

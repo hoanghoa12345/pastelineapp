@@ -3,7 +3,7 @@
   <aside
     class="w-72 transition-all duration-300"
     :class="state.openDrawer ? 'ml-0' : '-ml-72'">
-    <nav class="flex flex-col w-72 h-full py-4  bg-[#ebf1f4] dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+    <nav class="flex flex-col w-72 h-full py-4  bg-[#ebf1f4] dark:bg-dark-800 border-r border-gray-200 dark:border-gray-700">
       <ul class="flex-1">
         <div class="flex items-center justify-between mx-4">
           <router-link to="/" class="flex items-center justify-start space-x-2 px-2 gap-2" :title="APP_NAME">
@@ -199,11 +199,11 @@
         </li> -->
       </ul>
 
-      <div class="dark:bg-gray-800 mx-4">
+      <div class="dark:bg-dark-800 mx-4">
         <button
           @click="state.setOpenCreate(true)"
           type="button"
-          class="w-full inline-flex justify-center items-center space-x-1 text-gray-900 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+          class="w-full inline-flex justify-center items-center space-x-1 text-gray-900 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-dark-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
           <Icon class="w-4 h-4" icon="mdi:plus" />
           <span>Create</span>
         </button>
@@ -226,8 +226,8 @@
             label="Page title"
             :class="
               errors?.title
-                ? 'bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
-                : 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-primary-600 focus:border-primary-600  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                ? 'bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-dark-700 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500'
+                : 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-primary-600 focus:border-primary-600  dark:bg-dark-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
             " />
           <ErrorMessage name="title" class="text-red-500 text-sm" />
           <div class="flex justify-end mt-4">

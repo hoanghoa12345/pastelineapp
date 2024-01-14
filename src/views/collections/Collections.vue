@@ -5,7 +5,7 @@
       <span class="font-base dark:text-white">Total {{ notes.length }} pages</span>
     </p>
     <select v-model="selected"
-      class="mx-4 bg-gray-50 w-32 mb-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+      class="mx-4 bg-gray-50 w-32 mb-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-1.5 dark:bg-dark-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
       <option value="favorite" selected>Favorites</option>
       <option value="pinned">Pinned</option>
       <option value="deleted">Deleted</option>
