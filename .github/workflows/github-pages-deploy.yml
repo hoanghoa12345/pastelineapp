@@ -40,8 +40,9 @@ jobs:
       - name: Create env file
         run: |
           touch .env
-          echo VITE_BASE_URL=${{ secrets.VITE_BASE_URL }} >> .env
-          echo VITE_EMAILJS_USER_ID=${{ secrets.VITE_EMAILJS_USER_ID }} >> .env
+          echo VITE_BASE_URL=${{ vars.VITE_BASE_URL }} >> .env
+          echo VITE_EMAILJS_USER_ID=${{ vars.VITE_EMAILJS_USER_ID }} >> .env
+          echo VITE_PUBLIC_PATH=${{ vars.VITE_PUBLIC_PATH }} >> .env
       - name: Build
         run: npm run build
       - name: Setup Pages
