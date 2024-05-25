@@ -2,7 +2,7 @@
   <section class="bg-gray-50 dark:bg-gray-900">
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
       <router-link to="/login" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-        <img class="w-8 h-8 mr-2" :src="LOGO_URL" alt="logo" />
+        <img class="w-8 h-8 mr-2" :src="imgLogo" alt="logo" />
         {{ APP_NAME }}
       </router-link>
       <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-dark-800 dark:border-gray-700">
@@ -83,6 +83,7 @@
               </svg>
               Sign in
             </button>
+            <button type="button" class="w-full text-blue-600 bg-white border border-primary-600 rounded-lg px-5 py-2 text-sm font-bold">Login with SSO</button>
             <p class="text-sm font-light text-gray-500 dark:text-gray-400">
               Don&#8217;t have an account yet?
               <router-link to="/signup" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</router-link>
@@ -97,6 +98,7 @@
 <script setup lang="ts">
 import { APP_NAME, LOGO_URL } from "@/utils/constants";
 import { Field } from "vee-validate";
+import imgLogo from '@/assets/logo.png'
 
 const { email, password, signIn, userStore, errors } = useLogin();
 

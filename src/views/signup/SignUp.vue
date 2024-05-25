@@ -2,7 +2,7 @@
   <section class="bg-gray-50 dark:bg-gray-900">
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
       <router-link to="/signup" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-        <img class="w-8 h-8 mr-2" :src="LOGO_URL" alt="logo" />
+        <img class="w-8 h-8 mr-2" :src="imgLogo" alt="logo" />
         {{ APP_NAME }}
       </router-link>
       <div
@@ -104,6 +104,7 @@
 <script setup lang="ts">
 import { APP_NAME, LOGO_URL } from "@/utils/constants";
 import { Field } from "vee-validate";
+import imgLogo from '@/assets/logo.png'
 const {
   email,
   password,

@@ -1,8 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import img404Computer from '@/assets/404-computer.svg'
+</script>
 
 <template>
   <div class="flex flex-col justify-center items-center mt-4">
-    <img class="h-[28rem] w-auto" src="/404-computer.svg" alt="not found" />
+    <img class="h-[28rem] w-auto" :src="img404Computer" alt="not found" />
     <h1 class="mb-4 text-7xl tracking-tight font-extrabold lg:text-2xl text-primary-600 dark:text-primary-500">404 Not
       Found</h1>
     <p class="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl dark:text-white">Whoops! That page doesn’t

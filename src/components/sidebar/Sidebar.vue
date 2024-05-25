@@ -6,7 +6,7 @@
       <ul class="flex-1">
         <div class="flex items-center justify-between mx-4">
           <router-link to="/" class="flex items-center justify-start space-x-2 px-2 gap-2" :title="APP_NAME">
-            <img :src="LOGO_URL" class="h-6 w-6" alt="" />
+            <img :src="logo" class="h-6 w-6" alt="" />
             <span class="text-xl font-medium whitespace-nowrap dark:text-white">{{ APP_NAME }}</span>
           </router-link>
 
@@ -87,7 +87,7 @@ import { APP_NAME, LOGO_URL } from "@/utils/constants";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { Icon } from "@iconify/vue";
 import SidebarItem from "./SidebarItem.vue";
-
+import logo from '@/assets/logo.png'
 
 const state = useAppStore();
 const notes = useNotesStore();
