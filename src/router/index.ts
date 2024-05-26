@@ -71,20 +71,20 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
     beforeEnter: async (to, from) => {
-      // const userStore = useUserStore();
-      // try {
-      //   await userStore.getProfile();
-      //   if (userStore.user) {
-      //     return true;
-      //   }
-      // } catch (error) {
-      //   if (userStore.errorCode === "ERR_NETWORK") {
-      //     return true;
-      //   }
-      //   return {
-      //     path: "/login",
-      //   };
-      // }
+      const userStore = useUserStore();
+      try {
+        await userStore.getProfile();
+        if (userStore.user) {
+          return true;
+        }
+      } catch (error) {
+        if (userStore.errorCode === "ERR_NETWORK") {
+          return true;
+        }
+        return {
+          path: "/login",
+        };
+      }
     },
   },
   {

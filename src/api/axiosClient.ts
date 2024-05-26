@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
 
-const baseUrl = import.meta.env.VITE_BASE_URL;
+export const baseUrl = import.meta.env.VITE_BASE_URL;
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;

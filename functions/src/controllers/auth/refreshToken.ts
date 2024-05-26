@@ -26,6 +26,8 @@ export const refreshToken = (req: Request, res: Response, next: NextFunction) =>
           });
         }
       });
+    } else {
+      res.status(400).json({ message: 'Refresh token not provided' });
     }
   } catch (error) {
     return next(new ApiError(500, 'Could not refresh token', error));

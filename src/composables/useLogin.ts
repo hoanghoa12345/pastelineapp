@@ -1,10 +1,13 @@
 import { useForm } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
+import { baseUrl } from "@/api/axiosClient";
+import Cookies from "js-cookie";
 
 export function useLogin() {
   const userStore = useUserStore();
-
+  // const router = useRouter();
+  const ssoLoading = ref(false);
   const schema = toTypedSchema(
     z.object({
       email: z
@@ -45,6 +48,25 @@ export function useLogin() {
   const email = defineInputBinds("email");
   const password = defineInputBinds("password");
   const remember = defineInputBinds("remember");
+
+  const handleLoginSSO = () => {
+    window.location.href = baseUrl + "/sso";
+    ssoLoading.value = true;
+  };
+
+  onMounted(() => {
+    const params = new URLSearchParams(window.location.search);
+    const access_token = params.get("access_token");
+    const expiration = params.get("expiration");
+    const refreshToken = params.get("refreshToken");
+    if (access_token) {
+      Cookies.set("access_token", access_token);
+      Cookies.set("expiration", expiration);
+      Cookies.set("refresh_token", refreshToken);
+      window.location.href = "/";
+    }
+  });
+
   return {
     email,
     password,
@@ -54,5 +76,7 @@ export function useLogin() {
     getProfile,
     userStore,
     errors,
+    handleLoginSSO,
+    ssoLoading,
   };
 }

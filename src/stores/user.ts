@@ -60,7 +60,7 @@ export const useUserStore = defineStore("user", () => {
     toast.success("Logout successfully", { position: toast.POSITION.BOTTOM_RIGHT });
     Cookies.remove("access_token");
     window.localStorage.setItem("LOGOUT", new Date().toISOString());
-    router.replace("/login");
+    router.replace({ name: "Login" });
   }
 
   async function getProfile() {
