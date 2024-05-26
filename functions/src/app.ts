@@ -5,7 +5,6 @@ import { Issuer, generators } from 'openid-client';
 import './utils/response/successResponse';
 import { errorHandler } from './middleware/errorHandler';
 import routes from './routes';
-import session from 'express-session';
 import { ssoLogin } from './controllers/auth';
 import { OAuthUserInfo } from './types/oauth/userInfo';
 export const app = express();
@@ -14,14 +13,6 @@ const corsOptions = {
   origin: process.env.APP_URL,
   credentials: true,
 };
-
-app.use(
-  session({
-    secret: 'secret',
-    resave: false,
-    saveUninitialized: false,
-  }),
-);
 
 const getClient = async () => {
   const issuer = await Issuer.discover(process.env.OAUTH2_ISSUER);
@@ -33,14 +24,14 @@ const getClient = async () => {
     response_types: ['code'],
   });
 };
-
+let code_verifier = '';
+let nonce = '';
 app.get('/sso', async (req, res) => {
   const client = await getClient();
-  const nonce = generators.nonce();
-  const code_verifier = generators.codeVerifier();
+  nonce = generators.nonce();
+  code_verifier = generators.codeVerifier();
   const code_challenge = generators.codeChallenge(code_verifier);
-  req.session.code_verifier = code_verifier;
-  req.session.nonce = nonce;
+
   const authorizationUrl = client.authorizationUrl({
     scope: 'openid profile email',
     nonce,
@@ -55,10 +46,22 @@ app.get('/authorization-code/callback', async (req, res) => {
     const client = await getClient();
     const params = client.callbackParams(req);
     const tokenSet = await client.callback(process.env.OAUTH2_CALLBACK_URL, params, {
-      code_verifier: req.session.code_verifier || '',
-      nonce: req.session.nonce || '',
+      code_verifier,
+      nonce,
     });
-    const userInfo = await client.userinfo(tokenSet.access_token);
+    const queryParams = new URLSearchParams();
+    queryParams.append('access_token', tokenSet.access_token);
+    res.redirect(`/redirect-sso?${queryParams.toString()}`);
+  } catch (error) {
+    res.send('Unknown error');
+  }
+});
+
+app.get('/redirect-sso', async (req, res) => {
+  const ssoAccessToken = req.query.access_token;
+  if (ssoAccessToken) {
+    const client = await getClient();
+    const userInfo = await client.userinfo(ssoAccessToken.toString());
     const { user, accessToken, expiration, refreshToken } = await ssoLogin(userInfo as OAuthUserInfo);
     const redirectionURL = new URL('/login', process.env.APP_URL);
     redirectionURL.searchParams.append('access_token', accessToken);
@@ -66,8 +69,7 @@ app.get('/authorization-code/callback', async (req, res) => {
     redirectionURL.searchParams.append('refreshToken', refreshToken);
     console.log('User response:', user, redirectionURL);
     res.status(302).header('Location', redirectionURL.toString()).send();
-  } catch (error) {
-    console.log(error);
+  } else {
     res.send('Unknown error');
   }
 });
