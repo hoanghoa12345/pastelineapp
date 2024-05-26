@@ -17,7 +17,7 @@
     "resolveJsonModule": true,
     "typeRoots": ["./src/types", "./node_modules/@types"],
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["src/**/*.tsx", "src/**/*.ts"],
   "exclude": ["node_modules", "dist", "src/**/*.test.ts"],

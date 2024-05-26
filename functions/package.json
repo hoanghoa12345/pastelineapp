@@ -15,7 +15,7 @@
     "test": "mocha --require ts-node/register src/test/*.test.ts"
   },
   "keywords": [],
-  "author": "Hoang Hoa <hoanghoa@duck.com>",
+  "author": "Hoang Hoa <hoanghoa123@zduck.com>",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -37,6 +37,7 @@
     "@types/express": "^4.17.17",
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.4.8",
+    "@types/oauth": "^0.9.4",
     "@typescript-eslint/eslint-plugin": "^6.3.0",
     "@typescript-eslint/parser": "^6.3.0",
     "chai": "^5.0.0",

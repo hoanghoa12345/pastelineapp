@@ -7,7 +7,6 @@ import { errorHandler } from './middleware/errorHandler';
 import routes from './routes';
 import session from 'express-session';
 import { ssoLogin } from './controllers/auth';
-import { userInfo } from 'os';
 import { OAuthUserInfo } from './types/oauth/userInfo';
 export const app = express();
 

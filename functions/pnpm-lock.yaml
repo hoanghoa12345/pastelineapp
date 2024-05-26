@@ -7,6 +7,7 @@ specifiers:
   '@types/express': ^4.17.17
   '@types/mocha': ^10.0.6
   '@types/node': ^20.4.8
+  '@types/oauth': ^0.9.4
   '@typescript-eslint/eslint-plugin': ^6.3.0
   '@typescript-eslint/parser': ^6.3.0
   bcryptjs: ^2.4.3
@@ -49,6 +50,7 @@ devDependencies:
   '@types/express': 4.17.17
   '@types/mocha': 10.0.6
   '@types/node': 20.4.10
+  '@types/oauth': 0.9.4
   '@typescript-eslint/eslint-plugin': 6.3.0_5h6hp7tdd7jdmkqlm2gg6hem6i
   '@typescript-eslint/parser': 6.3.0_qj3u6ezxe2airdzjq3nyoxe24m
   chai: 5.0.0
@@ -1042,6 +1044,12 @@ packages:
 
   /@types/node/20.4.10:
     resolution: {integrity: sha512-vwzFiiy8Rn6E0MtA13/Cxxgpan/N6UeNYR9oUu6kuJWxu6zCk98trcDp8CBhbtaeuq9SykCmXkFr2lWLoPcvLg==}
+    dev: true
+
+  /@types/oauth/0.9.4:
+    resolution: {integrity: sha512-qk9orhti499fq5XxKCCEbd0OzdPZuancneyse3KtR+vgMiHRbh+mn8M4G6t64ob/Fg+GZGpa565MF/2dKWY32A==}
+    dependencies:
+      '@types/node': 20.4.10
     dev: true
 
   /@types/qs/6.9.7:
