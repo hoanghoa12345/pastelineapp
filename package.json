@@ -31,7 +31,7 @@
     "@vee-validate/zod": "^4.11.1",
     "@vueuse/core": "^10.3.0",
     "axios": "^1.4.0",
-    "clsx": "^2.1.0",
+    "clsx": "^2.1.1",
     "date-fns": "^2.30.0",
     "generate-avatar": "^1.4.10",
     "js-cookie": "^3.0.5",

@@ -3,8 +3,6 @@ import Sidebar from "@/components/sidebar/Sidebar.vue";
 import Navbar from "@/components/navbar/Navbar.vue";
 const userStore = useUserStore();
 
-// const { tokenExpiration } = useRefreshToken();
-
 watchEffect(() => {
   userStore.getProfile();
 });

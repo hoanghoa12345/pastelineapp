@@ -3,12 +3,15 @@ import Cookies from "js-cookie";
 
 export const baseUrl = import.meta.env.VITE_BASE_URL;
 
+// Check vite is development or production
+export const isDev = import.meta.env.DEV;
+
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
 }
 
 const axiosClient = axios.create({
-  baseURL: baseUrl,
+  baseURL: isDev ? '/api' : baseUrl,
   withCredentials: true,
 });
 

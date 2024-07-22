@@ -1,7 +1,7 @@
 <template>
   <aside
-    class="w-72 transition-all duration-300"
-    :class="state.openDrawer ? 'ml-0' : '-ml-72'">
+    class="w-72 transition-all duration-300 h-full"
+    :class="clsx(state.openDrawer ? 'ml-0' : '-ml-72', isMobile && 'absolute')">
     <nav class="flex flex-col w-72 h-full py-4  bg-[#ebf1f4] dark:bg-dark-800 border-r border-gray-200 dark:border-gray-700">
       <ul class="flex-1">
         <div class="flex items-center justify-between mx-4">
@@ -88,10 +88,13 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 import { Icon } from "@iconify/vue";
 import SidebarItem from "./SidebarItem.vue";
 import logo from '@/assets/logo.png'
+import { useMediaQuery } from "@vueuse/core";
+import {clsx} from 'clsx'
 
 const state = useAppStore();
 const notes = useNotesStore();
 const router = useRouter();
+const isMobile = useMediaQuery("(max-width: 767px)");
 
 const recentNotes = computed(() => (notes.notes ? notes.getRecentNotes() : []));
 const favoriteNotes = computed(() => (notes.notes ? notes.getFavoriteNotes() : []));
@@ -107,5 +110,16 @@ const onSubmit = (values) => {
   router.push({ path: "/create", query: values });
   state.setOpenCreate(false)
 };
+
+watch(
+  () => isMobile.value,
+  (value) => {
+    if (value) {
+      state.setOpenDrawer(false)
+    } else {
+      state.setOpenDrawer(true)
+    }
+  }
+)
 </script>
 <style lang="css"></style>
