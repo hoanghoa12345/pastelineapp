@@ -1,6 +1,6 @@
 <template>
   <div class="mt-2 mx-4">
-    <h1 class="text-4xl py-4 dark:text-white">Profile</h1>
+    <h1 class="text-3xl md:text-4xl py-4 dark:text-white">Profile</h1>
     <div class="lg:max-w-6xl lg:mx-auto">
       <h3 class="font-semibold py-4 dark:text-white">General Information</h3>
       <img

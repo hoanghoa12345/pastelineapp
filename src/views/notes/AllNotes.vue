@@ -69,7 +69,7 @@
                 <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
               </div>
             </td>
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white truncate">
+            <th scope="row" class="px-6 py-4 w-full overflow-hidden whitespace-nowrap font-medium text-gray-900 dark:text-white truncate">
               <router-link :to="`/notes/${note.noteId}`">{{ note.title }}</router-link>
             </th>
             <td class="px-6 py-4 truncate">
