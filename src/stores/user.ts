@@ -5,6 +5,7 @@ import { toast } from "vue3-toastify";
 import { generateFromString } from "generate-avatar";
 import { AxiosError } from "axios";
 import { LoginForm } from "@/utils/types";
+import { auth } from "@/utils/constants";
 
 type AuthError = {
   isError: boolean;
@@ -30,7 +31,8 @@ export const useUserStore = defineStore("user", () => {
       const { data } = await usersApi.login(form);
 
       if (data.data?.access_token) {
-        Cookies.set("access_token", data.data?.access_token);
+        Cookies.set(auth.ACCESS_TOKEN, data.data?.access_token);
+        sessionStorage.setItem(auth.ACCESS_TOKEN, data.data?.access_token);
       }
       if (data.data?.expiration) {
         Cookies.set("expiration", data.data.expiration);
@@ -41,7 +43,7 @@ export const useUserStore = defineStore("user", () => {
 
       window.localStorage.setItem("LOGIN", new Date().toISOString());
 
-      router.push("/");
+      router.push({path: "/", replace: true});
     } catch (error) {
       authError.isError = true;
       authError.errorMessage = error.message;
@@ -58,13 +60,14 @@ export const useUserStore = defineStore("user", () => {
   async function logout() {
     await usersApi.logout();
     toast.success("Logout successfully", { position: toast.POSITION.BOTTOM_RIGHT });
-    Cookies.remove("access_token");
+    Cookies.remove(auth.ACCESS_TOKEN);
+    sessionStorage.removeItem(auth.ACCESS_TOKEN)
     window.localStorage.setItem("LOGOUT", new Date().toISOString());
     router.replace({ name: "Login" });
   }
 
   async function getProfile() {
-    const token = Cookies.get("access_token");
+    const token = Cookies.get(auth.ACCESS_TOKEN) || sessionStorage.getItem(auth.ACCESS_TOKEN);
     try {
       authError.isError = false;
       authError.errorMessage = null;
